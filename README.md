@@ -1,1 +1,1 @@
-# Bloxus
+# Blokus
