@@ -118,21 +118,6 @@ let can_play = {
     green: true,
 }
 
-// simulates rounds
-players.forEach((player) => {
-    // checks if the current player is still in the game
-    if (can_play[player]) {
-        place_piece();
-        // after they place their piece, checks if the game is over for them
-        if (is_player_game_over(player)){
-            // player is done
-        }
-        if (is_game_over()){
-            // game is done
-        }
-    }
-});
-
 // check if game is over (no one can play any pieces)
 function is_game_over(){
     if (!can_play['yellow'] && !can_play['red'] && !can_play['blue'] && !can_play['green'])
@@ -140,26 +125,28 @@ function is_game_over(){
     return false;
 }
 
-// check if the game is over for a specific player
-function is_player_game_over(player) {
-    let player_can_play = false;
-    // loop through board
-    for (let row = 0; row < board.length; row++) {
-        for (let col = 0; col < board[row].length; col++) {
-            // loop through pieces
-            for (let piece_index = 0; piece_index < pieces.length; piece_index++){
-                // which pieces can the player play, if any at all?
-                if (player_pieces[player] && can_play_piece(row, col, piece_index, player)){
-                    player_can_play = true;
-                } else {
-                    playable_pieces[player][piece_index] = false;
+// check if the game is over for players
+function set_player_game_overs() {
+    // loop through players
+    players.forEach((player) => {
+        let player_can_play = false;
+        // loop through board
+        for (let row = 0; row < board.length; row++) {
+            for (let col = 0; col < board[row].length; col++) {
+                // loop through pieces
+                for (let piece_index = 0; piece_index < pieces.length; piece_index++){
+                    // which pieces can the player play, if any at all?
+                    if (player_pieces[player] && can_play_piece(row, col, piece_index, player)){
+                        player_can_play = true;
+                    } else {
+                        playable_pieces[player][piece_index] = false;
+                    }
                 }
             }
         }
-    }
-    // sets if the player can play any pieces
-    can_play[player] = player_can_play;
-    return player_can_play;
+        // sets if the player can play any pieces
+        can_play[player] = player_can_play;
+    });
 }
 
 // checks if pieces can be played based on their piece index
@@ -190,27 +177,51 @@ function can_play_piece(boardRow, boardCol, piece_index, player){
 
 // check if the block is valid (fits within rule sets)
 function valid_block(r, c, player){
-    let block_empty = board[r][c] == '';
-    let not_touching_own_blocks = board[r + 1][c] != player && board[r - 1][c] != player && board[r][c + 1] != player && board[r][c - 1] != player;
-    let not_touching_walls = r >= 0 && r < board.length && c >= 0 & c < board[r].length;
-    if (block_empty && not_touching_own_blocks && not_touching_walls)
-        return true;
+    let not_past_walls = r >= 0 && r < board.length && c >= 0 & c < board[r].length;
+    if (not_past_walls) {
+        let block_empty = board[r][c] == '';
+        let not_touching_own_blocks = 
+            (r == board.length - 1 || board[r + 1][c] != player) && 
+            (r == 0 || board[r - 1][c] != player) && 
+            (c == board[0].length - 1 || board[r][c + 1] != player) && 
+            (c == 0 || board[r][c - 1] != player);
+        if (block_empty && not_touching_own_blocks)
+            return true;
+    }
     return false;
 }
 
 // check if the block has diagonal touch with correct circumstances
 function diagonals_present(r, c, player){
     // top left
-    if (board[r - 1][c - 1] == player && board[r - 1][c] != player && board[r][c - 1] != player)
+    if (r > 0 && c > 0 && board[r - 1][c - 1] == player && board[r - 1][c] != player && board[r][c - 1] != player)
         return true;
     // bottom left
-    else if (board[r + 1][c + 1] == player && board[r + 1][c] != player && board[r][c + 1] != player)
+    else if (r < board.length - 1 && c < board[0].length - 1 && board[r + 1][c + 1] == player && board[r + 1][c] != player && board[r][c + 1] != player)
         return true;
     // top right
-    else if (board[r - 1][c + 1] == player && board[r - 1][c] != player && board[r][c + 1] != player)
+    else if (r > 0 && c < board[0].length - 1 && board[r - 1][c + 1] == player && board[r - 1][c] != player && board[r][c + 1] != player)
         return true;
     // bottom right
-    else if (board[r + 1][c - 1] == player && board[r + 1][c] != player && board[r][c - 1] != player)
+    else if (r < board.length - 1 && c > 0 && board[r + 1][c - 1] == player && board[r + 1][c] != player && board[r][c - 1] != player)
         return true;
     return false;
 }
+
+// -------------------------------------------------------------
+
+console.log("start");
+
+// simulates 4 rounds
+players.forEach((player) => {
+    // checks if the current player is still in the game
+    if (can_play[player]) {
+        //place_piece();
+        set_player_game_overs();
+        if (is_game_over()){
+            // game is done
+        }
+    }
+});
+
+console.log("end");
