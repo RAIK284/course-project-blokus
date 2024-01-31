@@ -1,29 +1,100 @@
-let board = [
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-]
+let board = Array.from({ length: 20 }, () => Array(20).fill(''));
 
 let players = ['yellow', 'red', 'blue', 'green'];
 
-// there are 21 pieces, each will have a set number; true means they have the piece
+let pieces = [
+    [ 
+        [1, 1, 1, 1, 1]
+    ],
+    [
+        [1, 1],
+        [1, 0]
+    ],
+    [
+        [1, 1, 1, 1],
+        [0, 0, 0, 1]
+    ],
+    [
+        [1, 1, 1],
+        [1, 0, 1]
+    ],
+    [
+        [1, 0, 0],
+        [1, 0, 0],
+        [1, 1, 1]
+    ],
+    [
+        [0, 1, 0],
+        [1, 1, 1],
+        [0, 1, 0]
+    ],
+    [
+        [1]
+    ],
+    [
+        [1, 1],
+        [1, 1]
+    ],
+    [
+        [1, 1, 1, 1]
+    ],
+    [
+        [0, 0, 1],
+        [1, 1, 1],
+        [1, 0, 0]
+    ],
+    [
+        [0, 0, 1],
+        [0, 1, 1],
+        [1, 1, 0]
+    ],
+    [
+        [0, 1],
+        [0, 1],
+        [1, 1]
+    ],
+    [
+        [1, 1, 1, 1],
+        [0, 0, 1, 0]
+    ],
+    [
+        [1, 1, 0],
+        [1, 1, 1]
+    ],
+    [
+        [1, 0, 0],
+        [1, 1, 1],
+        [1, 0, 0]
+    ],
+    [
+        [1, 1, 0],
+        [0, 1, 1],
+        [0, 1, 0]
+    ],
+    [
+        [1],
+        [1]
+    ],
+    [
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, 0]
+    ],
+    [
+        [1, 1, 1]
+    ],
+    [
+        [0, 1, 1],
+        [1, 1, 0]
+    ],
+    [
+        [0, 1, 0],
+        [1, 1, 1]
+    ]
+];
+
+// there are 21 pieces, each has a set index; true means the player has the piece
 let player_pieces = {
     yellow: Array(21).fill(true),
     red: Array(21).fill(true),
@@ -53,8 +124,12 @@ players.forEach((player) => {
     if (can_play[player]) {
         place_piece();
         // after they place their piece, checks if the game is over for them
-        is_player_game_over(player);
-        is_game_over();
+        if (is_player_game_over(player)){
+            // player is done
+        }
+        if (is_game_over()){
+            // game is done
+        }
     }
 });
 
@@ -72,9 +147,9 @@ function is_player_game_over(player) {
     for (let row = 0; row < board.length; row++) {
         for (let col = 0; col < board[row].length; col++) {
             // loop through pieces
-            for (let piece_index = 0; piece_index < player_pieces[player].length; piece_index++){
+            for (let piece_index = 0; piece_index < pieces.length; piece_index++){
                 // which pieces can the player play, if any at all?
-                if (player_pieces[player] && can_play_piece(row, col, piece_index, player) && diagonal_touch(row, col, piece_index, player)){
+                if (player_pieces[player] && can_play_piece(row, col, piece_index, player)){
                     player_can_play = true;
                 } else {
                     playable_pieces[player][piece_index] = false;
@@ -84,6 +159,33 @@ function is_player_game_over(player) {
     }
     // sets if the player can play any pieces
     can_play[player] = player_can_play;
+    return player_can_play;
+}
+
+// checks if pieces can be played based on their piece index
+function can_play_piece(boardRow, boardCol, piece_index, player){
+    let piece = pieces[piece_index];
+    let has_diagonals = false;
+    let all_blocks_valid = true;
+    // loop through piece 2d array
+    for (let r = 0; r < piece.length; r++){
+        for (let c = 0; c < piece[r].length; c++ ){
+            // if current block isn't empty
+            if (piece[r][c] == 1){
+                if (!valid_block(boardRow + r, boardCol + c, player)){
+                    all_blocks_valid = false;
+                    break;
+                } else {
+                    if (diagonals_present(boardRow + r, boardCol + c, player)){
+                        diagonals = true;
+                    }
+                }
+            }
+        }
+    }
+    if (all_blocks_valid && has_diagonals)
+        return true;
+    return false;
 }
 
 // check if the block is valid (fits within rule sets)
@@ -109,40 +211,6 @@ function diagonals_present(r, c, player){
         return true;
     // bottom right
     else if (board[r + 1][c - 1] == player && board[r + 1][c] != player && board[r][c - 1] != player)
-        return true;
-    return false;
-}
-
-let pieces = [
-    [ 1, 1, 1, 1, 1 ],
-    [ 1, 1,
-      1, 0 ],
-    [ 1, 1, 1, 1,
-      0, 0, 0, 1 ],
-    [ 1, 1, 1,
-      1, 0, 1 ],
-];
-
-// checks if pieces can be played based on their piece index
-function can_play_piece(boardRow, boardCol, piece_index, player){
-    let piece = pieces[piece_index];
-    let has_diagonals = false;
-    let all_blocks_valid = true;
-    for (let r = 0; r < piece.length; r++){
-        for (let c = 0; c < piece[r].length; c++ ){
-            if (piece[r][c] == 1){
-                if (!valid_block(boardRow + r, boardCol + c, player)){
-                    all_blocks_valid = false;
-                    break;
-                } else {
-                    if (diagonals_present(boardRow + r, boardCol + c, player)){
-                        diagonals = true;
-                    }
-                }
-            }
-        }
-    }
-    if (all_blocks_valid && has_diagonals)
         return true;
     return false;
 }
