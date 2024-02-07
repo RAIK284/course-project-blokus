@@ -1,8 +1,8 @@
 # Blokus
 
 Installations Needed:
- - Backend: pip install Flask Flask-SocketIO Flask-Cors
- - Frontend: npm install
+ - Backend: <strong>pip install Flask Flask-SocketIO Flask-Cors</strong>
+ - Frontend: <strong>npm install</strong>
 
 How to Run:
  - Open two terminals in VSCode
