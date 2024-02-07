@@ -193,17 +193,27 @@ function valid_block(r, c, player){
 
 // check if the block has diagonal touch with correct circumstances
 function diagonals_present(r, c, player){
-    // top left
-    if (r > 0 && c > 0 && board[r - 1][c - 1] == player && board[r - 1][c] != player && board[r][c - 1] != player)
-        return true;
-    // bottom left
-    else if (r < board.length - 1 && c < board[0].length - 1 && board[r + 1][c + 1] == player && board[r + 1][c] != player && board[r][c + 1] != player)
-        return true;
-    // top right
-    else if (r > 0 && c < board[0].length - 1 && board[r - 1][c + 1] == player && board[r - 1][c] != player && board[r][c + 1] != player)
-        return true;
-    // bottom right
-    else if (r < board.length - 1 && c > 0 && board[r + 1][c - 1] == player && board[r + 1][c] != player && board[r][c - 1] != player)
+    let top_left = 
+        r > 0 && c > 0 && 
+        board[r - 1][c - 1] == player && 
+        board[r - 1][c] != player && 
+        board[r][c - 1] != player;
+    let bottom_left = 
+        r < board.length - 1 && c < board[0].length - 1 && 
+        board[r + 1][c + 1] == player && 
+        board[r + 1][c] != player && 
+        board[r][c + 1] != player;
+    let top_right = 
+        r > 0 && c < board[0].length - 1 && 
+        board[r - 1][c + 1] == player && 
+        board[r - 1][c] != player && 
+        board[r][c + 1] != player;
+    let bottom_right = 
+        r < board.length - 1 && c > 0 && 
+        board[r + 1][c - 1] == player && 
+        board[r + 1][c] != player && 
+        board[r][c - 1] != player;
+    if (top_left || bottom_left || top_right || bottom_right)
         return true;
     return false;
 }
