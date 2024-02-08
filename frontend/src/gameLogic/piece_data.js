@@ -1,9 +1,9 @@
-"""
-2d subarrays of each Blokus piece
-Each piece is made up of smaller blocks
-1: block, 0: no block
-"""
-pieces = [
+/*
+    2d subarrays of each Blokus piece
+    Each piece is made up of smaller blocks
+    1: block, 0: no block
+*/
+export let pieces = [
     [ 
         [1, 1, 1, 1, 1]
     ],
