@@ -1,16 +1,18 @@
-import { players, player_pieces, playable_pieces, can_play } from './player_data';
-import { pieces } from './piece_data';
+import { players, player_pieces, playable_pieces, can_play } from './playerData';
+import { pieces } from './pieceData';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
-board_matrix[0][0] = 'red';
-board_matrix[1][0] = 'red';
-board_matrix[2][0] = 'red';
-board_matrix[3][0] = 'red';
-board_matrix[19][16] = 'blue';
-board_matrix[19][17] = 'blue';
-board_matrix[19][18] = 'blue';
-board_matrix[19][19] = 'blue';
 
+// play a piece on the board
+export function play_piece(boardRow, boardCol, player, piece_index){
+    let piece = pieces[piece_index];
+    // loop through piece 2d array
+    for (let r = 0; r < piece.length; r++){
+        for (let c = 0; c < piece[r].length; c++ ){
+            board_matrix[boardRow + r][boardCol + c] = player;
+        }
+    }
+}
 
 // check if game is over (no one can play any pieces)
 export function is_game_over(){
@@ -47,6 +49,7 @@ export function set_player_game_overs() {
 export function can_play_piece(boardRow, boardCol, piece_index, player){
     let piece = pieces[piece_index];
     let has_diagonals = false;
+    let on_board_edge = false;
     let all_blocks_valid = true;
     // loop through piece 2d array
     for (let r = 0; r < piece.length; r++){
@@ -59,12 +62,14 @@ export function can_play_piece(boardRow, boardCol, piece_index, player){
                 } else {
                     if (diagonals_present(boardRow + r, boardCol + c, player)){
                         has_diagonals = true;
+                    } else if (on_player_edge(boardRow + r, boardCol + c, player)){
+                        on_board_edge = true;
                     }
                 }
             }
         }
     }
-    if (all_blocks_valid && has_diagonals)
+    if (all_blocks_valid && (has_diagonals || on_board_edge))
         return true;
     return false;
 }
@@ -108,6 +113,17 @@ function diagonals_present(r, c, player){
         board_matrix[r + 1][c] != player && 
         board_matrix[r][c - 1] != player;
     if (top_left || bottom_left || top_right || bottom_right)
+        return true;
+    return false;
+}
+
+// check if the block is on the edge the player can play on
+function on_player_edge(r, c, player){
+    let blue_edge = player == 'blue' && r == 0 && c == 0;
+    let red_edge = player == 'red' && r == 0 && c == board_matrix.length - 1;
+    let green_edge = player == 'green' && r == board_matrix.length - 1 && c == board_matrix.length - 1;
+    let yellow_edge = player == 'yellow' && r == 0 && c == 0;
+    if (blue_edge || red_edge || green_edge || yellow_edge)
         return true;
     return false;
 }

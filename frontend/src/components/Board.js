@@ -1,29 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import Block from './Block';
 import '../styles/components/Board.css';
-import { board_matrix, can_play_piece } from '../gameLogic/board';
-import { pieces } from '../gameLogic/piece_data';
+import { board_matrix, can_play_piece, play_piece } from '../gameLogic/board';
+import { pieces } from '../gameLogic/pieceData';
 
 function Board() {
     const [board, setBoard] = useState(board_matrix);
     const [displayRows, setDisplayRows] = useState([]);
     const [pieceIndex, setPieceIndex] = useState(0);
+    const myPlayer = 'red';
 
     // creates a 20x20 grid of block components based on board 2d matrix
     const fillBoard = () => {
         let boardComponents = board.map((row, rowIndex) => (
             <div className="row" key={rowIndex}>
                 {row.map((cell, colIndex) => (
+                    // row and column indexes are inverted because rendering is flipped
                     <Block 
+                        onClick={() => place_player_piece(colIndex, rowIndex)}
                         onHover={() => checkIfPiecePlayable(colIndex, rowIndex)}
                         onMouseLeave={() => removeHighlightsFromBoard()}
                         player={board[colIndex][rowIndex] !== '' ? board[colIndex][rowIndex] : null}
+                        myPlayer={myPlayer}
                         highlight={board[colIndex][rowIndex] == 'highlight'}
                     />
                 ))}
             </div>
         ));
         setDisplayRows(boardComponents);
+    }
+
+    const place_player_piece = async (row, col) => {
+        if (board[row][col] == 'highlight'){
+            play_piece(row, col, myPlayer, pieceIndex);
+            setBoard(board_matrix);
+        }
     }
 
     const setBoardHighlights = (row, col) => {
@@ -39,17 +50,17 @@ function Board() {
             }
             return updatedBoard;
         });
-    };
+    }
 
     const removeHighlightsFromBoard = () => {
         const updatedBoard = board.map(row =>
             row.map(cell => (cell === 'highlight' ? '' : cell))
         );
         setBoard(updatedBoard);
-    };
+    }
 
     const checkIfPiecePlayable = async (row, col) => {
-        const showHighlight = can_play_piece(row, col, pieceIndex, 'red');
+        const showHighlight = can_play_piece(row, col, pieceIndex, myPlayer);
         if (showHighlight){
             setBoardHighlights(row, col);
         }

@@ -1,10 +1,10 @@
 import '../styles/components/Block.css';
 
-function Block({ onHover, onMouseLeave, player, highlight }) {
+function Block({ onClick, onHover, onMouseLeave, player, myPlayer, highlight }) {
   return (
-    <div id="block" onMouseOver={onHover} onMouseLeave={onMouseLeave}>
+    <div id="block" onClick={onClick} onMouseOver={onHover} onMouseLeave={onMouseLeave}>
       {(player || highlight) &&
-        <div id="piece" className={`${player} ${highlight ? 'red highlight' : ''}`}>
+        <div id="piece" className={`${player} ${highlight ? `${myPlayer} highlight` : ''}`}>
             <div id="innerPiece"></div>
         </div>
       }
