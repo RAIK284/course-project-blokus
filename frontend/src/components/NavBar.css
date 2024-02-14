@@ -1,0 +1,12 @@
+#navBar {
+  background-color: #262626;
+  height: 4em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#title {
+  color: white;
+  float: center;
+}
