@@ -1,4 +1,15 @@
-export let players = ['yellow', 'red', 'blue', 'green'];
+export let players = ['blue', 'red', 'yellow', 'green'];
+
+// index of which player's turn it is (ex: index 0 = yellow turn)
+export let currentPlayerTurnIndex = 0;
+
+export function end_turn(){
+    if (currentPlayerTurnIndex == players.length - 1){
+        currentPlayerTurnIndex = 0;
+    } else {
+        currentPlayerTurnIndex++;
+    }
+}
 
 // there are 21 pieces, each has a set index; true means the player has the piece
 export let player_pieces = {

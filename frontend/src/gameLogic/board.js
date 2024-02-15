@@ -1,4 +1,4 @@
-import { players, player_pieces, playable_pieces, can_play } from './playerData';
+import { players, player_pieces, playable_pieces, can_play, end_turn } from './playerData';
 import { pieces } from './pieceData';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
@@ -9,8 +9,16 @@ export function play_piece(boardRow, boardCol, player, piece_index){
     // loop through piece 2d array
     for (let r = 0; r < piece.length; r++){
         for (let c = 0; c < piece[r].length; c++ ){
-            board_matrix[boardRow + r][boardCol + c] = player;
+            if (piece[r][c] == 1){
+                board_matrix[boardRow + r][boardCol + c] = player;
+            }
         }
+    }
+    player_pieces[player][piece_index] = false;
+    end_turn();
+    set_player_game_overs();
+    if (is_game_over()){
+        alert("game over");
     }
 }
 
@@ -122,7 +130,7 @@ function on_player_edge(r, c, player){
     let blue_edge = player == 'blue' && r == 0 && c == 0;
     let red_edge = player == 'red' && r == 0 && c == board_matrix.length - 1;
     let green_edge = player == 'green' && r == board_matrix.length - 1 && c == board_matrix.length - 1;
-    let yellow_edge = player == 'yellow' && r == 0 && c == 0;
+    let yellow_edge = player == 'yellow' && r == board_matrix.length - 1 && c == 0;
     if (blue_edge || red_edge || green_edge || yellow_edge)
         return true;
     return false;
