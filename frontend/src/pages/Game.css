@@ -1,0 +1,24 @@
+#game {
+    background: #3D3C3C;
+    width: 100vw;
+    height: 100vh;
+}
+
+#boardHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#boardOutline {
+    width: 525px;
+    height: 525px;
+    background: #262626;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    border: 5px solid #7B7B7B;
+}

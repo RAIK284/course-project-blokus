@@ -17,7 +17,7 @@ function Board() {
         {row.map((cell, colIndex) => (
           // row and column indexes are inverted because rendering is flipped
           <Block
-            onClick={() => place_player_piece(colIndex, rowIndex)}
+            onClick={() => placePlayerPiece(colIndex, rowIndex)}
             onHover={() => checkIfPiecePlayable(colIndex, rowIndex)}
             onMouseLeave={() => removeHighlightsFromBoard()}
             player={
@@ -34,7 +34,7 @@ function Board() {
     setDisplayRows(boardComponents);
   };
 
-  const place_player_piece = async (row, col) => {
+  const placePlayerPiece = async (row, col) => {
     if (board[row][col] == "highlight") {
       play_piece(row, col, myPlayer, pieceIndex);
       setBoard(board_matrix);
@@ -77,7 +77,7 @@ function Board() {
 
   return (
     <div id="board">
-      <div id="boardContainer">{displayRows}</div>
+      {displayRows}
     </div>
   );
 }
