@@ -1,7 +1,7 @@
 import "./Leaderboard.css";
 
-function Home() {
+function Leaderboard() {
   return <div id="leaderboard">Leaderboard</div>;
 }
 
-export default Home;
+export default Leaderboard;

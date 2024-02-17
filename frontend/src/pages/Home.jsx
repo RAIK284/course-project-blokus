@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
-import UserProfileModal from "../components/modals/UserProfileModal.jsx";
+import UserProfileModal from "../components/modals/StartOrJoinGameModal.jsx";
 
 function Home() {
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
@@ -20,12 +20,12 @@ function Home() {
       <Link to="/leaderboard">
         <button id="leaderboardButton">Leaderboard</button>
       </Link>
-      <Link to="/game">
-        <button id="playGame">Play Game</button>
-      </Link>
-      <button id="profile" onClick={openProfileModal}>
-        Profile
+      <button id="playGame" onClick={openProfileModal}>
+        Play Game
       </button>
+      <Link to="/profile">
+        <button id="profile">Profile</button>
+      </Link>
       <UserProfileModal
         isOpen={isProfileModalOpen}
         onClose={closeProfileModal}

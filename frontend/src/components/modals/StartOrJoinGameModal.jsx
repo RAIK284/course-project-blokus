@@ -1,5 +1,6 @@
 import React from "react";
-import "./UserProfileModal.css";
+import "./StartOrJoinGameModal.css";
+import { Link } from "react-router-dom";
 
 function UserProfileModal({ isOpen, onClose }) {
   if (!isOpen) return null;
@@ -7,10 +8,11 @@ function UserProfileModal({ isOpen, onClose }) {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        {/* Content for your modal */}
-        <h2>User Profile</h2>
-        {/* Add additional profile content here */}
+        <h2>Play Game</h2>
         <button onClick={onClose}>Close</button>
+        <Link to="/game">
+          <button id="playGame">Play Game</button>
+        </Link>
       </div>
     </div>
   );
