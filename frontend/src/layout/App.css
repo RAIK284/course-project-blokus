@@ -1,0 +1,11 @@
+#verticalGap {
+  height: 4rem;
+  background-color: #3d3c3c;
+}
+
+.content-container {
+  background-color: #3d3c3c;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 3rem;
+}

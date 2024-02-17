@@ -6,9 +6,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
+}
+
+#homeButton {
+  background-color: transparent;
 }
 
 #title {
   color: white;
   float: center;
+}
+
+#helpButton {
+  background-color: transparent;
 }
