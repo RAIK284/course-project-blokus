@@ -1,4 +1,4 @@
-import { players, player_pieces, playable_pieces, can_play, end_turn } from './playerData';
+import { players, player_pieces, playable_pieces, can_play, end_turn, determine_winner } from './playerData';
 import { pieces } from './pieceData';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
@@ -19,6 +19,7 @@ export function play_piece(boardRow, boardCol, player, piece_index){
     set_player_game_overs();
     if (is_game_over()){
         alert("game over");
+        alert(determine_winner());
     }
 }
 
