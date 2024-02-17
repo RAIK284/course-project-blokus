@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import UserProfileModal from "../components/modals/StartOrJoinGameModal.jsx";
 
 function Home() {
-  const [isProfileModalOpen, setProfileModalOpen] = useState(false);
+  const [isStartOrJoinGameModalOpen, setStartOrJoinGameModalOpen] =
+    useState(false);
 
-  const openProfileModal = () => {
-    setProfileModalOpen(true);
+  const openStartOrJoinGameModal = () => {
+    setStartOrJoinGameModalOpen(true);
   };
 
-  const closeProfileModal = () => {
-    setProfileModalOpen(false);
+  const closeStartOrJoinGameModal = () => {
+    setStartOrJoinGameModalOpen(false);
   };
 
   return (
@@ -20,15 +21,15 @@ function Home() {
       <Link to="/leaderboard">
         <button id="leaderboardButton">Leaderboard</button>
       </Link>
-      <button id="playGame" onClick={openProfileModal}>
+      <button id="playGame" onClick={openStartOrJoinGameModal}>
         Play Game
       </button>
       <Link to="/profile">
         <button id="profile">Profile</button>
       </Link>
       <UserProfileModal
-        isOpen={isProfileModalOpen}
-        onClose={closeProfileModal}
+        isOpen={isStartOrJoinGameModalOpen}
+        onClose={closeStartOrJoinGameModal}
       />
     </div>
   );
