@@ -9,9 +9,8 @@ import "./App.css";
 
 function App() {
   return (
-    <>
+    <div className="app">
       <NavBar />
-      <div id="verticalGap"></div>
       <div className="content-container">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -20,7 +19,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
-    </>
+    </div>
   );
 }
 

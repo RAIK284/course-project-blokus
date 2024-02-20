@@ -1,0 +1,14 @@
+#pieceBlock {
+    width: 14px;
+    height: 14px;
+    background: #008000;
+    border: 1px solid #00DD00;
+}
+
+.pieceRow {
+    display: flex;
+}
+
+.transparent {
+    display: none;
+}

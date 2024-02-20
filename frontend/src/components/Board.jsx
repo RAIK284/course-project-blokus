@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Block from "./Block";
+import BoardBlock from "./BoardBlock";
 import "./Board.css";
 import { board_matrix, can_play_piece, play_piece } from "../gameLogic/board";
 import { pieces } from "../gameLogic/pieceData";
@@ -17,7 +17,7 @@ function Board() {
       <div className="row" key={rowIndex}>
         {row.map((cell, colIndex) => (
           // row and column indexes are inverted because rendering is flipped
-          <Block
+          <BoardBlock
             onClick={() => placePlayerPiece(colIndex, rowIndex)}
             onHover={() => checkIfPiecePlayable(colIndex, rowIndex)}
             onMouseLeave={() => removeHighlightsFromBoard()}
@@ -66,9 +66,12 @@ function Board() {
   };
 
   const checkIfPiecePlayable = async (row, col) => {
-    const showHighlight = can_play_piece(row, col, pieceIndex, myPlayer);
-    if (showHighlight) {
-      setBoardHighlights(row, col);
+    // check if user selected a piece
+    if (pieceIndex != -1){
+      const showHighlight = can_play_piece(row, col, pieceIndex, myPlayer);
+      if (showHighlight) {
+        setBoardHighlights(row, col);
+      }
     }
   };
 

@@ -19,7 +19,7 @@ export function play_piece(boardRow, boardCol, player, piece_index){
     set_player_game_overs();
     if (is_game_over()){
         alert("game over");
-        alert(determine_winner());
+        alert("winner: " + determine_winner());
     }
 }
 

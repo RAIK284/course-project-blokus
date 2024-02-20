@@ -1,6 +1,6 @@
-import "./Block.css";
+import "./BoardBlock.css";
 
-function Block({
+function BoardBlock({
   onClick,
   onHover,
   onMouseLeave,
@@ -10,7 +10,7 @@ function Block({
 }) {
   return (
     <div
-      id="block"
+      id="boardBlock"
       onClick={onClick}
       onMouseOver={onHover}
       onMouseLeave={onMouseLeave}
@@ -27,4 +27,4 @@ function Block({
   );
 }
 
-export default Block;
+export default BoardBlock;

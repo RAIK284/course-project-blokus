@@ -4,5 +4,23 @@
     left: 0;
     height: 100px;
     width: 100vw;
-    background: #262626;
+    background: #3D3C3C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    justify-content: flex-start;
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
