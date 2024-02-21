@@ -1,4 +1,4 @@
-import { pieces_blocks_counts, total_blocks_for_player } from "./pieceData";
+import { reset_pieces, pieces_blocks_counts, total_blocks_for_player } from "./pieceData";
 
 export let players = ['blue', 'red', 'yellow', 'green'];
 
@@ -10,6 +10,12 @@ export function end_turn(){
         currentPlayerTurnIndex = 0;
     } else {
         currentPlayerTurnIndex++;
+    }
+    // if new player can't play, then end turn again
+    if (!can_play[players[currentPlayerTurnIndex]]){
+        end_turn();
+    } else {
+        reset_pieces();
     }
 }
 

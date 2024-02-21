@@ -10,9 +10,9 @@ function PieceHolder({ setPiece, userPieces, myPlayer, selectedBox, setSelectedB
                 <PieceBox 
                     hasPieceBeenPlayed={userPieces[myPlayer][index] === false} 
                     isBoxSelected={selectedBox === index} 
-                    setSelectedBox={() => setSelectedBox(index)}
+                    setSelectedBox={() => setSelectedBox(selectedBox === index ? -1 : index)}
                     setPieceIndex={() => setPiece(index)} 
-                    pieceMatrix={piece} 
+                    pieceMatrix={piece}
                 />
             ))}
         </div>

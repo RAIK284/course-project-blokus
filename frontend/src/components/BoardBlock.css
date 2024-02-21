@@ -42,3 +42,8 @@
     transition: .1s;
     cursor: pointer;
 }
+
+.pointer {
+    cursor: pointer;
+    opacity: 0;
+}

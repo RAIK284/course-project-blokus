@@ -3,7 +3,7 @@ import { pieces } from './pieceData';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
 
-// play a piece on the board
+// play a piece on the board (basically performs a player's turn)
 export function play_piece(boardRow, boardCol, player, piece_index){
     let piece = pieces[piece_index];
     // loop through piece 2d array
@@ -15,23 +15,24 @@ export function play_piece(boardRow, boardCol, player, piece_index){
         }
     }
     player_pieces[player][piece_index] = false;
-    end_turn();
     set_player_game_overs();
     if (is_game_over()){
         alert("game over");
         alert("winner: " + determine_winner());
+    } else {
+        end_turn();
     }
 }
 
 // check if game is over (no one can play any pieces)
-export function is_game_over(){
+function is_game_over(){
     if (!can_play['yellow'] && !can_play['red'] && !can_play['blue'] && !can_play['green'])
         return true;
     return false;
 }
 
 // check if the game is over for players
-export function set_player_game_overs() {
+function set_player_game_overs() {
     // loop through players
     players.forEach((player) => {
         let player_can_play = false;
