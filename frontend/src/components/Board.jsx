@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import BoardBlock from "./BoardBlock";
 import "./Board.css";
 import { board_matrix, can_play_piece, play_piece } from "../gameLogic/board";
-import { pieces } from "../gameLogic/pieceData";
+import { flip_piece, pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
 
 function Board({ pieceIndex, myPlayer, endRound }) {
@@ -93,15 +93,21 @@ function Board({ pieceIndex, myPlayer, endRound }) {
 
   useEffect(() => {
     const keyPressHandler = (event) => {
-      if (event.key === 'r') {
-        if (pieceIndex != -1){
-          rotate_piece(pieceIndex);
-          if (checkIfPiecePlayable(hoverRowRef.current, hoverColRef.current )){
-            setBoardHighlights(hoverRowRef.current, hoverColRef.current)
-          }
-          else {
-            removeHighlightsFromBoard();
-          }
+      if (event.key === 'r' && pieceIndex != -1) {
+        rotate_piece(pieceIndex);
+        if (checkIfPiecePlayable(hoverRowRef.current, hoverColRef.current )){
+          setBoardHighlights(hoverRowRef.current, hoverColRef.current)
+        }
+        else {
+          removeHighlightsFromBoard();
+        }
+      } else if (event.key === 'f' && pieceIndex != -1) {
+        flip_piece(pieceIndex);
+        if (checkIfPiecePlayable(hoverRowRef.current, hoverColRef.current )){
+          setBoardHighlights(hoverRowRef.current, hoverColRef.current)
+        }
+        else {
+          removeHighlightsFromBoard();
         }
       }
     };

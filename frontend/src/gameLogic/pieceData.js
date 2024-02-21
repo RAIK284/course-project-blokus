@@ -17,21 +17,22 @@ export function rotate_piece(pieceIndex) {
 }
 
 export function flip_piece(pieceIndex) {
+    let piece = pieces[pieceIndex]
     // case for matrices with odd # of rows
-    if (pieceIndex.length % 2 != 0) {
+    if (piece.length % 2 != 0) {
         // swap first and last rows
-        const temp = pieceIndex[0];
-        pieceIndex[0] = pieceIndex[pieceIndex.length - 1];
-        pieceIndex[pieceIndex.length - 1] = temp;
+        const temp = piece[0];
+        piece[0] = piece[piece.length - 1];
+        piece[piece.length - 1] = temp;
     }
     // case for matrices with even # of rows
     else {
         // loop through half of rows
-        for (let i = 0; i < pieceIndex.length / 2; i++) {
+        for (let i = 0; i < piece.length / 2; i++) {
             // swap first row with last, second with second-to-last, etc.
-            const temp = pieceIndex[i];
-            pieceIndex[i] = pieceIndex[pieceIndex.length - 1 - i];
-            pieceIndex[pieceIndex.length - 1 - i] = temp;
+            const temp = piece[i];
+            piece[i] = piece[piece.length - 1 - i];
+            piece[piece.length - 1 - i] = temp;
         }
     }
 }
