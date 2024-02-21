@@ -1,7 +1,7 @@
 
 export const total_blocks_for_player = 89;
 
-export const pieces_blocks_counts = [5, 3, 5, 5, 5, 5, 1, 4, 4, 5, 5, 4, 5, 5, 5, 5, 2, 5, 3, 4, 4];
+export const pieces_blocks_counts = [ 5, 3, 5, 5, 5, 5, 1, 4, 4, 5, 5, 4, 5, 5, 5, 5, 2, 5, 3, 4, 4 ];
 
 /*
     2d subarrays of each Blokus piece

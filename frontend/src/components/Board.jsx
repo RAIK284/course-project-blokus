@@ -3,9 +3,8 @@ import BoardBlock from "./BoardBlock";
 import "./Board.css";
 import { board_matrix, can_play_piece, play_piece } from "../gameLogic/board";
 import { pieces } from "../gameLogic/pieceData";
-import { currentPlayerTurnIndex, player_pieces, players } from "../gameLogic/playerData";
 
-function Board({ pieceIndex, setUserPieces, myPlayer, setMyPlayer, setSelectedBox }) {
+function Board({ pieceIndex, myPlayer, endRound }) {
   const [board, setBoard] = useState(board_matrix);
   const [displayRows, setDisplayRows] = useState([]);
 
@@ -37,9 +36,7 @@ function Board({ pieceIndex, setUserPieces, myPlayer, setMyPlayer, setSelectedBo
     if (board[row][col] == "highlight") {
       play_piece(row, col, myPlayer, pieceIndex);
       setBoard(board_matrix);
-      setUserPieces(player_pieces);
-      setSelectedBox(-1);
-      setMyPlayer(players[currentPlayerTurnIndex]);
+      endRound();
     }
   };
 
