@@ -11,7 +11,7 @@ function PieceHolder({ setPiece, userPieces, myPlayer, selectedBox, setSelectedB
                     hasPieceBeenPlayed={userPieces[myPlayer][index] === false} 
                     isBoxSelected={selectedBox === index} 
                     setSelectedBox={() => setSelectedBox(selectedBox === index ? -1 : index)}
-                    setPieceIndex={() => setPiece(index)} 
+                    setPieceIndex={() => setPiece(selectedBox === index ? -1 : index)} 
                     pieceMatrix={piece}
                 />
             ))}
