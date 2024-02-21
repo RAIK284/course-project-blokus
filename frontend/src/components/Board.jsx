@@ -3,12 +3,11 @@ import BoardBlock from "./BoardBlock";
 import "./Board.css";
 import { board_matrix, can_play_piece, play_piece } from "../gameLogic/board";
 import { pieces } from "../gameLogic/pieceData";
-import { currentPlayerTurnIndex, players } from "../gameLogic/playerData";
+import { currentPlayerTurnIndex, player_pieces, players } from "../gameLogic/playerData";
 
-function Board({ pieceIndex }) {
+function Board({ pieceIndex, setUserPieces, myPlayer, setMyPlayer, setSelectedBox }) {
   const [board, setBoard] = useState(board_matrix);
   const [displayRows, setDisplayRows] = useState([]);
-  const [myPlayer, setMyPlayer] = useState(players[currentPlayerTurnIndex]);
 
   // creates a 20x20 grid of block components based on board 2d matrix
   const fillBoard = () => {
@@ -38,6 +37,8 @@ function Board({ pieceIndex }) {
     if (board[row][col] == "highlight") {
       play_piece(row, col, myPlayer, pieceIndex);
       setBoard(board_matrix);
+      setUserPieces(player_pieces);
+      setSelectedBox(-1);
       setMyPlayer(players[currentPlayerTurnIndex]);
     }
   };
