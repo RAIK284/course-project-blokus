@@ -10,5 +10,6 @@
 }
 
 .transparent {
-    display: none;
+    background: none !important;
+    border: 1px solid #262626 !important;
 }

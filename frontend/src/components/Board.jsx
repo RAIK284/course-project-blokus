@@ -5,10 +5,9 @@ import { board_matrix, can_play_piece, play_piece } from "../gameLogic/board";
 import { pieces } from "../gameLogic/pieceData";
 import { currentPlayerTurnIndex, players } from "../gameLogic/playerData";
 
-function Board() {
+function Board({ pieceIndex }) {
   const [board, setBoard] = useState(board_matrix);
   const [displayRows, setDisplayRows] = useState([]);
-  const [pieceIndex, setPieceIndex] = useState(0);
   const [myPlayer, setMyPlayer] = useState(players[currentPlayerTurnIndex]);
 
   // creates a 20x20 grid of block components based on board 2d matrix

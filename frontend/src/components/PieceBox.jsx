@@ -3,7 +3,7 @@ import PieceBlock from './PieceBlock';
 import './PieceBox.css';
 import React, { useState, useEffect } from "react";
 
-function PieceHolder({ pieceMatrix }) {
+function PieceBox({ isBoxSelected, setSelectedBox, pieceMatrix, setPieceIndex }) {
     const [piece, setPiece] = useState(pieceMatrix);
     const [displayRows, setDisplayRows] = useState([]);
 
@@ -20,13 +20,18 @@ function PieceHolder({ pieceMatrix }) {
         setDisplayRows(newDisplayRows);
     };
 
+    const handleClick = () => {
+        setPieceIndex();
+        setSelectedBox();
+    }
+
     // fills board state on updates
     useEffect(() => {
         fillPiece();
     }, [piece]);
 
     return (
-        <div class="pieceBox">
+        <div className={`pieceBox ${isBoxSelected ? 'clicked' : ''}`} onClick={handleClick}>
             <div>
                 {displayRows.map((row, rowIndex) => (
                     <div class="pieceRow" key={rowIndex}>
@@ -40,4 +45,4 @@ function PieceHolder({ pieceMatrix }) {
     );
 }
 
-export default PieceHolder
+export default PieceBox

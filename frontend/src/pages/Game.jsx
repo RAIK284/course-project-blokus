@@ -5,14 +5,16 @@ import Board from "../components/Board";
 import PieceHolder from "../components/PieceHolder";
 
 function Game() {
+  const [pieceIndex, setPieceIndex] = useState(-1);
+
   return (
     <div id="game">
       <div id="boardHolder">
         <div id="boardOutline">
-          <Board />
+          <Board pieceIndex={pieceIndex} />
         </div>
       </div>
-      <PieceHolder />
+      <PieceHolder setPiece={setPieceIndex} />
     </div>
   );
 }
