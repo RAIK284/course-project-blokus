@@ -112,6 +112,11 @@ function Board({ pieceIndex, myPlayer, endRound }) {
       }
     };
     window.addEventListener('keydown', keyPressHandler);
+
+    // remove the event listener when component unmounts
+    return () => {
+      window.removeEventListener('keydown', keyPressHandler);
+    };
   }, [pieceIndex]);
 
   // fills board state on updates
