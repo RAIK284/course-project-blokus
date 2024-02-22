@@ -1,9 +1,9 @@
-import { pieces } from '../gameLogic/pieceData';
+import { pieces, rotate_piece, flip_piece } from '../gameLogic/pieceData';
 import PieceBlock from './PieceBlock';
 import './PieceBox.css';
 import React, { useState, useEffect } from "react";
 
-function PieceBox({ hasPieceBeenPlayed, isBoxSelected, setSelectedBox, pieceMatrix, setPieceIndex }) {
+function PieceBox({ hasPieceBeenPlayed, isBoxSelected, setSelectedBox, pieceIndex, setPieceIndex, pieceMatrix }) {
     const [piece, setPiece] = useState(pieceMatrix);
     const [displayRows, setDisplayRows] = useState([]);
 
@@ -24,6 +24,21 @@ function PieceBox({ hasPieceBeenPlayed, isBoxSelected, setSelectedBox, pieceMatr
         setPieceIndex();
         setSelectedBox();
     }
+
+    useEffect(() => {
+        const keyPressHandler = (event) => {
+          if (event.key === 'r' && isBoxSelected) {
+            rotate_piece(pieceIndex);
+            setPiece(pieces[pieceIndex]);
+            fillPiece();
+          } else if (event.key === 'f' && isBoxSelected) {
+            flip_piece(pieceIndex);
+            setPiece(pieces[pieceIndex]);
+            fillPiece();
+          }
+        };
+        window.addEventListener('keydown', keyPressHandler);
+      }, [isBoxSelected]);
 
     // fills board state on updates
     useEffect(() => {

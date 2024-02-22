@@ -7,10 +7,11 @@ function PieceHolder({ setPiece, userPieces, myPlayer, selectedBox, setSelectedB
     return (
         <div id="pieceHolder">
             {pieces.map((piece, index) => (
-                <PieceBox
+                <PieceBox 
                     hasPieceBeenPlayed={userPieces[myPlayer][index] === false} 
                     isBoxSelected={selectedBox === index} 
                     setSelectedBox={() => setSelectedBox(selectedBox === index ? -1 : index)}
+                    pieceIndex={index}
                     setPieceIndex={() => setPiece(selectedBox === index ? -1 : index)} 
                     pieceMatrix={piece}
                 />

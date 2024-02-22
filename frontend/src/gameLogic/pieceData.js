@@ -134,8 +134,8 @@ export let pieces = [
     ]
 ];
 
-export function reset_pieces(){
-    pieces = originalPieces;
-}
-
 const originalPieces = pieces.map(piece => piece.map(subPiece => subPiece.slice()));
+
+export function reset_pieces(){
+    pieces = originalPieces.map(piece => piece.map(subPiece => subPiece.slice()));
+}

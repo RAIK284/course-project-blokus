@@ -62,7 +62,7 @@ function Board({ pieceIndex, myPlayer, endRound }) {
           for (let pieceC = 0; pieceC < piece[pieceR].length; pieceC++) {
             if (piece[pieceR][pieceC] === 1) {
               updatedBoard[row + pieceR][col + pieceC] = "highlight";
-            } else {
+            } else if (updatedBoard[row + pieceR][col + pieceC] == '') {
               updatedBoard[row + pieceR][col + pieceC] = "pointer";
             }
           }
