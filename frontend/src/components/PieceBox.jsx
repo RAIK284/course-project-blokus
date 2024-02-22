@@ -3,8 +3,8 @@ import PieceBlock from './PieceBlock';
 import './PieceBox.css';
 import React, { useState, useEffect } from "react";
 
-function PieceBox({ hasPieceBeenPlayed, isBoxSelected, setSelectedBox, pieceIndex, setPieceIndex, pieceMatrix }) {
-    const [piece, setPiece] = useState(pieceMatrix);
+function PieceBox({ myPlayer, hasPieceBeenPlayed, isBoxSelected, setSelectedBox, pieceIndex, setPieceIndex }) {
+    const [piece, setPiece] = useState(pieces[pieceIndex]);
     const [displayRows, setDisplayRows] = useState([]);
 
     // creates a rendering of block components based on piece 2d matrix
@@ -42,6 +42,10 @@ function PieceBox({ hasPieceBeenPlayed, isBoxSelected, setSelectedBox, pieceInde
             window.removeEventListener('keydown', keyPressHandler);
         };
     }, [isBoxSelected]);
+
+    useEffect(() => {
+        setPiece(pieces[pieceIndex]);
+    }, [myPlayer]);
 
     // fills board state on updates
     useEffect(() => {
