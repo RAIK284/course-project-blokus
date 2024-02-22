@@ -27,18 +27,21 @@ function PieceBox({ hasPieceBeenPlayed, isBoxSelected, setSelectedBox, pieceInde
 
     useEffect(() => {
         const keyPressHandler = (event) => {
-          if (event.key === 'r' && isBoxSelected) {
-            rotate_piece(pieceIndex);
-            setPiece(pieces[pieceIndex]);
-            fillPiece();
-          } else if (event.key === 'f' && isBoxSelected) {
-            flip_piece(pieceIndex);
-            setPiece(pieces[pieceIndex]);
-            fillPiece();
-          }
+            if ((event.key === 'r' || event.key === 'f') && isBoxSelected) {
+                // wait for rotated/flipped piece to be updated
+                setTimeout(function() {
+                    setPiece(pieces[pieceIndex]);
+                    fillPiece();
+                }, 10);
+            } 
         };
         window.addEventListener('keydown', keyPressHandler);
-      }, [isBoxSelected]);
+    
+        // remove the event listener when component unmounts
+        return () => {
+            window.removeEventListener('keydown', keyPressHandler);
+        };
+    }, [isBoxSelected]);
 
     // fills board state on updates
     useEffect(() => {
