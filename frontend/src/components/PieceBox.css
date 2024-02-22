@@ -1,7 +1,7 @@
 .pieceBox {
     background: #262626;
     height: 100%;
-    width: 100px;
+    width: 110px;
     display: flex;
     justify-content: center;
     align-items: center;
