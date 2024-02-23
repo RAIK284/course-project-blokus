@@ -9,15 +9,10 @@ function NavBar() {
   return (
     <div id="navBar">
       <Link to="/">
-        <button id="homeButton">
-          <img src={HomeIcon} alt="Home" />
-        </button>
+        <img src={HomeIcon} alt="Home" id="homeButton" />
       </Link>
-      <img src={LogoSvg} alt="Logo" id="logo" />
-
-      <button id="helpButton">
-        <img src={HelpIcon} alt="Help" />
-      </button>
+      <span id="navBarTitle">BLOKUS</span>
+      <img src={HelpIcon} alt="Help" id="helpButton" />
     </div>
   );
 }
