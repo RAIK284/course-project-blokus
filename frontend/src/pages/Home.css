@@ -1,0 +1,72 @@
+#home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin-top: -3rem;
+}
+
+#homeTitle {
+  color: #d2d0d0;
+  float: center;
+  font-family: "Jockey One", sans-serif;
+  font-size: 200px;
+  text-shadow: -10px -10px 0 black, 10px -10px 0 black, -10px 10px 0 black,
+    10px 10px 0 black;
+}
+
+#homePageButtons {
+  display: flex;
+  align-items: center;
+  margin-top: -5rem;
+}
+
+#leaderBoardButtonContainer {
+  position: relative;
+}
+
+#playButtonContainer {
+  height: 75px;
+  cursor: pointer;
+}
+
+#profileButtonContainer {
+  height: -2px;
+}
+
+#leaderboardText {
+  margin: 10px;
+  font-family: "Jockey One", sans-serif;
+  color: #d2d0d0;
+  font-size: 45px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+  position: absolute;
+  transform: translate(-115%, 80%);
+}
+
+#playGameText {
+  margin: 10px;
+  font-family: "Jockey One", sans-serif;
+  color: #d2d0d0;
+  font-size: 45px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+  position: absolute;
+  transform: translate(-197%, -15%);
+}
+#profileText {
+  margin: 10px;
+  font-family: "Jockey One", sans-serif;
+  color: #d2d0d0;
+  font-size: 45px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+  position: absolute;
+  transform: translate(-177%, 80%);
+}
+
+#horizontalGap {
+  width: 5rem;
+}
