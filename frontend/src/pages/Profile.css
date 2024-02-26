@@ -1,0 +1,76 @@
+@import url("https://fonts.cdnfonts.com/css/jockey-one");
+
+/* #boardHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#boardOutline {
+    width: 525px;
+    height: 525px;
+    background: #262626;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    border: 5px solid #7B7B7B;
+} */
+
+#profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 130px;
+  text-align: center;
+  font-family: "Jockey One";
+  font-size: 30px;
+  color: white;
+  text-shadow: 0 0 3px #000000, 0 0 8px #000000;
+}
+
+#profilebox {
+  display: flex;
+  background: #262626;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+  width: 505px;
+  height: 501px;
+  border: solid;
+  border-color: #000000;
+  border-width: 5px;
+}
+
+#imagebox {
+  align-self: center;
+  width: 200px;
+  height: 200px;
+  background-color: #3d3c3c;
+  border: solid;
+  border-color: #000000;
+  border-width: 5px;
+}
+
+#userinfo {
+  margin-top: 45px;
+  align-self: flex-start;
+  margin-left: 50px;
+  font-size: 20px;
+}
+
+#logoutbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #262626;
+  height: 60px;
+  width: 150px;
+  margin-top: 40px;
+  border: solid;
+  border-color: #000000;
+  border-width: 5px;
+}
