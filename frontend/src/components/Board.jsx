@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import BoardBlock from "./BoardBlock";
 import "./Board.css";
-import { board_matrix, can_play_piece, play_piece } from "../gameLogic/board";
+import { board_matrix, can_play_piece, play_piece, play_random_piece } from "../gameLogic/board";
 import { flip_piece, pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
+import { useTimer } from 'react-timer-hook';
 
-function Board({ pieceIndex, myPlayer, endRound }) {
+function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
+  // timer values
+  const [timerFlipState, setTimerFlipState] = useState(true);
+  const {
+    totalSeconds, seconds, minutes, hours, days, isRunning,
+    start, pause, resume, restart,
+  } = useTimer({ expiryTimestamp, onExpire: () => setTimerFlipState(!timerFlipState) });
+
   const [board, setBoard] = useState(board_matrix);
   const [displayRows, setDisplayRows] = useState([]);
   const [hoverRow, setHoverRow] = useState(-1);
@@ -46,8 +54,14 @@ function Board({ pieceIndex, myPlayer, endRound }) {
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {
       play_piece(row, col, myPlayer, pieceIndex);
       setBoard(board_matrix);
+      // reset hover indeces
       setHoverRow(-1);
       setHoverCol(-1);
+      // reset time
+      const time = new Date();
+      time.setSeconds(time.getSeconds() + 59);
+      restart(time);
+      // end round
       endRound();
     }
   };
@@ -91,6 +105,25 @@ function Board({ pieceIndex, myPlayer, endRound }) {
     }
   };
 
+  // handles resetting of timer
+  useEffect(() => {
+    if (seconds == 0){
+      play_random_piece(myPlayer);
+      // delay to render piece
+      setTimeout(function() {
+        setBoard(board_matrix);
+        fillBoard();
+        setHoverRow(-1);
+        setHoverCol(-1);
+        endRound();
+        const time = new Date();
+        time.setSeconds(time.getSeconds() + 59);
+        restart(time);
+      }, 10);
+    }
+  }, [timerFlipState]);
+
+  // handles rotate and flip key presses
   useEffect(() => {
     const keyPressHandler = (event) => {
       if (event.key === 'r' && pieceIndex != -1) {
@@ -119,15 +152,22 @@ function Board({ pieceIndex, myPlayer, endRound }) {
     };
   }, [pieceIndex]);
 
-  // fills board state on updates
+  // fills board state on updates, starts timer
   useEffect(() => {
     fillBoard();
   }, [board]);
 
   return (
-    <div id="board">
-      {displayRows}
-    </div>
+    <>
+      <div id="board">
+        {displayRows}
+      </div>
+      <div id="timerHolder">
+        <div id="playerTimer" className={seconds <= 10 ? 'redBorder' : ''}>
+          {seconds}
+        </div>
+      </div>
+    </>
   );
 }
 

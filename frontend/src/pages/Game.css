@@ -13,12 +13,12 @@
 }
 
 #boardOutline {
-    width: 525px;
-    height: 525px;
+    width: 475px;
+    height: 475px;
     background: #262626;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 45px;
+    margin-bottom: 60px;
     border: 5px solid #7B7B7B;
 }

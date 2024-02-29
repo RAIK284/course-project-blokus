@@ -1,7 +1,7 @@
 #boardBlock {
     z-index: 0;
-    width: 25px;
-    height: 25px;
+    width: 22.5px;
+    height: 22.5px;
     background: #EBE7E4;
     box-shadow: 0px 0px 0px 1px #cfccc7 inset;
 }

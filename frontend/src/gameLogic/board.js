@@ -15,6 +15,40 @@ export function play_piece(boardRow, boardCol, player, piece_index){
         }
     }
     player_pieces[player][piece_index] = false;
+    end_round_checks();
+}
+
+// plays a piece on the board randomly if player timer runs out
+export function play_random_piece(player){
+    // create array of all 21 piece indeces
+    let indeces_array = [];
+    for (let i = 0; i <= 20; i++) {
+        indeces_array.push(i);
+    }
+    // shuffle the array of indeces
+    indeces_array.sort(() => Math.random() - 0.5);
+    while (indeces_array.length > 0){
+        // get random piece index
+        let piece_index = indeces_array[0];
+        // if player has that piece
+        if (player_pieces[player][piece_index]){
+            // loop through board 2d array
+            for (let boardRow = 0; boardRow < board_matrix.length; boardRow++) {
+                for (let boardCol = 0; boardCol < board_matrix[boardRow].length; boardCol++) {
+                    // check if a piece can be played at the spot
+                    if (can_play_piece(boardRow, boardCol, piece_index, player)){
+                        play_piece(boardRow, boardCol, player, piece_index);
+                        return;
+                    }
+                }
+            }
+        }
+        indeces_array.shift();
+    }
+}
+
+// checks to do after every round
+function end_round_checks(){
     set_player_game_overs();
     if (is_game_over()){
         alert("game over");
@@ -44,8 +78,9 @@ function set_player_game_overs() {
                     // which pieces can the player play, if any at all?
                     if (player_pieces[player] && can_play_piece(row, col, piece_index, player)){
                         player_can_play = true;
+                        //playable_pieces[player][piece_index] = true;
                     } else {
-                        playable_pieces[player][piece_index] = false;
+                        //playable_pieces[player][piece_index] = false;
                     }
                 }
             }
@@ -86,7 +121,7 @@ export function can_play_piece(boardRow, boardCol, piece_index, player){
 
 // check if the block is valid (fits within rule sets)
 function valid_block(r, c, player){
-    let not_past_walls = r >= 0 && r < board_matrix.length && c >= 0 & c < board_matrix[r].length;
+    let not_past_walls = r >= 0 && r < board_matrix.length && c >= 0 && c < board_matrix[r].length;
     if (not_past_walls) {
         let block_empty = board_matrix[r][c] == '';
         let not_touching_own_blocks = 

@@ -5,7 +5,10 @@ import PieceHolder from "../components/PieceHolder";
 import { currentPlayerTurnIndex, player_pieces, players } from "../gameLogic/playerData";
 
 function Game() {
-  // stores data for current user playing
+  const playerTime = new Date();
+  playerTime.setSeconds(playerTime.getSeconds() + 59);
+
+  // data for current user playing
   const [myPlayer, setMyPlayer] = useState(players[currentPlayerTurnIndex]);
   const [pieceIndex, setPieceIndex] = useState(-1);
   const [userPieces, setUserPieces] = useState(player_pieces);
@@ -24,7 +27,8 @@ function Game() {
         <div id="boardOutline">
           <Board 
             pieceIndex={pieceIndex} 
-            myPlayer={myPlayer} 
+            myPlayer={myPlayer}
+            expiryTimestamp={playerTime}
             endRound={endRound}
           />
         </div>
