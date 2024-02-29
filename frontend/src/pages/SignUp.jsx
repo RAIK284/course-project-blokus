@@ -1,10 +1,10 @@
-import "./Profile.css";
+import "./SignUp.css";
 
-function Profile() {
+function SignUp() {
 
   return (
-    <div id="profile">
-      Your Profile
+    <div id="signup">
+      Sign Up Now!
       <div id="profilebox">
         <div id="imagebox">
         </div>
@@ -42,4 +42,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default SignUp;
