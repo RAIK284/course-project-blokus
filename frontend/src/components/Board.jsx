@@ -14,7 +14,7 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
     start, pause, resume, restart,
   } = useTimer({ expiryTimestamp, onExpire: () => setTimerFlipState(!timerFlipState) });
 
-  const [board, setBoard] = useState(board_matrix);
+  const [board, setBoard] = useState([[]]);
   const [displayRows, setDisplayRows] = useState([]);
   const [hoverRow, setHoverRow] = useState(-1);
   const [hoverCol, setHoverCol] = useState(-1);
@@ -156,6 +156,11 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   useEffect(() => {
     fillBoard();
   }, [board]);
+
+  // sets the board to board matrix at start of game
+  useEffect(() => {
+    setBoard(board_matrix);
+  }, []);
 
   return (
     <>
