@@ -28,7 +28,7 @@ function Home() {
       <div id="homePageButtons">
         <Link to="/leaderboard">
           <div id="leaderBoardButtonContainer">
-            <img src={RedPiece} alt="RedPiece" id="redSVG" />
+            <img src={RedPiece} alt="Leaderboard Button" id="redSVG" />
             <span id="leaderboardText">Leaderboard</span>
           </div>
         </Link>
@@ -36,7 +36,7 @@ function Home() {
         <div id="horizontalGap"></div>
 
         <div id="playButtonContainer" onClick={openStartOrJoinGameModal}>
-          <img src={GreenPiece} alt="GreenPiece" />
+          <img src={GreenPiece} alt="Play Button" />
           <span id="playGameText">Play</span>
         </div>
 
@@ -44,7 +44,7 @@ function Home() {
 
         <Link to="/profile">
           <div id="profileButtonContainer">
-            <img src={BluePiece} alt="BluePiece" />
+            <img src={BluePiece} alt="Profile Button" />
             <span id="profileText">Profile</span>
           </div>
         </Link>

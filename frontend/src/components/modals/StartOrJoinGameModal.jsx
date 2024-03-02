@@ -53,12 +53,12 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
       <div id="modal">
         {(isCreatingGame || isJoiningGame) && (
           <div id="backModal" onClick={handleBackClick}>
-            <img src={BackButton} alt="BackButton" />
+            <img src={BackButton} alt="Back Button" />
           </div>
         )}
 
         <div id="closeModal" onClick={handleCloseClick}>
-          <img src={Close} alt="Close" />
+          <img src={Close} alt="Close Modal Button" />
         </div>
 
         <div id="modalButtonsContainer">
@@ -68,7 +68,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
                 id="createGameButtonContainer"
                 onClick={handleCreateGameClick}
               >
-                <img src={GreenRectanglePiece} alt="GreenRectanglePiece" />
+                <img src={GreenRectanglePiece} alt="Create Game Button" />
                 <span id="createGameText">Create Game</span>
               </div>
               <span id="createGameDescription">
@@ -77,7 +77,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
               </span>
               <div style={{ height: "3em" }}></div>
               <div id="joinGameButtonContainer" onClick={handleJoinGameClick}>
-                <img src={BlueRectanglePiece} alt="BlueRectanglePiece" />
+                <img src={BlueRectanglePiece} alt="Join Game Button" />
                 <span id="joinGameText">Join Game</span>
               </div>
 
@@ -91,7 +91,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
             <>
               <Link to="/game">
                 <div id="localGameButtonContainer">
-                  <img src={RedRectanglePiece} alt="RedRectanglePiece" />
+                  <img src={RedRectanglePiece} alt="Create Local Game Button" />
                   <span id="localGameText">Local Game</span>
                 </div>
               </Link>
@@ -104,7 +104,10 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
 
               <Link to="/game">
                 <div id="onlineGameButtonContainer">
-                  <img src={YellowRectanglePiece} alt="YellowRectanglePiece" />
+                  <img
+                    src={YellowRectanglePiece}
+                    alt="Create Online Game Buttone"
+                  />
                   <span id="onlineGameText">Online Game</span>
                 </div>
               </Link>
@@ -119,7 +122,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
           {isJoiningGame && (
             <>
               <div id="onlineGameCodeButtonContainer">
-                <img src={OrangeRectanglePiece} alt="OrangeRectanglePiece" />
+                <img src={OrangeRectanglePiece} alt="Enter Game Code" />
                 <input
                   id="onlineGameCodeInput"
                   type="text"
@@ -140,7 +143,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
 
               <Link to="/game">
                 <div id="publicGameButtonContainer">
-                  <img src={PurpleRectanglePiece} alt="PurpleRectanglePiece" />
+                  <img src={PurpleRectanglePiece} alt="Join Public Game" />
                   <span id="publicGameText">Public Game</span>
                 </div>
               </Link>
