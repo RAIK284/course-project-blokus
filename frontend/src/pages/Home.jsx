@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
-import UserProfileModal from "../components/modals/StartOrJoinGameModal.jsx";
+import StartOrJoinGameModal from "../components/modals/StartOrJoinGameModal.jsx";
 import LogoSvg from "../assets/Big BLOKUS.svg";
 import PieceBlock from "../components/PieceBlock.jsx";
 import "../components/PieceBlock.css";
@@ -48,7 +48,7 @@ function Home() {
             <span id="profileText">Profile</span>
           </div>
         </Link>
-        <UserProfileModal
+        <StartOrJoinGameModal
           isOpen={isStartOrJoinGameModalOpen}
           onClose={closeStartOrJoinGameModal}
         />

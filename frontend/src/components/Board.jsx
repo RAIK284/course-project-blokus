@@ -1,18 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
 import BoardBlock from "./BoardBlock";
 import "./Board.css";
-import { board_matrix, can_play_piece, play_piece, play_random_piece } from "../gameLogic/board";
+import {
+  board_matrix,
+  can_play_piece,
+  play_piece,
+  play_random_piece,
+} from "../gameLogic/board";
 import { flip_piece, pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
-import { useTimer } from 'react-timer-hook';
+import { useTimer } from "react-timer-hook";
 
 function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   // timer values
   const [timerFlipState, setTimerFlipState] = useState(true);
   const {
-    totalSeconds, seconds, minutes, hours, days, isRunning,
-    start, pause, resume, restart,
-  } = useTimer({ expiryTimestamp, onExpire: () => setTimerFlipState(!timerFlipState) });
+    totalSeconds,
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({
+    expiryTimestamp,
+    onExpire: () => setTimerFlipState(!timerFlipState),
+  });
 
   const [board, setBoard] = useState([[]]);
   const [displayRows, setDisplayRows] = useState([]);
@@ -69,14 +85,17 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   const setBoardHighlights = (row, col) => {
     removeHighlightsFromBoard();
     const piece = pieces[pieceIndex];
-    if (row + piece.length - 1 < board.length && col + piece[0].length - 1 < board[0].length){
+    if (
+      row + piece.length - 1 < board.length &&
+      col + piece[0].length - 1 < board[0].length
+    ) {
       setBoard((prevBoard) => {
         const updatedBoard = [...prevBoard];
         for (let pieceR = 0; pieceR < piece.length; pieceR++) {
           for (let pieceC = 0; pieceC < piece[pieceR].length; pieceC++) {
             if (piece[pieceR][pieceC] === 1) {
               updatedBoard[row + pieceR][col + pieceC] = "highlight";
-            } else if (updatedBoard[row + pieceR][col + pieceC] == '') {
+            } else if (updatedBoard[row + pieceR][col + pieceC] == "") {
               updatedBoard[row + pieceR][col + pieceC] = "pointer";
             }
           }
@@ -84,18 +103,20 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
         return updatedBoard;
       });
     }
-  }
+  };
 
   const removeHighlightsFromBoard = () => {
     const updatedBoard = board.map((row) =>
-      row.map((cell) => ((cell === "highlight" || cell === "pointer") ? "" : cell))
+      row.map((cell) =>
+        cell === "highlight" || cell === "pointer" ? "" : cell
+      )
     );
     setBoard(updatedBoard);
   };
 
   const checkIfPiecePlayable = (row, col) => {
     // check if user selected a piece
-    if (pieceIndex != -1){
+    if (pieceIndex != -1) {
       const showHighlight = can_play_piece(row, col, pieceIndex, myPlayer);
       if (showHighlight) {
         setHoverRow(row);
@@ -107,10 +128,10 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
 
   // handles resetting of timer
   useEffect(() => {
-    if (seconds == 0){
+    if (seconds == 0) {
       play_random_piece(myPlayer);
       // delay to render piece
-      setTimeout(function() {
+      setTimeout(function () {
         setBoard(board_matrix);
         fillBoard();
         setHoverRow(-1);
@@ -126,29 +147,27 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   // handles rotate and flip key presses
   useEffect(() => {
     const keyPressHandler = (event) => {
-      if (event.key === 'r' && pieceIndex != -1) {
+      if (event.key === "r" && pieceIndex != -1) {
         rotate_piece(pieceIndex);
-        if (checkIfPiecePlayable(hoverRowRef.current, hoverColRef.current )){
-          setBoardHighlights(hoverRowRef.current, hoverColRef.current)
-        }
-        else {
+        if (checkIfPiecePlayable(hoverRowRef.current, hoverColRef.current)) {
+          setBoardHighlights(hoverRowRef.current, hoverColRef.current);
+        } else {
           removeHighlightsFromBoard();
         }
-      } else if (event.key === 'f' && pieceIndex != -1) {
+      } else if (event.key === "f" && pieceIndex != -1) {
         flip_piece(pieceIndex);
-        if (checkIfPiecePlayable(hoverRowRef.current, hoverColRef.current )){
-          setBoardHighlights(hoverRowRef.current, hoverColRef.current)
-        }
-        else {
+        if (checkIfPiecePlayable(hoverRowRef.current, hoverColRef.current)) {
+          setBoardHighlights(hoverRowRef.current, hoverColRef.current);
+        } else {
           removeHighlightsFromBoard();
         }
       }
     };
-    window.addEventListener('keydown', keyPressHandler);
+    window.addEventListener("keydown", keyPressHandler);
 
     // remove the event listener when component unmounts
     return () => {
-      window.removeEventListener('keydown', keyPressHandler);
+      window.removeEventListener("keydown", keyPressHandler);
     };
   }, [pieceIndex]);
 
@@ -164,11 +183,9 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
 
   return (
     <>
-      <div id="board">
-        {displayRows}
-      </div>
+      <div id="board">{displayRows}</div>
       <div id="timerHolder">
-        <div id="playerTimer" className={seconds <= 10 ? 'redBorder' : ''}>
+        <div id="playerTimer" className={seconds <= 10 ? "redBorder" : ""}>
           {seconds}
         </div>
       </div>
