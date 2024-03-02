@@ -1,18 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
-import LogoSvg from "../assets/Big BLOKUS.svg";
 import HomeIcon from "../assets/Home Icon.svg";
 import HelpIcon from "../assets/Help Icon.svg";
 
-function NavBar() {
+function NavBar({ isLoggedIn }) {
   return (
     <div id="navBar">
-      <Link to="/">
-        <img src={HomeIcon} alt="Home" id="homeButton" />
+      {isLoggedIn && (
+        <Link to="/home">
+          <img src={HomeIcon} alt="Home" id="homeButton" />
+        </Link>
+      )}
+
+      <Link to={isLoggedIn ? "/home" : "/"}>
+        <span id="navBarTitle">BLOKUS</span>
       </Link>
-      <span id="navBarTitle">BLOKUS</span>
-      <img src={HelpIcon} alt="Help" id="helpButton" />
+
+      {isLoggedIn && <img src={HelpIcon} alt="Help" id="helpButton" />}
     </div>
   );
 }
