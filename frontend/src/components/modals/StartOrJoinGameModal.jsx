@@ -25,6 +25,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
   };
 
   const handleBackClick = () => {
+    setOnlineGameCode("");
     if (isCreatingGame) {
       setIsCreatingGame(false);
     } else if (isJoiningGame) {
@@ -33,6 +34,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
   };
 
   const handleCloseClick = () => {
+    setOnlineGameCode("");
     setIsCreatingGame(false);
     setIsJoiningGame(false);
     onClose();
