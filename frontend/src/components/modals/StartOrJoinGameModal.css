@@ -24,7 +24,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  padding: 10px; /* Adjust padding as needed */
+  padding: 20px;
   cursor: pointer;
 }
 
@@ -43,16 +43,6 @@
   justify-content: center;
 }
 
-/* #closeModal {
-  font-weight: bold;
-  font-size: 35px;
-  float: right;
-  color: #595757;
-  align-self: flex-end;
-  cursor: pointer;
-  margin-top: -0.5em;
-  margin-right: -0.5em;
-} */
 #createGameButtonContainer,
 #localGameButtonContainer {
   cursor: pointer;
@@ -84,8 +74,8 @@
 }
 
 #joinGameButtonContainer,
-#onlineGameButtonContainer {
-  padding-top: 3em;
+#onlineGameButtonContainer,
+#publicGameButtonContainer {
   cursor: pointer;
 }
 
@@ -123,6 +113,27 @@
   position: absolute;
   transform: translate(-150%, -15%);
   text-wrap: nowrap;
+}
+
+#onlineGameCodeInput {
+  margin: 10px;
+  font-family: "Jockey One", sans-serif;
+  color: #d2d0d0;
+  font-size: 45px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+  position: absolute;
+  transform: translate(-100%, -15%);
+  text-wrap: nowrap;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  outline: none;
+  caret-color: black;
+}
+
+#onlineGameCodeInput::placeholder {
+  color: #d2d0d0;
 }
 
 #publicGameText {
