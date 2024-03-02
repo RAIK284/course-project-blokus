@@ -5,6 +5,22 @@ export let players = ['blue', 'red', 'yellow', 'green'];
 // index of which player's turn it is (ex: index 0 = yellow turn)
 export let currentPlayerTurnIndex = 0;
 
+export function reset_player_data(){
+    currentPlayerTurnIndex = 0;
+    player_pieces = {
+        yellow: Array(21).fill(true),
+        red: Array(21).fill(true),
+        blue: Array(21).fill(true),
+        green: Array(21).fill(true),
+    }
+    can_play = {
+        yellow: true,
+        red: true,
+        blue: true,
+        green: true,
+    }
+}
+
 export function end_turn(){
     if (currentPlayerTurnIndex == players.length - 1){
         currentPlayerTurnIndex = 0;

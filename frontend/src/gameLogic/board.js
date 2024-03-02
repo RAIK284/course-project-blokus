@@ -1,7 +1,12 @@
-import { players, player_pieces, playable_pieces, can_play, end_turn, determine_winner } from './playerData';
+import { players, player_pieces, playable_pieces, can_play, end_turn, determine_winner, reset_player_data } from './playerData';
 import { pieces } from './pieceData';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
+
+export function reset_game(){
+    board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
+    reset_player_data();
+}
 
 // play a piece on the board (basically performs a player's turn)
 export function play_piece(boardRow, boardCol, player, piece_index){

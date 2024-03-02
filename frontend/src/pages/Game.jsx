@@ -3,6 +3,7 @@ import "./Game.css";
 import Board from "../components/Board";
 import PieceHolder from "../components/PieceHolder";
 import { currentPlayerTurnIndex, player_pieces, players } from "../gameLogic/playerData";
+import { reset_game } from "../gameLogic/board";
 
 function Game() {
   const playerTime = new Date();
@@ -20,6 +21,12 @@ function Game() {
     setSelectedBox(-1);
     setMyPlayer(players[currentPlayerTurnIndex]);
   }
+
+  // resets old game before starting new game
+  useEffect(() => {
+    reset_game();
+    endRound();
+  }, []);
 
   return (
     <div id="game">
