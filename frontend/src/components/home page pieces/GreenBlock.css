@@ -1,0 +1,17 @@
+#greenBlock {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#greenPiece {
+  background-color: #008000;
+  border: 4px solid #00dd00;
+  width: 3.75em;
+  height: 3.75em;
+  margin: -2px;
+}
+
+#clearPiece {
+  width: 2em;
+  height: 2em;
+}

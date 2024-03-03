@@ -58,10 +58,6 @@
   justify-content: center;
 }
 
-#createGameButtonContainer:hover {
-  background-color: #009200;
-}
-
 #joinGameButtonContainer {
   background-color: #0000a1;
   border: 4px solid #0000ff;
@@ -71,10 +67,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-#joinGameButtonContainer:hover {
-  background-color: #0015b1;
 }
 
 #localGameButtonContainer {
@@ -88,10 +80,6 @@
   justify-content: center;
 }
 
-#localGameButtonContainer:hover {
-  background-color: #c50000;
-}
-
 #onlineGameButtonContainer {
   background-color: #ebb346;
   border: 4px solid #fff505;
@@ -101,10 +89,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-#onlineGameButtonContainer:hover {
-  background-color: #f6c052;
 }
 
 #onlineGameCodeButtonContainer {
@@ -148,8 +132,14 @@
   justify-content: center;
 }
 
-#publicGameButtonContainer:hover {
-  background-color: #9800b3;
+#createGameButtonContainer:hover,
+#joinGameButtonContainer:hover,
+#localGameButtonContainer:hover,
+#onlineGameButtonContainer:hover,
+#publicGameButtonContainer:hover,
+#closeModal:hover,
+#backModal:hover {
+  filter: brightness(1.3);
 }
 
 #createGameText,
@@ -178,4 +168,5 @@
   text-align: center;
   width: 400px;
   line-height: 1em;
+  cursor: default;
 }
