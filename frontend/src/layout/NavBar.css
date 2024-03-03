@@ -19,7 +19,7 @@
 #navBarTitle {
   color: #d2d0d0;
   font-family: "Jockey One", sans-serif;
-  font-size: 30px;
+  font-size: 35px;
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
 }
@@ -35,7 +35,8 @@
 #homeButton:hover,
 #helpButton:hover,
 #navBarTitle:hover {
-  filter: brightness(1.3);
+  transition: .1s;
+  filter: brightness(1.2);
 }
 
 #navBar a {
