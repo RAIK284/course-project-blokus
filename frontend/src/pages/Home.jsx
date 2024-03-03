@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import StartOrJoinGameModal from "../components/modals/StartOrJoinGameModal.jsx";
-import LogoSvg from "../assets/Big BLOKUS.svg";
-import PieceBlock from "../components/PieceBlock.jsx";
 import "../components/PieceBlock.css";
-import RedPiece from "../assets/LeaderBoard.svg";
-import GreenPiece from "../assets/Play.svg";
-import BluePiece from "../assets/Profile.svg";
+import RedBlock from "../components/home page pieces/RedBlock.jsx";
+import GreenBlock from "../components/home page pieces/GreenBlock.jsx";
+import BlueBlock from "../components/home page pieces/BlueBlock.jsx";
 
 function Home() {
   const [isStartOrJoinGameModalOpen, setStartOrJoinGameModalOpen] =
@@ -27,8 +25,8 @@ function Home() {
 
       <div id="homePageButtons">
         <Link to="/leaderboard">
-          <div id="leaderBoardButtonContainer">
-            <img src={RedPiece} alt="RedPiece" id="redSVG" />
+          <div id="leaderboardButtonContainer">
+            <RedBlock />
             <span id="leaderboardText">Leaderboard</span>
           </div>
         </Link>
@@ -36,15 +34,15 @@ function Home() {
         <div id="horizontalGap"></div>
 
         <div id="playButtonContainer" onClick={openStartOrJoinGameModal}>
-          <img src={GreenPiece} alt="GreenPiece" />
-          <span id="playGameText">Play</span>
+          <GreenBlock />
+          <span id="playText">Play</span>
         </div>
 
         <div id="horizontalGap"></div>
 
         <Link to="/profile">
           <div id="profileButtonContainer">
-            <img src={BluePiece} alt="BluePiece" />
+            <BlueBlock />
             <span id="profileText">Profile</span>
           </div>
         </Link>

@@ -14,6 +14,7 @@
   font-size: 200px;
   text-shadow: -10px -10px 0 black, 10px -10px 0 black, -10px 10px 0 black,
     10px 10px 0 black;
+  cursor: default;
 }
 
 #landingButtons {
@@ -33,6 +34,11 @@
   font-size: 35px;
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
+}
+
+#loginButton:hover,
+#signUpButton:hover {
+  filter: brightness(1.1);
 }
 
 #landing a {

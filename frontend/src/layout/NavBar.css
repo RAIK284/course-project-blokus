@@ -29,6 +29,13 @@
   position: absolute;
   top: 15px;
   right: 0;
+  cursor: pointer;
+}
+
+#homeButton:hover,
+#helpButton:hover,
+#navBarTitle:hover {
+  filter: brightness(1.3);
 }
 
 #navBar a {
