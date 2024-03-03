@@ -20,6 +20,10 @@
   position: relative;
 }
 
+#modal a {
+  text-decoration: none;
+}
+
 #backModal {
   position: absolute;
   top: 0;
@@ -43,76 +47,75 @@
   justify-content: center;
 }
 
-#createGameButtonContainer,
+#createGameButtonContainer {
+  background-color: #008000;
+  border: 4px solid #00dd00;
+  width: 25em;
+  height: 3.9em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#createGameButtonContainer:hover {
+  background-color: #009200;
+}
+
+#joinGameButtonContainer {
+  background-color: #0000a1;
+  border: 4px solid #0000ff;
+  width: 25em;
+  height: 3.9em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#joinGameButtonContainer:hover {
+  background-color: #0015b1;
+}
+
 #localGameButtonContainer {
+  background-color: #af0303;
+  border: 4px solid #ff0000;
+  width: 25em;
+  height: 3.9em;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#createGameText {
-  margin: 10px;
-  font-family: "Jockey One", sans-serif;
-  color: #d2d0d0;
-  font-size: 45px;
-  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
-    2px 2px 0 black;
-  position: absolute;
-  transform: translate(-150%, -15%);
-  text-wrap: nowrap;
+#localGameButtonContainer:hover {
+  background-color: #c50000;
 }
 
-#createGameDescription,
-#joinGameDescription,
-#localGameDescription,
-#onlineGameDescription,
-#publicGameDescription {
-  font-family: "Jockey One", sans-serif;
-  color: #595757;
-  font-size: 20px;
-  text-align: center;
-  width: 400px;
-  line-height: 1em;
-}
-
-#joinGameButtonContainer,
-#onlineGameButtonContainer,
-#publicGameButtonContainer {
+#onlineGameButtonContainer {
+  background-color: #ebb346;
+  border: 4px solid #fff505;
+  width: 25em;
+  height: 3.9em;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#joinGameText {
-  margin: 10px;
-  font-family: "Jockey One", sans-serif;
-  color: #d2d0d0;
-  font-size: 45px;
-  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
-    2px 2px 0 black;
-  position: absolute;
-  transform: translate(-175%, -15%);
-  text-wrap: nowrap;
+#onlineGameButtonContainer:hover {
+  background-color: #f6c052;
 }
 
-#localGameText {
-  margin: 10px;
-  font-family: "Jockey One", sans-serif;
-  color: #d2d0d0;
-  font-size: 45px;
-  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
-    2px 2px 0 black;
-  position: absolute;
-  transform: translate(-160%, -15%);
-  text-wrap: nowrap;
-}
-
-#onlineGameText {
-  margin: 10px;
-  font-family: "Jockey One", sans-serif;
-  color: #d2d0d0;
-  font-size: 45px;
-  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
-    2px 2px 0 black;
-  position: absolute;
-  transform: translate(-150%, -15%);
-  text-wrap: nowrap;
+#onlineGameCodeButtonContainer {
+  background-color: #e7792a;
+  border: 4px solid #ffc148;
+  width: 25em;
+  height: 3.9em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #onlineGameCodeInput {
@@ -122,8 +125,6 @@
   font-size: 45px;
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
-  position: absolute;
-  transform: translate(-100%, -15%);
   text-wrap: nowrap;
   border: none;
   background-color: transparent;
@@ -136,6 +137,25 @@
   color: #d2d0d0;
 }
 
+#publicGameButtonContainer {
+  background-color: #8a00a1;
+  border: 4px solid #db00ff;
+  width: 25em;
+  height: 3.9em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#publicGameButtonContainer:hover {
+  background-color: #9800b3;
+}
+
+#createGameText,
+#joinGameText,
+#localGameText,
+#onlineGameText,
 #publicGameText {
   margin: 10px;
   font-family: "Jockey One", sans-serif;
@@ -143,13 +163,19 @@
   font-size: 45px;
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
-  position: absolute;
-  transform: translate(-152%, -15%);
   text-wrap: nowrap;
 }
 
-#enterCode {
-  height: 3em;
-  width: 8em;
-  border: 4px solid #595757;
+#createGameDescription,
+#joinGameDescription,
+#localGameDescription,
+#onlineGameDescription,
+#publicGameDescription {
+  padding-top: 0.25em;
+  font-family: "Jockey One", sans-serif;
+  color: #595757;
+  font-size: 20px;
+  text-align: center;
+  width: 400px;
+  line-height: 1em;
 }
