@@ -9,7 +9,7 @@ import Landing from "../pages/Landing";
 import "./App.css";
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
 
   const handleLogin = () => {
     setLoggedIn(true);
