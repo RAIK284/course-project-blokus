@@ -22,7 +22,7 @@ function PieceBox({
       for (let col = 0; col < piece[row].length; col++) {
         newRow.push(
           piece[row][col] === 1 ? (
-            <PieceBlock show={true} />
+            <PieceBlock show={true} player={myPlayer} />
           ) : (
             <PieceBlock show={false} />
           )

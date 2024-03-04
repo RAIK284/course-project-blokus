@@ -20,7 +20,7 @@ function BoardBlock({
           id="piece"
           className={`${player} ${highlight ? `${myPlayer} highlight` : ""}`}
         >
-          <div id="innerPiece"></div>
+          <div id="boardInnerPiece"></div>
         </div>
       )}
     </div>
