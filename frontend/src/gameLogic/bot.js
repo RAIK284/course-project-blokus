@@ -1,5 +1,5 @@
 import { board_matrix, play_piece, play_random_piece } from "./board";
-import { flip_piece, reset_pieces } from "./pieceData";
+import { flip_piece, reset_pieces, rotate_piece } from "./pieceData";
 import { player_pieces } from "./playerData";
 
 // router from components to bot play piece functions
@@ -35,15 +35,15 @@ function hard_bot_play_piece(player){
                 play_location = [0, 0];
                 break;
             case "red": 
-                play_location = [0, board_matrix.length - 1];
+                play_location = [0, board_matrix.length - 3];
                 rotations += 1; 
                 break;
             case "yellow": 
-                play_location = [board_matrix.length - 1, 0];
+                play_location = [board_matrix.length - 3, 0];
                 rotations += 3; 
                 break;
             case "green": 
-                play_location = [board_matrix.length - 1, board_matrix.length - 1];
+                play_location = [board_matrix.length - 3, board_matrix.length - 3];
                 rotations += 2; 
                 break;
         }
@@ -64,13 +64,13 @@ function hard_bot_play_piece(player){
                 play_location = [2, 2];
                 break;
             case "red": 
-                play_location = [2, board_matrix.length - 3];
+                play_location = [2, board_matrix.length - 5];
                 break;
             case "yellow": 
-                play_location = [board_matrix.length - 3, 2];
+                play_location = [board_matrix.length - 5, 2];
                 break;
             case "green": 
-                play_location = [board_matrix.length - 3, board_matrix.length - 3];
+                play_location = [board_matrix.length - 5, board_matrix.length - 5];
                 break;
         }
         play_piece(play_location[0], play_location[1], player, piece_index);
@@ -88,15 +88,15 @@ function hard_bot_play_piece(player){
                 rotations += 2;
                 break;
             case "red": 
-                play_location = [4, board_matrix.length - 5];
+                play_location = [4, board_matrix.length - 7];
                 rotations += 3; 
                 break;
             case "yellow": 
-                play_location = [board_matrix.length - 5, 4];
+                play_location = [board_matrix.length - 7, 4];
                 rotations += 1; 
                 break;
             case "green": 
-                play_location = [board_matrix.length - 5, board_matrix.length - 5];
+                play_location = [board_matrix.length - 7, board_matrix.length - 7];
                 break;
         }
         // rotate piece for player corner to fit barasona play
@@ -118,7 +118,7 @@ function hard_bot_play_piece(player){
                 piece_index = 12;
                 play_location = [5, 6];
                 flips += 1;
-                rotations += 2;
+                rotations += 3;
                 break;
             case "red": 
                 piece_index = 17;

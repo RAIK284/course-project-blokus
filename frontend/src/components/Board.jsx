@@ -10,9 +10,11 @@ import {
 import { flip_piece, pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
+import { bot_play_piece } from "../gameLogic/bot";
 
 function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   // timer values
+  const timerLength = 59;
   const [timerFlipState, setTimerFlipState] = useState(true);
   const {
     totalSeconds,
@@ -75,7 +77,7 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
       setHoverCol(-1);
       // reset time
       const time = new Date();
-      time.setSeconds(time.getSeconds() + 59);
+      time.setSeconds(time.getSeconds() + timerLength);
       restart(time);
       // end round
       endRound();
@@ -130,6 +132,7 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   useEffect(() => {
     if (seconds == 0) {
       play_random_piece(myPlayer);
+      //bot_play_piece(myPlayer, "hard");
       // delay to render piece
       setTimeout(function () {
         setBoard(board_matrix);
@@ -138,7 +141,7 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
         setHoverCol(-1);
         endRound();
         const time = new Date();
-        time.setSeconds(time.getSeconds() + 59);
+        time.setSeconds(time.getSeconds() + timerLength);
         restart(time);
       }, 10);
     }

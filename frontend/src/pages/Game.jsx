@@ -7,8 +7,10 @@ import { reset_game } from "../gameLogic/board";
 import KeyHolder from "../components/KeyHolder";
 
 function Game() {
+  // timer values
+  const timerLength = 59;
   const playerTime = new Date();
-  playerTime.setSeconds(playerTime.getSeconds() + 59);
+  playerTime.setSeconds(playerTime.getSeconds() + timerLength);
 
   // data for current user playing
   const [myPlayer, setMyPlayer] = useState(players[currentPlayerTurnIndex]);

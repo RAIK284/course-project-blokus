@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     left: 20px;
+    user-select: none;
 }
 .rKeyContainer {
     bottom: 170px;
