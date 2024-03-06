@@ -27,10 +27,13 @@ export function end_turn(){
     } else {
         currentPlayerTurnIndex++;
     }
+    console.log("new player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
     // if new player can't play, then end turn again
     if (!can_play[players[currentPlayerTurnIndex]]){
+        console.log("end_turn recurse")
         end_turn();
     } else {
+        console.log("end_turn reset pieces call")
         reset_pieces();
     }
 }
@@ -39,10 +42,13 @@ export function determine_winner(){
     let winner = { player: '', score: total_blocks_for_player + 1 };
     players.forEach((player) => {
         let score = 0;
-        for (let i = 0; i < player_pieces.length; i++){
-            let piece_size = pieces_blocks_counts[i];
-            score += piece_size;
+        for (let i = 0; i < player_pieces[player].length; i++){
+            if (player_pieces[player][i]){
+                let piece_size = pieces_blocks_counts[i];
+                score += piece_size;
+            }
         }
+        console.log(player + " score: " + score)
         if (score < winner.score)
             winner = { player: player, score: score };
     });

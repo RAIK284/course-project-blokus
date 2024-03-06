@@ -1,4 +1,4 @@
-import { players, player_pieces, playable_pieces, can_play, end_turn, determine_winner, reset_player_data } from './playerData';
+import { players, player_pieces, playable_pieces, can_play, end_turn, determine_winner, reset_player_data, currentPlayerTurnIndex } from './playerData';
 import { pieces, reset_pieces, rotate_piece } from './pieceData';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
@@ -77,11 +77,11 @@ export function play_random_piece(player, greedySize = false, greedyCorners = fa
 // checks to do after every round
 function end_round_checks(){
     set_player_game_overs();
+    console.log("current player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
     if (is_game_over()){
-        alert("game over");
-        alert("winner: " + determine_winner());
+        console.log("game over");
+        console.log("winner: " + determine_winner());
     } else {
-        console.log("end_turn call")
         end_turn();
     }
 }
