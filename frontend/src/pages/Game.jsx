@@ -4,6 +4,7 @@ import Board from "../components/Board";
 import PieceHolder from "../components/PieceHolder";
 import { currentPlayerTurnIndex, player_pieces, players } from "../gameLogic/playerData";
 import { reset_game } from "../gameLogic/board";
+import KeyHolder from "../components/KeyHolder";
 
 function Game() {
   const playerTime = new Date();
@@ -47,6 +48,7 @@ function Game() {
         selectedBox={selectedBox}
         setSelectedBox={setSelectedBox}
       />
+      <KeyHolder />
     </div>
   );
 }
