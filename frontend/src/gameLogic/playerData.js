@@ -58,12 +58,12 @@ export let player_pieces = {
 }
 
 // which pieces can actually be played
-/*export let playable_pieces = {
+export let playable_pieces = {
     yellow: Array(21).fill(true),
     red: Array(21).fill(true),
     blue: Array(21).fill(true),
     green: Array(21).fill(true),
-}*/
+}
 
 // who is still in the game
 export let can_play = {

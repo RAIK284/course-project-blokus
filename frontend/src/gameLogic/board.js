@@ -102,12 +102,19 @@ function set_player_game_overs() {
             for (let col = 0; col < board_matrix[row].length; col++) {
                 // loop through pieces
                 for (let piece_index = 0; piece_index < pieces.length; piece_index++){
-                    // which pieces can the player play, if any at all?
-                    if (player_pieces[player] && can_play_piece(row, col, piece_index, player)){
-                        player_can_play = true;
-                        //playable_pieces[player][piece_index] = true;
-                    } else {
-                        //playable_pieces[player][piece_index] = false;
+                    let piece_was_playable = false;
+                    // loop through each rotation
+                    for (let rotation = 0; rotation < 3; rotation++){
+                        // which pieces can the player play, if any at all?
+                        if (player_pieces[player] && can_play_piece(row, col, piece_index, player)){
+                            player_can_play = true;
+                            piece_was_playable = true;
+                        }
+                        rotate_piece(piece_index);
+                    }
+                    reset_pieces();
+                    if (!piece_was_playable){
+                        playable_pieces[player][piece_index] = false;
                     }
                 }
             }
