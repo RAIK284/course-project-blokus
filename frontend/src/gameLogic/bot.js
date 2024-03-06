@@ -16,12 +16,12 @@ function easy_bot_play_piece(player){
     play_random_piece(player);
 }
 
-// medium bot: plays the largest piece it can
+// medium bot: greedy placing by size
 function medium_bot_play_piece(player){
     play_random_piece(player, true);
 }
 
-// hard bot: barasona opening into largest piece playing, predicts one turn ahead to see if it will get trapped
+// hard bot: barasona opening into greeding placing by size and playable corners
 function hard_bot_play_piece(player){
     let turn = player_pieces[player].filter(value => value === false).length + 1;
     if (turn == 1){
@@ -146,7 +146,6 @@ function hard_bot_play_piece(player){
         reset_pieces();
     } 
     else {
-        // need to add prediction
-        play_random_piece(player, true);
+        play_random_piece(player, true, true);
     }
 }

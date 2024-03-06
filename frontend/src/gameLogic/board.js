@@ -24,13 +24,13 @@ export function play_piece(boardRow, boardCol, player, piece_index){
 }
 
 // plays a piece on the board randomly if player timer runs out
-export function play_random_piece(player, descending = false){
+export function play_random_piece(player, greedySize = false, greedyCorners = false){
     // create array of all 21 piece indeces
     let indeces_array = [];
     for (let i = 20; i >= 0; i--) {
         indeces_array.push(i);
     }
-    if (!descending){
+    if (!greedySize){
         // randomly sort the array of indeces
         indeces_array.sort(() => Math.random() - 0.5);
     }
@@ -81,6 +81,7 @@ function end_round_checks(){
         alert("game over");
         alert("winner: " + determine_winner());
     } else {
+        console.log("end_turn call")
         end_turn();
     }
 }
