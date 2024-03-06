@@ -98,27 +98,28 @@ function set_player_game_overs() {
     // loop through players
     players.forEach((player) => {
         let player_can_play = false;
-        // loop through board_matrix
-        for (let row = 0; row < board_matrix.length; row++) {
-            for (let col = 0; col < board_matrix[row].length; col++) {
-                // loop through pieces
-                for (let piece_index = 0; piece_index < pieces.length; piece_index++){
-                    let piece_was_playable = false;
-                    // loop through each rotation
-                    for (let rotation = 0; rotation < 3; rotation++){
-                        // which pieces can the player play, if any at all?
-                        if (player_pieces[player] && can_play_piece(row, col, piece_index, player)){
-                            player_can_play = true;
-                            piece_was_playable = true;
+        // loop through pieces
+        for (let piece_index = 0; piece_index < pieces.length; piece_index++){
+            let piece_was_playable = false;
+            // check if player has piece
+            if (player_pieces[player][piece_index]){
+                // loop through each rotation
+                for (let rotation = 0; rotation < 3; rotation++){
+                    // loop through board_matrix
+                    for (let row = 0; row < board_matrix.length; row++) {
+                        for (let col = 0; col < board_matrix[row].length; col++) {
+                            // which pieces can the player play, if any at all?
+                            if (player_pieces[player] && can_play_piece(row, col, piece_index, player)){
+                                player_can_play = true;
+                                piece_was_playable = true;
+                            }
                         }
-                        rotate_piece(piece_index);
                     }
-                    reset_pieces();
-                    if (!piece_was_playable){
-                        playable_pieces[player][piece_index] = false;
-                    }
+                    rotate_piece(piece_index);
                 }
+                reset_pieces();
             }
+            playable_pieces[player][piece_index] = piece_was_playable;
         }
         // sets if the player can play any pieces
         can_play[player] = player_can_play;
