@@ -1,5 +1,5 @@
 import { players, player_pieces, playable_pieces, can_play, end_turn, determine_winner, reset_player_data } from './playerData';
-import { pieces } from './pieceData';
+import { pieces, reset_pieces, rotate_piece } from './pieceData';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
 
@@ -24,28 +24,50 @@ export function play_piece(boardRow, boardCol, player, piece_index){
 }
 
 // plays a piece on the board randomly if player timer runs out
-export function play_random_piece(player){
+export function play_random_piece(player, descending = false){
     // create array of all 21 piece indeces
     let indeces_array = [];
-    for (let i = 0; i <= 20; i++) {
+    for (let i = 20; i >= 0; i--) {
         indeces_array.push(i);
     }
-    // shuffle the array of indeces
-    indeces_array.sort(() => Math.random() - 0.5);
+    if (!descending){
+        // randomly sort the array of indeces
+        indeces_array.sort(() => Math.random() - 0.5);
+    }
     while (indeces_array.length > 0){
         // get random piece index
         let piece_index = indeces_array[0];
         // if player has that piece
         if (player_pieces[player][piece_index]){
-            // loop through board 2d array
-            for (let boardRow = 0; boardRow < board_matrix.length; boardRow++) {
-                for (let boardCol = 0; boardCol < board_matrix[boardRow].length; boardCol++) {
-                    // check if a piece can be played at the spot
-                    if (can_play_piece(boardRow, boardCol, piece_index, player)){
-                        play_piece(boardRow, boardCol, player, piece_index);
-                        return;
+            // all possible plays with that piece (each item being 2d matrix of row, col and rotations)
+            let possible_piece_plays = [];
+            // loop through each rotation
+            for (let rotation = 0; rotation < 3; rotation++){
+                // loop through board 2d array
+                for (let boardRow = 0; boardRow < board_matrix.length; boardRow++) {
+                    for (let boardCol = 0; boardCol < board_matrix[boardRow].length; boardCol++) {
+                        // check if a piece can be played at the spot, if so add to possible plays
+                        if (can_play_piece(boardRow, boardCol, piece_index, player)){
+                            possible_piece_plays.push([boardRow, boardCol, rotation]);
+                        }
                     }
                 }
+                rotate_piece(piece_index);
+            }
+            reset_pieces();
+            // if there is a possible play
+            if (possible_piece_plays.length > 0){
+                // get random play from possible plays, play it
+                let possiblePlaysIndex = Math.floor(Math.random() * possible_piece_plays.length);
+                let randomPlay = possible_piece_plays[possiblePlaysIndex];
+                let playRotations = randomPlay[2];
+                // rotate back to random play piece rotation
+                for (let revertRotation = 0; revertRotation < playRotations; revertRotation++){
+                    rotate_piece(piece_index);
+                }
+                play_piece(randomPlay[0], randomPlay[1], player, piece_index);
+                reset_pieces();
+                return;
             }
         }
         indeces_array.shift();
