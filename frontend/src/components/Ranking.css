@@ -1,0 +1,37 @@
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#rank, #name, #score {
+    height: 35px;
+    font-size: 25px;
+    text-align: center;
+    justify-content: center;
+    font-weight: bold;
+    font-family: "Jockey One", sans-serif;
+    color: #D2D0D0;
+    background-color: #262626;
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+#rank {
+    width: 70px;
+}
+
+#name {
+    width: 270px;
+    text-align: left;
+    text-indent: 25px;
+}
+
+#score {
+    width: 70px;
+}
+
