@@ -1,7 +1,7 @@
 
 export const total_blocks_for_player = 89;
 
-export const pieces_blocks_counts = [ 5, 3, 5, 5, 5, 5, 1, 4, 4, 5, 5, 4, 5, 5, 5, 5, 2, 5, 3, 4, 4 ];
+export const pieces_blocks_counts = [ 1, 2, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
 
 export function rotate_piece(pieceIndex) {
     const piece = pieces[pieceIndex];
@@ -34,12 +34,42 @@ export function flip_piece(pieceIndex) {
     1: block, 0: no block
 */
 export let pieces = [
-    [ 
-        [1, 1, 1, 1, 1]
+    [
+        [1]
+    ],
+    [
+        [1],
+        [1]
+    ],
+    [
+        [1, 1, 1]
     ],
     [
         [1, 1],
         [1, 0]
+    ],
+    [
+        [1, 1, 1, 1]
+    ],
+    [
+        [0, 1],
+        [0, 1],
+        [1, 1]
+    ],
+    [
+        [0, 1, 0],
+        [1, 1, 1]
+    ],
+    [
+        [1, 1],
+        [1, 1]
+    ],
+    [
+        [0, 1, 1],
+        [1, 1, 0]
+    ],
+    [ 
+        [1, 1, 1, 1, 1]
     ],
     [
         [1, 1, 1, 1],
@@ -60,16 +90,6 @@ export let pieces = [
         [0, 1, 0]
     ],
     [
-        [1]
-    ],
-    [
-        [1, 1],
-        [1, 1]
-    ],
-    [
-        [1, 1, 1, 1]
-    ],
-    [
         [0, 0, 1],
         [1, 1, 1],
         [1, 0, 0]
@@ -78,11 +98,6 @@ export let pieces = [
         [0, 0, 1],
         [0, 1, 1],
         [1, 1, 0]
-    ],
-    [
-        [0, 1],
-        [0, 1],
-        [1, 1]
     ],
     [
         [1, 1, 1, 1],
@@ -103,26 +118,11 @@ export let pieces = [
         [0, 1, 0]
     ],
     [
-        [1],
-        [1]
-    ],
-    [
         [0, 1],
         [1, 1],
         [1, 0],
         [1, 0]
     ],
-    [
-        [1, 1, 1]
-    ],
-    [
-        [0, 1, 1],
-        [1, 1, 0]
-    ],
-    [
-        [0, 1, 0],
-        [1, 1, 1]
-    ]
 ];
 
 const originalPieces = pieces.map(piece => piece.map(subPiece => subPiece.slice()));
