@@ -5,6 +5,7 @@ import PieceHolder from "../components/PieceHolder";
 import { currentPlayerTurnIndex, player_pieces, players } from "../gameLogic/playerData";
 import { reset_game } from "../gameLogic/board";
 import KeyHolder from "../components/KeyHolder";
+import Avatar from "../components/Avatar";
 
 function Game() {
   // timer values
@@ -34,18 +35,26 @@ function Game() {
   return (
     <div id="game">
       <div id="boardHolder">
+        <div id="avatarHolder">
+          <Avatar player="blue" />
+          <Avatar player="yellow" />
+        </div>
         <div id="boardOutline">
-          <Board 
-            pieceIndex={pieceIndex} 
+          <Board
+            pieceIndex={pieceIndex}
             myPlayer={myPlayer}
             expiryTimestamp={playerTime}
             endRound={endRound}
           />
         </div>
+        <div id="avatarHolder">
+          <Avatar player="red" />
+          <Avatar player="green" />
+        </div>
       </div>
-      <PieceHolder 
-        setPiece={setPieceIndex} 
-        userPieces={userPieces} 
+      <PieceHolder
+        setPiece={setPieceIndex}
+        userPieces={userPieces}
         myPlayer={myPlayer}
         selectedBox={selectedBox}
         setSelectedBox={setSelectedBox}

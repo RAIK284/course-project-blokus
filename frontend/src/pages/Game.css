@@ -12,6 +12,11 @@
     height: 100vh;
 }
 
+#avatarHolder {
+    display: flex;
+    flex-direction: column;
+}
+
 #boardOutline {
     width: 475px;
     height: 475px;

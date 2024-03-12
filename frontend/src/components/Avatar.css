@@ -1,0 +1,70 @@
+
+#computerAvatar, #blueAvatar, #redAvatar, #greenAvatar, #yellowAvatar {
+    width: 100px;
+    height: 100px;
+}
+
+#blueAvatar {
+    filter: brightness(0) saturate(100%) invert(9%) sepia(97%) saturate(6331%) hue-rotate(247deg) brightness(99%) contrast(147%);
+}
+#redAvatar {
+    filter: brightness(0) saturate(100%) invert(21%) sepia(92%) saturate(5422%) hue-rotate(356deg) brightness(116%) contrast(134%);
+}
+#greenAvatar {
+    filter: brightness(0) saturate(100%) invert(29%) sepia(95%) saturate(1257%) hue-rotate(92deg) brightness(96%) contrast(107%);
+}
+#yellowAvatar {
+    filter: brightness(0) saturate(100%) invert(90%) sepia(9%) saturate(5449%) hue-rotate(327deg) brightness(104%) contrast(84%);
+}
+
+#computerBottomText {
+    width: 100px;
+    height: 100px;
+    margin-top: -35px;
+    color: #7B7B7B;
+    font-size: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Jockey One", sans-serif;
+}
+
+#blueBottomText, #redBottomText, #greenBottomText, #yellowBottomText {
+    width: 100px;
+    height: 100px;
+    margin-top: -15px;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Jockey One", sans-serif;
+    color: #EBE7E4;
+}
+#blueBottomText {
+    /* margin-bottom: 500px;*/ 
+    text-shadow: -2px -2px 0 #0000FF, 2px -2px 0 #0000FF, -2px 2px 0 #0000FF, 2px 2px 0 #0000FF;
+}
+#redBottomText {
+    text-shadow: -2px -2px 0 #FF0000, 2px -2px 0 #FF0000, -2px 2px 0 #FF0000, 2px 2px 0 #FF0000;
+}
+#greenBottomText {
+    text-shadow: -2px -2px 0 #008000, 2px -2px 0 #008000, -2px 2px 0 #008000, 2px 2px 0 #008000;
+}
+#yellowBottomText {
+    text-shadow: -2px -2px 0 #EBB346, 2px -2px 0 #EBB346, -2px 2px 0 #EBB346, 2px 2px 0 #EBB346;
+}
+
+
+#blueContainer {
+    margin-bottom: 95px;
+}
+
+#redContainer {
+    margin-bottom: 95px;
+}
+
+#greenContainer {
+    margin-top: 95px;
+}
+
+#yellowContainer {
+    margin-top: 95px;
+}
