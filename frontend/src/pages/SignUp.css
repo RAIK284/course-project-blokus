@@ -11,20 +11,21 @@
   text-shadow: 0 0 3px #000000, 0 0 8px #000000;
 }
 
-/* #profilebox {
+#signupbox {
   display: flex;
   background: #262626;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin-top: 50px;
-  width: 505px;
-  height: 501px;
+  width: 700px;
+  height: 551px;
   border: solid;
   border-color: #000000;
   border-width: 5px;
 }
 
-#imagebox {
+#suimagebox {
   align-self: center;
   width: 200px;
   height: 200px;
@@ -34,34 +35,49 @@
   border-width: 5px;
 }
 
-#userinfo {
+#suinfocontainer {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+}
+
+#suinfotext {
+  width: 150px;
   margin-top: 45px;
   align-self: flex-start;
-  margin-left: 50px;
   font-size: 20px;
+  color: grey;
 }
 
-#infobox {
+.suinfobox {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  text-align: right;
+  padding-bottom: 30px;
 }
 
-#textbox {
+#suinputtext {
+  width: 100px;
+  margin-top: 45px;
+  align-self: flex-start;
   margin-left: 20px;
+  font-size: 20px;
+  color: grey;
 }
 
-#logoutbutton {
+.sutextbox {
+  text-align: left !important;
+  color: white;
+  padding-bottom: 30px
+}
+
+#signupbutton {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #262626;
   height: 60px;
-  width: 150px;
+  width: 120px;
   margin-top: 40px;
   border: solid;
   border-color: #000000;
   border-width: 5px;
-} */
+}
