@@ -1,0 +1,83 @@
+#login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 130px;
+    text-align: center;
+    font-family: "Jockey One";
+    font-size: 30px;
+    color: white;
+    text-shadow: 0 0 3px #000000, 0 0 8px #000000;
+  }
+
+  #loginbox {
+    display: flex;
+    background: #262626;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    width: 550px;
+    height:401px;
+    border: solid;
+    border-color: #000000;
+    border-width: 5px;
+  }
+  
+  #loimagebox {
+    align-self: center;
+    width: 200px;
+    height: 200px;
+    background-color: #3d3c3c;
+    border: solid;
+    border-color: #000000;
+    border-width: 5px;
+  }
+  
+  #loinfocontainer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  #loinfotext {
+    margin-top: 45px;
+    align-self: flex-start;
+    font-size: 20px;
+    color: grey;
+  }
+  
+  .loinfobox {
+    display: flex;
+    text-align: right;
+    padding-bottom: 30px;
+  }
+  
+  #loinputtext {
+    width: 150px;
+    margin-top: 45px;
+    align-self: flex-start;
+    margin-left: 20px;
+    font-size: 20px;
+    color: grey;
+  }
+  
+  .lotextbox {
+    text-align: left !important;
+    color: white;
+    padding-bottom: 30px
+  }
+  
+  #loginbutton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #262626;
+    height: 60px;
+    width: 120px;
+    margin-top: 40px;
+    border: solid;
+    border-color: #000000;
+    border-width: 5px;
+    margin-bottom: 10px;
+  }

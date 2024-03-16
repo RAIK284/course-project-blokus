@@ -17,23 +17,15 @@ export function rotate_piece(pieceIndex) {
 }
 
 export function flip_piece(pieceIndex) {
-    // case for matrices with odd # of rows
-    if (pieceIndex.length % 2 != 0) {
-        // swap first and last rows
-        const temp = pieceIndex[0];
-        pieceIndex[0] = pieceIndex[pieceIndex.length - 1];
-        pieceIndex[pieceIndex.length - 1] = temp;
+    let piece = pieces[pieceIndex]
+    // loop through half of the rows
+    for (let i = 0; i < piece.length / 2; i++) {
+        // swap rows across the horizontal axis
+        const temp = piece[i];
+        piece[i] = piece[piece.length - 1 - i];
+        piece[piece.length - 1 - i] = temp;
     }
-    // case for matrices with even # of rows
-    else {
-        // loop through half of rows
-        for (let i = 0; i < pieceIndex.length / 2; i++) {
-            // swap first row with last, second with second-to-last, etc.
-            const temp = pieceIndex[i];
-            pieceIndex[i] = pieceIndex[pieceIndex.length - 1 - i];
-            pieceIndex[pieceIndex.length - 1 - i] = temp;
-        }
-    }
+    pieces[pieceIndex] = piece;
 }
 
 /*
@@ -133,8 +125,8 @@ export let pieces = [
     ]
 ];
 
-export function reset_pieces(){
-    pieces = originalPieces;
-}
-
 const originalPieces = pieces.map(piece => piece.map(subPiece => subPiece.slice()));
+
+export function reset_pieces(){
+    pieces = originalPieces.map(piece => piece.map(subPiece => subPiece.slice()));
+}

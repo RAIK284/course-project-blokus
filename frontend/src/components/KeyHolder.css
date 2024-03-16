@@ -1,0 +1,43 @@
+.rKeyContainer, .fKeyContainer {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 20px;
+    user-select: none;
+}
+.rKeyContainer {
+    bottom: 170px;
+}
+.fKeyContainer {
+    bottom: 120px;
+}
+.key {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.keyInner {
+    width: 70%;
+    height: 70%;
+    border: 2.5px solid rgb(162, 162, 162);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.keyText {
+    font-size: 18px;
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+.keyLabel {
+    font-size: 22px;
+    padding-bottom: 6px;
+    font-weight: 600;
+    color: white;
+    padding-left: 6px;
+}

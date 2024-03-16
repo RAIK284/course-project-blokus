@@ -3,9 +3,16 @@ import "./Game.css";
 import Board from "../components/Board";
 import PieceHolder from "../components/PieceHolder";
 import { currentPlayerTurnIndex, player_pieces, players } from "../gameLogic/playerData";
+import { reset_game } from "../gameLogic/board";
+import KeyHolder from "../components/KeyHolder";
 
 function Game() {
-  // stores data for current user playing
+  // timer values
+  const timerLength = 59;
+  const playerTime = new Date();
+  playerTime.setSeconds(playerTime.getSeconds() + timerLength);
+
+  // data for current user playing
   const [myPlayer, setMyPlayer] = useState(players[currentPlayerTurnIndex]);
   const [pieceIndex, setPieceIndex] = useState(-1);
   const [userPieces, setUserPieces] = useState(player_pieces);
@@ -18,13 +25,20 @@ function Game() {
     setMyPlayer(players[currentPlayerTurnIndex]);
   }
 
+  // resets old game before starting new game
+  useEffect(() => {
+    reset_game();
+    endRound();
+  }, []);
+
   return (
     <div id="game">
       <div id="boardHolder">
         <div id="boardOutline">
           <Board 
             pieceIndex={pieceIndex} 
-            myPlayer={myPlayer} 
+            myPlayer={myPlayer}
+            expiryTimestamp={playerTime}
             endRound={endRound}
           />
         </div>
@@ -36,6 +50,7 @@ function Game() {
         selectedBox={selectedBox}
         setSelectedBox={setSelectedBox}
       />
+      <KeyHolder />
     </div>
   );
 }

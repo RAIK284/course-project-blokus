@@ -1,0 +1,46 @@
+#landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin-top: -3rem;
+}
+
+#landingTitle {
+  color: #d2d0d0;
+  float: center;
+  font-family: "Jockey One", sans-serif;
+  font-size: 200px;
+  text-shadow: -10px -10px 0 black, 10px -10px 0 black, -10px 10px 0 black,
+    10px 10px 0 black;
+  cursor: default;
+}
+
+#landingButtons {
+  display: flex;
+  align-items: center;
+  margin-top: -3rem;
+}
+
+#loginButton,
+#signUpButton {
+  width: 7.5rem;
+  text-align: center;
+  background: #262626;
+  margin: 10px;
+  font-family: "Jockey One", sans-serif;
+  color: #d2d0d0;
+  font-size: 35px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+}
+
+#loginButton:hover,
+#signUpButton:hover {
+  filter: brightness(1.1);
+}
+
+#landing a {
+  text-decoration: none;
+}

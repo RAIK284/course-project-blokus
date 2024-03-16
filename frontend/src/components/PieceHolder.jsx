@@ -8,11 +8,12 @@ function PieceHolder({ setPiece, userPieces, myPlayer, selectedBox, setSelectedB
         <div id="pieceHolder">
             {pieces.map((piece, index) => (
                 <PieceBox 
+                    myPlayer={myPlayer}
                     hasPieceBeenPlayed={userPieces[myPlayer][index] === false} 
                     isBoxSelected={selectedBox === index} 
                     setSelectedBox={() => setSelectedBox(selectedBox === index ? -1 : index)}
-                    setPieceIndex={() => setPiece(selectedBox === index ? -1 : index)} 
-                    pieceMatrix={piece}
+                    pieceIndex={index}
+                    setPieceIndex={() => setPiece(selectedBox === index ? -1 : index)}
                 />
             ))}
         </div>

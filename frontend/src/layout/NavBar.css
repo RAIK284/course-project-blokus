@@ -4,20 +4,41 @@
   width: 100vw;
   position: fixed;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   z-index: 1;
 }
 
 #homeButton {
-  background-color: transparent;
+  padding-left: 1em;
+  position: absolute;
+  top: 15px;
+  left: 0;
 }
 
-#title {
-  color: white;
-  float: center;
+#navBarTitle {
+  color: #d2d0d0;
+  font-family: "Jockey One", sans-serif;
+  font-size: 35px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
 }
 
 #helpButton {
-  background-color: transparent;
+  padding-right: 1em;
+  position: absolute;
+  top: 15px;
+  right: 0;
+  cursor: pointer;
+}
+
+#homeButton:hover,
+#helpButton:hover,
+#navBarTitle:hover {
+  transition: .1s;
+  filter: brightness(1.2);
+}
+
+#navBar a {
+  text-decoration: none;
 }

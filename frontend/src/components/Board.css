@@ -1,5 +1,30 @@
 #board {
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#timerHolder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#playerTimer {
+    margin-top: 470px;
+    color: white;
+    font-size: 25px;
+    width: 100vw;
+    text-align: center;
+    font-family: "Jockey One", sans-serif;
+    text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+}
+.redBorder {
+    text-shadow: -2px -2px 0 rgb(193,21,21), 2px -2px 0 rgb(193,21,21), -2px 2px 0 rgb(193,21,21), 2px 2px 0 rgb(193,21,21) !important;
 }

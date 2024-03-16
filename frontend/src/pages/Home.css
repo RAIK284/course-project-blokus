@@ -1,0 +1,76 @@
+#home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin-top: -3rem;
+}
+
+#homeTitle {
+  color: #d2d0d0;
+  float: center;
+  font-family: "Jockey One", sans-serif;
+  font-size: 200px;
+  text-shadow: -10px -10px 0 black, 10px -10px 0 black, -10px 10px 0 black,
+    10px 10px 0 black;
+  cursor: default;
+}
+
+#homePageButtons {
+  display: flex;
+  align-items: center;
+  margin-top: -5rem;
+}
+
+#playButtonContainer {
+  margin-top: 65px;
+  cursor: pointer;
+}
+
+#leaderboardButtonContainer #redBlock {
+  z-index: 10;
+}
+
+#leaderboardButtonContainer:hover #redBlock #redPiece,
+#playButtonContainer:hover #greenBlock #greenPiece,
+#profileButtonContainer:hover #blueBlock #bluePiece {
+  transition: .1s;
+  filter: brightness(1.2);
+}
+
+#leaderboardText {
+  margin: 10px;
+  font-family: "Jockey One", sans-serif;
+  color: #d2d0d0;
+  font-size: 45px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+  position: absolute;
+  transform: translate(5%, -218%);
+}
+
+#playText {
+  margin: 10px;
+  font-family: "Jockey One", sans-serif;
+  color: #d2d0d0;
+  font-size: 45px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+  position: absolute;
+  transform: translate(67%, -220%);
+}
+#profileText {
+  margin: 10px;
+  font-family: "Jockey One", sans-serif;
+  color: #d2d0d0;
+  font-size: 45px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+  position: absolute;
+  transform: translate(58%, -218%);
+}
+
+#horizontalGap {
+  width: 5rem;
+}

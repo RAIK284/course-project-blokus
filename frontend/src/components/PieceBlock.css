@@ -1,8 +1,32 @@
 #pieceBlock {
-    width: 14px;
-    height: 14px;
-    background: #008000;
-    border: 1px solid #00DD00;
+    width: 13px;
+    height: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#pieceInnerPiece {
+    width: 50%;
+    height: 50%;
+    border: 1px solid black;
+    opacity: .15;
+}
+
+.redPiece {
+    background: #d52121;
+    box-shadow: 0px 0px 0px 1px #b80f0f inset;
+}
+.yellowPiece {
+    background: #d7d043;
+    box-shadow: 0px 0px 0px 1px #bab329 inset;
+}
+.bluePiece {
+    background: #1c68f5;
+    box-shadow: 0px 0px 0px 1px #1559d6 inset;
+}
+.greenPiece {
+    background: #13A340;
+    box-shadow: 0px 0px 0px 1px #0e8333 inset;
 }
 
 .pieceRow {
