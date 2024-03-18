@@ -97,6 +97,7 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
   const playBotRound = (difficulty) => {
     bot_play_piece(myPlayer, difficulty);
     setBoard(board_matrix);
+    fillBoard();
     endRound();
   }
 
