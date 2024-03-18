@@ -19,6 +19,12 @@ function RulesModal({ isOpen, onClose }) {
             <div class="ruwelcomemessage">
               The Rules of Blokus:
             </div>
+            <object
+                id="rupdf"
+                type="application/pdf"
+                data="https://service.mattel.com/instruction_sheets/BJV44-Eng.pdf"
+              >
+              </object>
           </div>
         </div>
       </div>

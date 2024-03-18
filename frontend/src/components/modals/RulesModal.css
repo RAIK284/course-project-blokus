@@ -29,10 +29,25 @@
 
 #rumodalcontent {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   font-family: "Jockey One", sans-serif;
   color: #d2d0d0;
   font-size: 40px;
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
+}
+
+.ruwelcomemessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+#rupdf {
+  display: flex;
+  width: 700px;
+  height: 575px;
+  justify-content: center;
 }
