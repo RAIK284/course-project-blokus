@@ -11,8 +11,9 @@ import { flip_piece, pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
+import { bots_playing, currentPlayerTurnIndex } from "../gameLogic/playerData";
 
-function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
+function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   // timer values
   const timerLength = 59;
   const [timerFlipState, setTimerFlipState] = useState(true);
@@ -38,11 +39,20 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   const [hoverCol, setHoverCol] = useState(-1);
   const hoverRowRef = useRef(hoverRow);
   const hoverColRef = useRef(hoverCol);
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     hoverRowRef.current = hoverRow;
     hoverColRef.current = hoverCol;
   }, [hoverRow, hoverCol]);
+
+  const startGame = () => {
+    var playersChosen = playerNames.every(item => !item.includes('c'));
+    if (playersChosen){
+      setGameStarted(true);
+      resume();
+    }
+  }
 
   // creates a 20x20 grid of block components based on board 2d matrix
   const fillBoard = () => {
@@ -83,6 +93,12 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
       endRound();
     }
   };
+
+  const playBotRound = (difficulty) => {
+    bot_play_piece(myPlayer, difficulty);
+    setBoard(board_matrix);
+    endRound();
+  }
 
   const setBoardHighlights = (row, col) => {
     removeHighlightsFromBoard();
@@ -132,7 +148,6 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   useEffect(() => {
     if (seconds == 0) {
       play_random_piece(myPlayer);
-      //bot_play_piece(myPlayer, "hard");
       // delay to render piece
       setTimeout(function () {
         setBoard(board_matrix);
@@ -174,7 +189,14 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
     };
   }, [pieceIndex]);
 
-  // fills board state on updates, starts timer
+  useEffect(() => {
+    var bot = bots_playing[currentPlayerTurnIndex];
+    if (bot != ''){
+      playBotRound(bot);
+    }
+  }, [myPlayer]);
+
+  // fills board state on updates
   useEffect(() => {
     fillBoard();
   }, [board]);
@@ -182,16 +204,26 @@ function Board({ pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   // sets the board to board matrix at start of game
   useEffect(() => {
     setBoard(board_matrix);
+    pause();
   }, []);
 
   return (
     <>
       <div id="board">{displayRows}</div>
+
       <div id="timerHolder">
-        <div id="playerTimer" className={seconds <= 10 ? "redBorder" : ""}>
-          {seconds}
-        </div>
+        {
+          gameStarted ?
+            <div id="playerTimer" className={seconds <= 10 ? "redBorder" : ""}>
+              {seconds}
+            </div>
+          :
+            <div id="startBtn" onClick={() => startGame()}>
+              Start Game
+            </div>
+        }
       </div>
+
     </>
   );
 }

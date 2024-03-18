@@ -2,6 +2,8 @@ import { reset_pieces, pieces_blocks_counts, total_blocks_for_player } from "./p
 
 export let players = ['blue', 'red', 'yellow', 'green'];
 
+export let bots_playing = ['', '', '', ''];
+
 // index of which player's turn it is (ex: index 0 = yellow turn)
 export let currentPlayerTurnIndex = 0;
 
@@ -19,6 +21,7 @@ export function reset_player_data(){
         blue: true,
         green: true,
     }
+    bots_playing = ['', '', '', ''];
 }
 
 export function end_turn(){

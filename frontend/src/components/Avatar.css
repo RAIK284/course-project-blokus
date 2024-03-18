@@ -1,7 +1,11 @@
 
-#computerAvatar, #blueAvatar, #redAvatar, #greenAvatar, #yellowAvatar {
-    width: 100px;
-    height: 100px;
+#c1Avatar, #c2Avatar, #c3Avatar, #c4Avatar, #blueAvatar, #redAvatar, #greenAvatar, #yellowAvatar {
+    width: 120px;
+    height: 80px;
+}
+
+#c1Avatar, #c2Avatar, #c3Avatar, #c4Avatar {
+    cursor: pointer;
 }
 
 #blueAvatar {
@@ -17,29 +21,27 @@
     filter: brightness(0) saturate(100%) invert(90%) sepia(9%) saturate(5449%) hue-rotate(327deg) brightness(104%) contrast(84%);
 }
 
-#computerBottomText {
-    width: 100px;
-    height: 100px;
-    margin-top: -35px;
+
+#c1BottomText, #c2BottomText, #c3BottomText, #c4BottomText  {
+    width: 120px;
+    line-height: 0;
     color: #7B7B7B;
     font-size: 50px;
     text-align: center;
     font-weight: bold;
     font-family: "Jockey One", sans-serif;
+    cursor: pointer;
 }
 
 #blueBottomText, #redBottomText, #greenBottomText, #yellowBottomText {
-    width: 100px;
-    height: 100px;
-    margin-top: -15px;
-    font-size: 25px;
+    width: 120px;
+    line-height: 0;
+    font-size: 20px;
     text-align: center;
-    font-weight: bold;
     font-family: "Jockey One", sans-serif;
-    color: #EBE7E4;
+    color: white;
 }
 #blueBottomText {
-    /* margin-bottom: 500px;*/ 
     text-shadow: -2px -2px 0 #0000FF, 2px -2px 0 #0000FF, -2px 2px 0 #0000FF, 2px 2px 0 #0000FF;
 }
 #redBottomText {
@@ -52,19 +54,45 @@
     text-shadow: -2px -2px 0 #EBB346, 2px -2px 0 #EBB346, -2px 2px 0 #EBB346, 2px 2px 0 #EBB346;
 }
 
-
-#blueContainer {
-    margin-bottom: 95px;
+#blueContainer, #redContainer, #c1Container, #c3Container {
+    margin-bottom: 180px;
+    position: relative;
+    z-index: 2;
 }
 
-#redContainer {
-    margin-bottom: 95px;
+#greenContainer, #yellowContainer, #c2Container, #c4Container {
+    margin-top: 180px;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 60px;
 }
 
-#greenContainer {
-    margin-top: 95px;
+#choicePopup {
+    position: absolute;
+    left: 100px;
+    top: -10px;
+    background: #d2d0d0;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    width: 120px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    z-index: 4;
+    border-radius: 6px;
+    border: 3px solid gray;
 }
 
-#yellowContainer {
-    margin-top: 95px;
+#choicePopup div {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    user-select: none;
+}
+
+#choicePopup div:hover {
+    cursor: pointer;
+    transition: .1s;
+    background: rgb(181, 181, 181)
 }

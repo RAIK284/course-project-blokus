@@ -28,3 +28,23 @@
 .redBorder {
     text-shadow: -2px -2px 0 rgb(193,21,21), 2px -2px 0 rgb(193,21,21), -2px 2px 0 rgb(193,21,21), 2px 2px 0 rgb(193,21,21) !important;
 }
+
+#startBtn {
+    margin-bottom: 60px;
+    color: white;
+    background: green;
+    border: 4px solid darkgreen;
+    font-size: 20px;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    z-index: 2;
+}
+
+#startBtn:hover {
+    cursor: pointer;
+    filter: brightness(110%);
+    transition: .1s;
+}
