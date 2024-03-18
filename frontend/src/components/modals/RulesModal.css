@@ -31,6 +31,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   font-family: "Jockey One", sans-serif;
   color: #d2d0d0;
   font-size: 40px;
