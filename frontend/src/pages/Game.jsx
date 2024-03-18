@@ -39,7 +39,12 @@ function Game() {
         case 3: label = "green"; break;
       }
     } else {
-      bots_playing[index] = mode;
+      switch (index) {
+        case 0: bots_playing[0] = mode; break;
+        case 1: bots_playing[2] = mode; break;
+        case 2: bots_playing[1] = mode; break;
+        case 3: bots_playing[3] = mode; break;
+      }
       label = mode + " bot";
     }
     const updatedPlayerNames = [...playerNames];
@@ -50,6 +55,7 @@ function Game() {
   // resets old game before starting new game
   useEffect(() => {
     reset_game();
+    setPlayerNames((['blue', 'c2', 'c3', 'c4']));
     endRound();
   }, []);
 
