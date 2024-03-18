@@ -42,16 +42,16 @@
     color: white;
 }
 #blueBottomText {
-    text-shadow: -2px -2px 0 #0000FF, 2px -2px 0 #0000FF, -2px 2px 0 #0000FF, 2px 2px 0 #0000FF;
+    text-shadow: -1px -1px 0 #0000FF, 1px -1px 0 #0000FF, -1px 1px 0 #0000FF, 1px 1px 0 #0000FF;
 }
 #redBottomText {
-    text-shadow: -2px -2px 0 #FF0000, 2px -2px 0 #FF0000, -2px 2px 0 #FF0000, 2px 2px 0 #FF0000;
+    text-shadow: -1px -1px 0 #FF0000, 1px -1px 0 #FF0000, -1px 1px 0 #FF0000, 1px 1px 0 #FF0000;
 }
 #greenBottomText {
-    text-shadow: -2px -2px 0 #008000, 2px -2px 0 #008000, -2px 2px 0 #008000, 2px 2px 0 #008000;
+    text-shadow: -1px -1px 0 #008000, 1px -1px 0 #008000, -1px 1px 0 #008000, 1px 1px 0 #008000;
 }
 #yellowBottomText {
-    text-shadow: -2px -2px 0 #EBB346, 2px -2px 0 #EBB346, -2px 2px 0 #EBB346, 2px 2px 0 #EBB346;
+    text-shadow: -1px -1px 0 #EBB346, 1px -1px 0 #EBB346, -1px 1px 0 #EBB346, 1px 1px 0 #EBB346;
 }
 
 #blueContainer, #redContainer, #c1Container, #c3Container {
