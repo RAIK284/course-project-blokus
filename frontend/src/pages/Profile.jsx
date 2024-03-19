@@ -1,6 +1,7 @@
 import "./Profile.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ProfileIcon from "../assets/ProfileIcon.svg";
 
 function Profile() {
   // variable for name (useState)
@@ -12,7 +13,9 @@ function Profile() {
     <div id="profile">
       Your Profile
       <div id="profilebox">
-        <div id="imagebox"></div>
+        <div id="imagebox">
+          <img src={ProfileIcon} id="profilepic" />
+        </div>
         <div id="infocontainer">
           <div id="infotext">
             <div class="infobox">Nickname:</div>

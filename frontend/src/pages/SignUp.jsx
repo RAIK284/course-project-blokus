@@ -1,6 +1,7 @@
 import "./SignUp.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ProfileIcon from "../assets/ProfileIcon.svg";
 
 function SignUp() {
   // variable for name (useState)
@@ -13,7 +14,9 @@ function SignUp() {
     <div id="signup">
       Create an Account to Play!
       <div id="signupbox">
-        <div id="suimagebox"></div>
+        <div id="suimagebox">
+          <img src={ProfileIcon} id="suprofilepic" />
+        </div>
         <div id="suinfocontainer">
           <div id="suinfotext">
             <div class="suinfobox">Nickname:</div>
@@ -22,7 +25,7 @@ function SignUp() {
             <div class="suinfobox">Confirm Password:</div>
           </div>
           <div id="suinputtext">
-          <input
+            <input
               class="sutextbox"
               type="text"
               placeholder="Enter Nickname"

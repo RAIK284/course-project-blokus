@@ -1,6 +1,7 @@
 import "./Login.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ProfileIcon from "../assets/ProfileIcon.svg";
 
 function Login() {
   const [email, setEmail] = useState("allan.muinov@gmail.com");
@@ -10,7 +11,9 @@ function Login() {
     <div id="login">
       Log In to your Account
       <div id="loginbox">
-        <div id="loimagebox"></div>
+        <div id="loimagebox">
+          <img src={ProfileIcon} id="loprofilepic" />
+        </div>
         <div id="loinfocontainer">
           <div id="loinfotext">
             <div class="loinfobox">Email:</div>
