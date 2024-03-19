@@ -1,19 +1,10 @@
 import "./Login.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("allan.muinov@gmail.com");
   const [password, setPassword] = useState("Hello");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const linkToSignUp = () => {
-    window.location.href="http://localhost:3000/SignUp"
-  }
-
-  const linkToHomePageLoggedIn = () => {
-    window.location.href="http://localhost:3000/home"
-    setIsLoggedIn(true);
-  }
 
   return (
     <div id="login">
@@ -26,13 +17,32 @@ function Login() {
             <div class="loinfobox">Password:</div>
           </div>
           <div id="loinputtext">
-            <div class="lotextbox">{email}</div>
-            <div class="lotextbox">{password}</div>
+            <input
+              class="lotextbox"
+              type="text"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              class="lotextbox"
+              type="text"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
         </div>
       </div>
-      <div id="loginbutton" onClick={linkToHomePageLoggedIn} >Log In</div>
-      <span id="rusignupmessage">Don't have an account? <span id="rusignuplink" onClick={linkToSignUp}>Sign up!</span></span>
+      <Link id="loginbutton" to={"/home"}>
+        Log In
+      </Link>
+      <span id="rusignupmessage">
+        Don't have an account?{" "}
+        <Link id="rusignuplink" to={"/SignUp"}>
+          Sign up!
+        </Link>
+      </span>
     </div>
   );
 }

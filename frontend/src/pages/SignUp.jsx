@@ -1,5 +1,6 @@
 import "./SignUp.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   // variable for name (useState)
@@ -7,10 +8,6 @@ function SignUp() {
   const [email, setEmail] = useState("allan.muinov@gmail.com");
   const [password, setPassword] = useState("******");
   const [confirmpassword, setConfirmPassword] = useState("******");
-
-  const linkToHomePage = () => {
-    
-  }
 
   return (
     <div id="signup">
@@ -25,14 +22,40 @@ function SignUp() {
             <div class="suinfobox">Confirm Password:</div>
           </div>
           <div id="suinputtext">
-            <div class="sutextbox">{nickname}</div>
-            <div class="sutextbox">{email}</div>
-            <div class="sutextbox">{password}</div>
-            <div class="sutextbox">{confirmpassword}</div>
+          <input
+              class="sutextbox"
+              type="text"
+              placeholder="Enter Nickname"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
+            <input
+              class="sutextbox"
+              type="text"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              class="sutextbox"
+              type="text"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              class="sutextbox"
+              type="text"
+              placeholder="Re-type Password"
+              value={confirmpassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
           </div>
         </div>
       </div>
-      <div id="signupbutton">Sign Up</div>
+      <Link id="signupbutton" to={"/home"}>
+        Sign Up
+      </Link>
     </div>
   );
 }

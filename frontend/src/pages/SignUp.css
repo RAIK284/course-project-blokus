@@ -51,7 +51,7 @@
 .suinfobox {
   display: flex;
   text-align: right;
-  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 #suinputtext {
@@ -65,8 +65,8 @@
 
 .sutextbox {
   text-align: left !important;
-  color: white;
-  padding-bottom: 30px
+  color: black;
+  margin-bottom: 30px;
 }
 
 #signupbutton {
@@ -80,4 +80,6 @@
   border: solid;
   border-color: #000000;
   border-width: 5px;
+  color: white;
+  text-decoration: none;
 }
