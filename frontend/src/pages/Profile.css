@@ -51,7 +51,6 @@
 .infobox {
   display: flex;
   text-align: right;
-  padding-bottom: 30px;
 }
 
 #inputtext {
@@ -65,8 +64,7 @@
 
 .textbox {
   text-align: left !important;
-  color: white;
-  padding-bottom: 30px
+  color: black;
 }
 
 #logoutbutton {

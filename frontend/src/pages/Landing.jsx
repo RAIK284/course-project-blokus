@@ -7,7 +7,7 @@ function Landing({ onLogin }) {
     <div id="landing">
       <span id="landingTitle">BLOKUS</span>
       <div id="landingButtons">
-        <Link to="/home">
+        <Link to="/Login">
           <div id="loginButton" onClick={onLogin}>
             Login
           </div>
@@ -15,7 +15,7 @@ function Landing({ onLogin }) {
 
         <div style={{ width: "6em" }}></div>
 
-        <Link to="/home">
+        <Link to="/SignUp">
           <div id="signUpButton" onClick={onLogin}>
             SignUp
           </div>

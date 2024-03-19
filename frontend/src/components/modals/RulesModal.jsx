@@ -16,15 +16,12 @@ function RulesModal({ isOpen, onClose }) {
             <img src={Close} alt="Close Modal Button" />
           </div>
           <div id="rumodalcontent">
-            <div class="ruwelcomemessage">
-              The Rules of Blokus:
-            </div>
+            <div class="ruwelcomemessage">Rules:</div>
             <object
-                id="rupdf"
-                type="application/pdf"
-                data="https://service.mattel.com/instruction_sheets/BJV44-Eng.pdf"
-              >
-              </object>
+              id="rupdf"
+              type="application/pdf"
+              data="https://service.mattel.com/instruction_sheets/BJV44-Eng.pdf"
+            ></object>
           </div>
         </div>
       </div>

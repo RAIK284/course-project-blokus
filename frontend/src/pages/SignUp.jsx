@@ -3,10 +3,14 @@ import { useState } from "react";
 
 function SignUp() {
   // variable for name (useState)
-  const [nickname, setNickname] = useState("BabeBabeBabe42");
+  const [nickname, setNickname] = useState("AllanMuinov5");
   const [email, setEmail] = useState("allan.muinov@gmail.com");
   const [password, setPassword] = useState("******");
   const [confirmpassword, setConfirmPassword] = useState("******");
+
+  const linkToHomePage = () => {
+    
+  }
 
   return (
     <div id="signup">
