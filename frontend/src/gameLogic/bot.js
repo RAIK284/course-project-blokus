@@ -26,7 +26,7 @@ function hard_bot_play_piece(player){
     let turn = player_pieces[player].filter(value => value === false).length + 1;
     if (turn == 1){
         // F piece
-        let piece_index = 15;
+        let piece_index = 19;
         let rotations = 0;
         let play_location = [-1, -1];
         // find correct rotation count and play location by player
@@ -56,7 +56,7 @@ function hard_bot_play_piece(player){
     } 
     else if (turn == 2){
         // X piece
-        let piece_index = 5;
+        let piece_index = 13;
         let play_location = [-1, -1];
         // find correct rotation count and play location by player
         switch (player){
@@ -78,7 +78,7 @@ function hard_bot_play_piece(player){
     } 
     else if (turn == 3){
         // W piece
-        let piece_index = 10;
+        let piece_index = 15;
         let rotations = 0;
         let play_location = [-1, -1];
         // find correct rotation count and play location by player
@@ -115,23 +115,23 @@ function hard_bot_play_piece(player){
         // find correct rotation count and play location by player
         switch (player){
             case "blue":
-                piece_index = 12;
+                piece_index = 16;
                 play_location = [5, 6];
                 flips += 1;
                 rotations += 3;
                 break;
             case "red": 
-                piece_index = 17;
+                piece_index = 20;
                 play_location = [5, 10];
                 rotations += 1; 
                 break;
             case "yellow": 
-                piece_index = 17;
+                piece_index = 20;
                 play_location = [10, 5];
                 flips += 1;
                 break;
             case "green": 
-                piece_index = 12;
+                piece_index = 16;
                 play_location = [12, 11];
                 break;
         }

@@ -35,7 +35,7 @@
 #leaderboardButtonContainer:hover #redBlock #redPiece,
 #playButtonContainer:hover #greenBlock #greenPiece,
 #profileButtonContainer:hover #blueBlock #bluePiece {
-  transition: .1s;
+  transition: 0.1s;
   filter: brightness(1.2);
 }
 
@@ -47,7 +47,7 @@
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
   position: absolute;
-  transform: translate(5%, -218%);
+  transform: translate(5%, -210%);
 }
 
 #playText {
@@ -58,7 +58,7 @@
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
   position: absolute;
-  transform: translate(67%, -220%);
+  transform: translate(67%, -210%);
 }
 #profileText {
   margin: 10px;
@@ -68,7 +68,7 @@
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
   position: absolute;
-  transform: translate(58%, -218%);
+  transform: translate(58%, -210%);
 }
 
 #horizontalGap {
