@@ -6,7 +6,7 @@ function Profile() {
   // variable for name (useState)
   const [nickname, setNickname] = useState("AllanMuinov5");
   const [email, setEmail] = useState("allan.muinov@gmail.com");
-  const [password, setPassword] = useState("Hello");
+  const [password, setPassword] = useState("******");
 
   return (
     <div id="profile">
