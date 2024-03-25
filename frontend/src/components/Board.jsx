@@ -102,25 +102,27 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
   }
 
   const setBoardHighlights = (row, col) => {
-    removeHighlightsFromBoard();
-    const piece = pieces[pieceIndex];
-    if (
-      row + piece.length - 1 < board.length &&
-      col + piece[0].length - 1 < board[0].length
-    ) {
-      setBoard((prevBoard) => {
-        const updatedBoard = [...prevBoard];
-        for (let pieceR = 0; pieceR < piece.length; pieceR++) {
-          for (let pieceC = 0; pieceC < piece[pieceR].length; pieceC++) {
-            if (piece[pieceR][pieceC] === 1) {
-              updatedBoard[row + pieceR][col + pieceC] = "highlight";
-            } else if (updatedBoard[row + pieceR][col + pieceC] == "") {
-              updatedBoard[row + pieceR][col + pieceC] = "pointer";
+    if (gameStarted){
+      removeHighlightsFromBoard();
+      const piece = pieces[pieceIndex];
+      if (
+        row + piece.length - 1 < board.length &&
+        col + piece[0].length - 1 < board[0].length
+      ) {
+        setBoard((prevBoard) => {
+          const updatedBoard = [...prevBoard];
+          for (let pieceR = 0; pieceR < piece.length; pieceR++) {
+            for (let pieceC = 0; pieceC < piece[pieceR].length; pieceC++) {
+              if (piece[pieceR][pieceC] === 1) {
+                updatedBoard[row + pieceR][col + pieceC] = "highlight";
+              } else if (updatedBoard[row + pieceR][col + pieceC] == "") {
+                updatedBoard[row + pieceR][col + pieceC] = "pointer";
+              }
             }
           }
-        }
-        return updatedBoard;
-      });
+          return updatedBoard;
+        });
+      }
     }
   };
 

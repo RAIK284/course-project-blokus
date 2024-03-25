@@ -39,7 +39,7 @@ export function play_random_piece(player, greedySize = false, greedyCorners = fa
         let piece_index = indeces_array[0];
         // if player has that piece
         if (player_pieces[player][piece_index]){
-            // all possible plays with that piece (each item being 2d matrix of row, col and rotations)
+            // all possible plays with that piece (each item being a list including row, col, num rotations, and playable corners)
             let possible_piece_plays = [];
             // loop through each rotation
             for (let rotation = 0; rotation < 3; rotation++){
@@ -48,7 +48,8 @@ export function play_random_piece(player, greedySize = false, greedyCorners = fa
                     for (let boardCol = 0; boardCol < board_matrix[boardRow].length; boardCol++) {
                         // check if a piece can be played at the spot, if so add to possible plays
                         if (can_play_piece(boardRow, boardCol, piece_index, player)){
-                            possible_piece_plays.push([boardRow, boardCol, rotation]);
+                            let playable_corners = find_playable_corners(piece_index, boardRow, boardCol, player);
+                            possible_piece_plays.push([boardRow, boardCol, rotation, playable_corners]);
                         }
                     }
                 }
@@ -57,21 +58,70 @@ export function play_random_piece(player, greedySize = false, greedyCorners = fa
             reset_pieces();
             // if there is a possible play
             if (possible_piece_plays.length > 0){
-                // get random play from possible plays, play it
-                let possiblePlaysIndex = Math.floor(Math.random() * possible_piece_plays.length);
-                let randomPlay = possible_piece_plays[possiblePlaysIndex];
-                let playRotations = randomPlay[2];
-                // rotate back to random play piece rotation
+                let selectedPlay = 0;
+                if (greedyCorners){
+                    // get highest possible corners play
+                    let maxCorners = { index: 0, number: possible_piece_plays[0][3] };
+                    for (let i = 1; i < possible_piece_plays.length; i++) {
+                        if (possible_piece_plays[i][3] > maxCorners.number) {
+                            maxCorners = { index: i, number: possible_piece_plays[i][3] };
+                        }
+                    }
+                    selectedPlay = possible_piece_plays[maxCorners.index];
+                } else {
+                    // get random play from possible plays
+                    let possiblePlaysIndex = Math.floor(Math.random() * possible_piece_plays.length);
+                    selectedPlay = possible_piece_plays[possiblePlaysIndex];
+                }
+                let playRotations = selectedPlay[2];
+                // rotate piece back to random play piece rotation
                 for (let revertRotation = 0; revertRotation < playRotations; revertRotation++){
                     rotate_piece(piece_index);
                 }
-                play_piece(randomPlay[0], randomPlay[1], player, piece_index);
+                play_piece(selectedPlay[0], selectedPlay[1], player, piece_index);
                 reset_pieces();
                 return;
             }
         }
         indeces_array.shift();
     }
+}
+
+// checks how many future plays would be available after a hypothetical move happens
+function find_playable_corners(piece_index, boardRow, boardCol, player){
+    let playable_corners = 0;
+    // play piece on board, to be removed before end of function
+    let piece = pieces[piece_index];
+    for (let r = 0; r < piece.length; r++)
+        for (let c = 0; c < piece[r].length; c++)
+            if (piece[r][c] == 1)
+                board_matrix[boardRow + r][boardCol + c] = player;
+    // loop through each piece
+    for (let test_piece_index = 0; test_piece_index < 21; test_piece_index++){
+        // check if user has piece
+        if (player_pieces[player][test_piece_index] && test_piece_index != piece_index){
+            // loop through each rotation
+            for (let rotation = 0; rotation < 3; rotation++){
+                // loop through board copy 2d array
+                for (let row = 0; row < board_matrix.length; row++) {
+                    for (let col = 0; col < board_matrix[row].length; col++) {
+                        // check if a piece can be played at the spot, if so add to playable corners tracker
+                        if (can_play_piece(row, col, test_piece_index, player)){
+                            playable_corners++;
+                        }
+                    }
+                }
+                rotate_piece(test_piece_index);
+            }
+            rotate_piece(test_piece_index);
+        }
+    }
+    // remove piece from board
+    for (let r = 0; r < piece.length; r++)
+        for (let c = 0; c < piece[r].length; c++)
+            if (piece[r][c] == 1)
+                board_matrix[boardRow + r][boardCol + c] = "";
+    return playable_corners;
 }
 
 // checks to do after every round
