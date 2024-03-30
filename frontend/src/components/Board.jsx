@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import io from 'socket.io-client';
 import BoardBlock from "./BoardBlock";
 import "./Board.css";
 import {
@@ -12,8 +13,13 @@ import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
 import { bots_playing, currentPlayerTurnIndex } from "../gameLogic/playerData";
+import { join_game, piece_played, socket } from "../gameLogic/lobbies";
 
 function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound }) {
+  // game lobby values
+  let onlineGame = true;
+  let lobbyCode = 242190;
+
   // timer values
   const timerLength = 59;
   const [timerFlipState, setTimerFlipState] = useState(true);
@@ -61,6 +67,7 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
         {row.map((cell, colIndex) => (
           // row and column indexes are inverted because rendering is flipped
           <BoardBlock
+            key={rowIndex + " " + colIndex}
             onClick={() => placePlayerPiece(colIndex, rowIndex)}
             onHover={() => checkIfPiecePlayable(colIndex, rowIndex)}
             onMouseLeave={() => removeHighlightsFromBoard()}
@@ -81,6 +88,9 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
   const placePlayerPiece = (row, col) => {
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {
       play_piece(row, col, myPlayer, pieceIndex);
+      if (onlineGame){
+        piece_played(lobbyCode, board_matrix);
+      }
       setBoard(board_matrix);
       // reset hover indeces
       setHoverRow(-1);
@@ -208,6 +218,7 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
   useEffect(() => {
     setBoard(board_matrix);
     pause();
+    join_game(lobbyCode);
   }, []);
 
   return (

@@ -4,21 +4,21 @@ import "./KeyHolder.css";
 function KeyHolder() {
   return (
     <>
-        <div class="rKeyContainer">
-            <div class="key">
-                <div class="keyInner">
-                <div class="keyText">R</div>
+        <div className="rKeyContainer">
+            <div className="key">
+                <div className="keyInner">
+                <div className="keyText">R</div>
                 </div>
             </div>
-            <div class="keyLabel"> : Rotate</div>
+            <div className="keyLabel"> : Rotate</div>
             </div>
-        <div class="fKeyContainer">
-            <div class="key">
-                <div class="keyInner">
-                <div class="keyText">F</div>
+        <div className="fKeyContainer">
+            <div className="key">
+                <div className="keyInner">
+                <div className="keyText">F</div>
                 </div>
             </div>
-            <div class="keyLabel"> : Flip</div>
+            <div className="keyLabel"> : Flip</div>
         </div>
     </>
   );

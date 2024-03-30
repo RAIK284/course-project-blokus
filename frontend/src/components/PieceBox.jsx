@@ -74,7 +74,7 @@ function PieceBox({
         >
           <div>
             {displayRows.map((row, rowIndex) => (
-              <div class="pieceRow" key={rowIndex}>
+              <div className="pieceRow" key={rowIndex}>
                 {row.map((block, colIndex) => (
                   <React.Fragment key={colIndex}>{block}</React.Fragment>
                 ))}
