@@ -4,10 +4,10 @@ import NavBar from "./NavBar";
 import Home from "../pages/Home";
 import Game from "../pages/Game";
 import Leaderboard from "../pages/Leaderboard";
-import SignUp from "../pages/SignUp";
+import SignUp from "../pages/Auth/SignUp";
 import Profile from "../pages/Profile";
 import Landing from "../pages/Landing";
-import Login from "../pages/Login";
+import Login from "../pages/Auth/Login";
 import "./App.css";
 
 function App() {

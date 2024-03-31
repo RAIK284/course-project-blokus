@@ -1,11 +1,25 @@
 import "./Login.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ProfileIcon from "../assets/ProfileIcon.svg";
+import ProfileIcon from "../../assets/ProfileIcon.svg";
+import { auth } from "../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
-  const [email, setEmail] = useState("allan.muinov@gmail.com");
-  const [password, setPassword] = useState("******");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogIn = (e) => {
+    e.preventDefault();
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div id="login">
@@ -19,27 +33,27 @@ function Login() {
             <div class="loinfobox">Email:</div>
             <div class="loinfobox">Password:</div>
           </div>
-          <div id="loinputtext">
+          <form id="loinputtext" onSubmit={handleLogIn}>
             <input
               class="lotextbox"
-              type="text"
+              type="email"
               placeholder="Enter Email"
               value={email}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               class="lotextbox"
-              type="text"
+              type="password"
               placeholder="Enter Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-          </div>
+            <button id="loginbutton" type="submit">
+              Log In
+            </button>
+          </form>
         </div>
       </div>
-      <Link id="loginbutton" to={"/home"}>
-        Log In
-      </Link>
       <span id="rusignupmessage">
         Don't have an account?{" "}
         <Link id="rusignuplink" to={"/SignUp"}>
