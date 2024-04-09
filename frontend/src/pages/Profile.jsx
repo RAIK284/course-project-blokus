@@ -8,8 +8,8 @@ import { useAuth } from "./Auth/AuthContext";
 function Profile() {
   const { authUser, setIsLoggedIn, setAuthUser } = useAuth();
   const [nickname, setNickname] = useState("TODO");
-  const [email, setEmail] = useState(authUser.email);
-  const [password, setPassword] = useState(authUser.password);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSignOut = () => {
     signOut(auth)
@@ -22,13 +22,8 @@ function Profile() {
       .catch((error) => console.log(error));
   };
 
-  if (!authUser) {
-    window.location.href = "/";
-  }
-
   return (
     <div id="profile">
-      Your Profile
       <div id="profilebox">
         <div id="imagebox">
           <img alt="Profile" src={ProfileIcon} id="profilepic" />
@@ -64,9 +59,12 @@ function Profile() {
           </div>
         </div>
       </div>
-      <button id="logoutbutton" onClick={handleSignOut}>
-        Log Out
-      </button>
+      <div id="profilebuttonscontainer">
+        <div id="editprofilebutton">Edit</div>
+        <div id="logoutbutton" onClick={handleSignOut}>
+          Log Out
+        </div>
+      </div>
     </div>
   );
 }
