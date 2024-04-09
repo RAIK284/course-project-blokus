@@ -10,13 +10,13 @@ import Landing from "../pages/Landing";
 import Login from "../pages/Auth/Login";
 import "./App.css";
 import { AuthProvider } from "../pages/Auth/AuthContext";
-import AuthDetails from "../pages/Auth/AuthDetails";
+// import AuthDetails from "../pages/Auth/AuthDetails";
 
 function App() {
   return (
     <div className="app">
       <AuthProvider>
-        <AuthDetails />
+        {/* <AuthDetails /> */}
         <NavBar />
         <div className="content-container">
           <Routes>

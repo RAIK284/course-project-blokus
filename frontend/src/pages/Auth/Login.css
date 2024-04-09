@@ -87,7 +87,8 @@
   color: white;
   text-decoration: none;
   font-family: "Jockey One";
-  font-size: 30px
+  font-size: 30px;
+  cursor: pointer;
 }
 
 #rusignupmessage {

@@ -7,7 +7,7 @@ const AuthDetails = () => {
     <div>
       {authUser ? (
         <>
-          {/* <p>{`Signed In as ${authUser.email}`}</p> */}
+          <p>{`Signed In as ${authUser.email}`}</p>
         </>
       ) : (
         <p>Signed Out</p>
