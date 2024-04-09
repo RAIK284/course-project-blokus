@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import ProfileIcon from "../../assets/ProfileIcon.svg";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "./AuthContext";
 
 function Login() {
+  const { setIsLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,6 +17,8 @@ function Login() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        setIsLoggedIn(true);
+        window.location.href = "/home";
       })
       .catch((error) => {
         console.log(error);
@@ -22,45 +26,45 @@ function Login() {
   };
 
   return (
-    <div id="login">
+    <form id="login" onSubmit={handleLogIn}>
       Log In to your Account
       <div id="loginbox">
         <div id="loimagebox">
-          <img src={ProfileIcon} id="loprofilepic" />
+          <img alt="Profile" src={ProfileIcon} id="loprofilepic" />
         </div>
         <div id="loinfocontainer">
           <div id="loinfotext">
-            <div class="loinfobox">Email:</div>
-            <div class="loinfobox">Password:</div>
+            <div id="loinfobox">Email:</div>
+            <div id="loinfobox">Password:</div>
           </div>
-          <form id="loinputtext" onSubmit={handleLogIn}>
+          <div id="loinputtext">
             <input
-              class="lotextbox"
+              id="lotextbox"
               type="email"
               placeholder="Enter Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              class="lotextbox"
+              id="lotextbox"
               type="password"
               placeholder="Enter Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button id="loginbutton" type="submit">
-              Log In
-            </button>
-          </form>
+          </div>
         </div>
       </div>
+      <button id="loginbutton" type="submit">
+        Log In
+      </button>
       <span id="rusignupmessage">
         Don't have an account?{" "}
         <Link id="rusignuplink" to={"/SignUp"}>
           Sign up!
         </Link>
       </span>
-    </div>
+    </form>
   );
 }
 

@@ -5,9 +5,11 @@ import "./NavBar.css";
 import HomeIcon from "../assets/Home Icon.svg";
 import HelpIcon from "../assets/Help Icon.svg";
 import RulesModal from "../components/modals/RulesModal.jsx";
+import { useAuth } from "../pages/Auth/AuthContext.js";
 
-function NavBar({ isLoggedIn }) {
+function NavBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   const openModal = () => {
     setIsModalOpen(true);

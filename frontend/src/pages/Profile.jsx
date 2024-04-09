@@ -1,20 +1,37 @@
 import "./Profile.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import ProfileIcon from "../assets/ProfileIcon.svg";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
+import { useAuth } from "./Auth/AuthContext";
 
 function Profile() {
-  // variable for name (useState)
-  const [nickname, setNickname] = useState("AllanMuinov5");
-  const [email, setEmail] = useState("allan.muinov@gmail.com");
-  const [password, setPassword] = useState("******");
+  const { authUser, setIsLoggedIn, setAuthUser } = useAuth();
+  const [nickname, setNickname] = useState("TODO");
+  const [email, setEmail] = useState(authUser.email);
+  const [password, setPassword] = useState(authUser.password);
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setAuthUser(null);
+        setIsLoggedIn(false);
+        console.log("signout successful");
+        window.location.href = "/";
+      })
+      .catch((error) => console.log(error));
+  };
+
+  if (!authUser) {
+    window.location.href = "/";
+  }
 
   return (
     <div id="profile">
       Your Profile
       <div id="profilebox">
         <div id="imagebox">
-          <img src={ProfileIcon} id="profilepic" />
+          <img alt="Profile" src={ProfileIcon} id="profilepic" />
         </div>
         <div id="infocontainer">
           <div id="infotext">
@@ -47,9 +64,9 @@ function Profile() {
           </div>
         </div>
       </div>
-      <Link id="logoutbutton" to={"/"}>
+      <button id="logoutbutton" onClick={handleSignOut}>
         Log Out
-      </Link>
+      </button>
     </div>
   );
 }

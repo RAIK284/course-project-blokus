@@ -1,10 +1,8 @@
 import "./SignUp.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import ProfileIcon from "../../assets/ProfileIcon.svg";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-import AuthDetails from "./AuthDetails";
 
 function SignUp() {
   // variable for name (useState)
@@ -19,6 +17,7 @@ function SignUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        window.location.href = "/home";
       })
       .catch((error) => {
         console.log(error);
@@ -26,11 +25,11 @@ function SignUp() {
   };
 
   return (
-    <div id="signup">
+    <form id="signup" onSubmit={handleSignUp}>
       Create an Account to Play!
       <div id="signupbox">
         <div id="suimagebox">
-          <img src={ProfileIcon} id="suprofilepic" />
+          <img alt="Profile" src={ProfileIcon} id="suprofilepic" />
         </div>
         <div id="suinfocontainer">
           <div id="suinfotext">
@@ -39,7 +38,7 @@ function SignUp() {
             <div class="suinfobox">Password:</div>
             <div class="suinfobox">Confirm Password:</div>
           </div>
-          <form id="suinputtext" onSubmit={handleSignUp}>
+          <div id="suinputtext">
             <input
               class="sutextbox"
               type="text"
@@ -68,14 +67,13 @@ function SignUp() {
               value={confirmpassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <button id="signupbutton" type="submit">
-              Sign Up
-            </button>
-          </form>
-          <AuthDetails />
+          </div>
         </div>
       </div>
-    </div>
+      <button id="signupbutton" type="submit">
+        Sign Up
+      </button>
+    </form>
   );
 }
 
