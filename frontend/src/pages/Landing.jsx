@@ -1,24 +1,19 @@
 import "./Landing.css";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "./Auth/AuthContext";
 
-function Landing({ onLogin }) {
+function Landing() {
   return (
     <div id="landing">
       <span id="landingTitle">BLOKUS</span>
       <div id="landingButtons">
-        <Link to="/Login">
-          <div id="loginButton" onClick={onLogin}>
-            Login
-          </div>
+        <Link id="loginButton" to="/Login">
+          <div>Login</div>
         </Link>
-
         <div style={{ width: "6em" }}></div>
-
-        <Link to="/SignUp">
-          <div id="signUpButton" onClick={onLogin}>
-            SignUp
-          </div>
+        <Link id="signUpButton" to="/SignUp">
+          SignUp
         </Link>
       </div>
     </div>

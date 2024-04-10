@@ -7,7 +7,7 @@
   flex-direction: column;
   margin-top: 130px;
   text-align: center;
-  font-family: "Jockey One";
+  font-family: "Jockey One", sans-serif;
   font-size: 30px;
   color: white;
   text-shadow: 0 0 3px #000000, 0 0 8px #000000;
@@ -21,18 +21,12 @@
   margin-top: 50px;
   width: 505px;
   height: 501px;
-  border: solid;
-  border-color: #000000;
-  border-width: 5px;
 }
 
 #imagebox {
   align-self: center;
   width: 200px;
   height: 200px;
-  border: solid;
-  border-color: black;
-  border-width: 5px;
 }
 
 #profilepic {
@@ -73,6 +67,12 @@
   margin-bottom: 20px;
 }
 
+#profilebuttonscontainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+
 #logoutbutton {
   display: flex;
   justify-content: center;
@@ -80,10 +80,33 @@
   background-color: #262626;
   height: 60px;
   width: 150px;
-  margin-top: 40px;
-  border: solid;
-  border-color: #000000;
-  border-width: 5px;
+  font-family: "Jockey One", sans-serif;
+  font-size: 30px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
   color: white;
   text-decoration: none;
+  cursor: pointer;
+}
+
+#editprofilebutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #262626;
+  height: 60px;
+  width: 150px;
+  font-family: "Jockey One", sans-serif;
+  font-size: 30px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+  color: white;
+  text-decoration: none;
+  margin-right: 2em;
+  cursor: pointer;
+}
+
+#logoutbutton:hover,
+#editprofilebutton:hover {
+  filter: brightness(1.1);
 }
