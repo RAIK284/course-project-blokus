@@ -14,6 +14,7 @@ import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
 import { bots_playing, currentPlayerTurnIndex } from "../gameLogic/playerData";
 import { join_game, piece_played, socket } from "../gameLogic/lobbies";
+import { useBoardMatrix } from '../pages/BoardMatrixContext';
 
 function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound }) {
   // game lobby values
@@ -39,6 +40,15 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
     onExpire: () => setTimerFlipState(!timerFlipState),
   });
 
+  const { boardMatrix, setBoardMatrix } = useBoardMatrix();
+  useEffect(() => {
+    console.log(boardMatrix[0][0])
+    setBoardMatrix(boardMatrix);
+    setBoard(boardMatrix);
+    fillBoard();
+    console.log("in the use effect")
+  }, [boardMatrix, setBoardMatrix]);
+
   const [board, setBoard] = useState([[]]);
   const [displayRows, setDisplayRows] = useState([]);
   const [hoverRow, setHoverRow] = useState(-1);
@@ -62,6 +72,7 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
 
   // creates a 20x20 grid of block components based on board 2d matrix
   const fillBoard = () => {
+    console.log("in fill board")
     let boardComponents = board.map((row, rowIndex) => (
       <div className="row" key={rowIndex}>
         {row.map((cell, colIndex) => (

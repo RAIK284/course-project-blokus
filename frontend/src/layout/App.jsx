@@ -10,26 +10,28 @@ import Landing from "../pages/Landing";
 import Login from "../pages/Auth/Login";
 import "./App.css";
 import { AuthProvider } from "../pages/Auth/AuthContext";
+import { BoardMatrixProvider } from '../pages/BoardMatrixContext';
 // import AuthDetails from "../pages/Auth/AuthDetails";
 
 function App() {
   return (
     <div className="app">
-      <AuthProvider>
-        {/* <AuthDetails /> */}
-        <NavBar />
-        <div className="content-container">
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/game" element={<Game />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </div>
-      </AuthProvider>
+      <BoardMatrixProvider>
+        <AuthProvider>
+          <NavBar />
+          <div className="content-container">
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/game" element={<Game />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </div>
+        </AuthProvider>
+      </BoardMatrixProvider>
     </div>
   );
 }

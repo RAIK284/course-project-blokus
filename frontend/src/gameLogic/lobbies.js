@@ -6,7 +6,7 @@ export const socket = io('http://localhost:5000');
 export const join_game = ( lobbyCode ) => {
     socket.emit('join_game', { 
         lobbyCode: lobbyCode,
-        playerName: 'd'
+        playerName: 'b'
     });
 }
 
@@ -31,7 +31,7 @@ socket.on('piece_played', ( data ) => {
     let board = data['board'];
     // set board_matrix to board
     if (board){
-        const board_dimensions = 21;
+        const board_dimensions = 20;
         for (let r = 0; r < board_dimensions; r++) {
             for (let c = 0; c < board_dimensions; c++) {
                 board_matrix[r][c] = board[r][c];
