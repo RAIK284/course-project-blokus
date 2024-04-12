@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import io from 'socket.io-client';
 import BoardBlock from "./BoardBlock";
 import "./Board.css";
 import {
@@ -14,9 +13,21 @@ import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
 import { bots_playing, currentPlayerTurnIndex } from "../gameLogic/playerData";
 import { join_game, piece_played, socket } from "../gameLogic/lobbies";
-import { useBoardMatrix } from '../pages/BoardMatrixContext';
 
 function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound }) {
+  const [board, setBoard] = useState([[]]);
+  const [displayRows, setDisplayRows] = useState([]);
+  const [hoverRow, setHoverRow] = useState(-1);
+  const [hoverCol, setHoverCol] = useState(-1);
+  const hoverRowRef = useRef(hoverRow);
+  const hoverColRef = useRef(hoverCol);
+  const [gameStarted, setGameStarted] = useState(false);
+
+  useEffect(() => {
+    hoverRowRef.current = hoverRow;
+    hoverColRef.current = hoverCol;
+  }, [hoverRow, hoverCol]);
+
   // game lobby values
   let onlineGame = true;
   let lobbyCode = 242190;
@@ -39,28 +50,6 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
     expiryTimestamp,
     onExpire: () => setTimerFlipState(!timerFlipState),
   });
-
-  const { boardMatrix, setBoardMatrix } = useBoardMatrix();
-  useEffect(() => {
-    console.log(boardMatrix[0][0])
-    setBoardMatrix(boardMatrix);
-    setBoard(boardMatrix);
-    fillBoard();
-    console.log("in the use effect")
-  }, [boardMatrix, setBoardMatrix]);
-
-  const [board, setBoard] = useState([[]]);
-  const [displayRows, setDisplayRows] = useState([]);
-  const [hoverRow, setHoverRow] = useState(-1);
-  const [hoverCol, setHoverCol] = useState(-1);
-  const hoverRowRef = useRef(hoverRow);
-  const hoverColRef = useRef(hoverCol);
-  const [gameStarted, setGameStarted] = useState(false);
-
-  useEffect(() => {
-    hoverRowRef.current = hoverRow;
-    hoverColRef.current = hoverCol;
-  }, [hoverRow, hoverCol]);
 
   const startGame = () => {
     var playersChosen = playerNames.every(item => !item.includes('c'));
@@ -95,6 +84,14 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
     ));
     setDisplayRows(boardComponents);
   };
+
+  // tracks if another user played a piece
+  socket.on('piece_played', ( data ) => {
+    let lobbyCode = data['lobbyCode'];
+    let board = data['board'];
+    setBoard(board);
+    fillBoard(board);
+  });
 
   const placePlayerPiece = (row, col) => {
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {
