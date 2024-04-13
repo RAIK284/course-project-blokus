@@ -3,7 +3,7 @@ import "./StartOrJoinGameModal.css";
 import { Link, useNavigate } from "react-router-dom";
 import Close from "../../assets/_X_.svg";
 import BackButton from "../../assets/Back button.svg";
-import { create_game, in_online_game, join_game, lobby_code, set_in_online_game, set_lobby_code, socket } from "../../gameLogic/lobbies";
+import { create_game, find_open_game, in_online_game, join_game, lobby_code, player_id, set_in_online_game, set_lobby_code, socket } from "../../gameLogic/lobbies";
 
 function StartOrJoinGameModal({ isOpen, onClose }) {
   const [isCreatingGame, setIsCreatingGame] = useState(false);
@@ -26,21 +26,61 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
   };
 
   socket.on('game_created', (data) => {
-    let lobbyCode = data['lobbyCode'];
-    set_lobby_code(lobbyCode);
-    set_in_online_game(true);
-    console.log('Created lobby, code: ' + lobbyCode);
-    join_game(lobbyCode);
-    navigate(`/game`);
+    let playerId = data['playerId'];
+    if (playerId == player_id){
+      let lobbyCode = data['lobbyCode'];
+      set_lobby_code(lobbyCode);
+      set_in_online_game(true);
+      console.log('Created lobby, code: ' + lobbyCode);
+      join_game(lobbyCode);
+    }
   });
 
   const handleJoinGameClick = () => {
     setIsJoiningGame(true);
   };
 
+  const handleOnlineGameCodeKeyDown = (e) => {
+    if (e.key === "Enter" && onlineGameCode.length === 6) {
+      join_game(onlineGameCode);
+    }
+  };
+
+  socket.on('joined_game', (data) => {
+    let playerId = data['playerId'];
+    if (playerId == player_id){
+      let lobbyCode = data['lobbyCode'];
+      set_lobby_code(lobbyCode);
+      set_in_online_game(true);
+      navigate(`/game`);
+    }
+  });
+
   socket.on('lobby_full', (data) => {
-    let lobbyCode = data['lobbyCode'];
-    console.log('Lobby ' + lobbyCode + ' is full!');
+    let playerId = data['playerId'];
+    if (playerId == player_id){
+      let lobbyCode = data['lobbyCode'];
+      console.log('Lobby ' + lobbyCode + ' is full!');
+    }
+  });
+
+  const handleJoinPublicGame = () => {
+    find_open_game();
+  };
+
+  socket.on('open_game_found', (data) => {
+    let playerId = data['playerId'];
+    if (playerId == player_id){
+      let lobbyCode = data['lobbyCode'];
+      join_game(lobbyCode);
+    }
+  });
+
+  socket.on('no_open_game_found', (data) => {
+    let playerId = data['playerId'];
+    if (playerId == player_id){
+      console.log('No open game found.');
+    }
   });
 
   const handleBackClick = () => {
@@ -57,12 +97,6 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
     setIsCreatingGame(false);
     setIsJoiningGame(false);
     onClose();
-  };
-
-  const handleOnlineGameCodeKeyDown = (e) => {
-    if (e.key === "Enter" && onlineGameCode.length === 6) {
-      navigate(`/game`);
-    }
   };
 
   if (!isOpen) return null;
@@ -154,11 +188,12 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
               </span>
               <div style={{ height: "4.25em" }}></div>
 
-              <Link to="/game">
-                <div id="publicGameButtonContainer">
-                  <span id="publicGameText">Public Game</span>
-                </div>
-              </Link>
+              <div 
+                id="publicGameButtonContainer"
+                onClick={handleJoinPublicGame}
+              >
+                <span id="publicGameText">Public Game</span>
+              </div>
 
               <span id="publicGameDescription">
                 Drop into a public game and compete against players across the
