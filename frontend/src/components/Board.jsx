@@ -12,9 +12,9 @@ import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
 import { bots_playing, currentPlayerTurnIndex } from "../gameLogic/playerData";
-import { join_game, piece_played, socket } from "../gameLogic/lobbies";
+import { join_game, lobby_code, piece_played, socket } from "../gameLogic/lobbies";
 
-function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound }) {
+function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, onlineGame }) {
   const [board, setBoard] = useState([[]]);
   const [displayRows, setDisplayRows] = useState([]);
   const [hoverRow, setHoverRow] = useState(-1);
@@ -27,10 +27,6 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
     hoverRowRef.current = hoverRow;
     hoverColRef.current = hoverCol;
   }, [hoverRow, hoverCol]);
-
-  // game lobby values
-  let onlineGame = true;
-  let lobbyCode = 242190;
 
   // timer values
   const timerLength = 59;
@@ -87,17 +83,18 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
 
   // tracks if another user played a piece
   socket.on('piece_played', ( data ) => {
-    let lobbyCode = data['lobbyCode'];
-    let board = data['board'];
-    setBoard(board);
-    fillBoard(board);
+    if (onlineGame && lobby_code == data['lobbyCode']){
+      let board = data['board'];
+      setBoard(board);
+      fillBoard(board);
+    }
   });
 
   const placePlayerPiece = (row, col) => {
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {
       play_piece(row, col, myPlayer, pieceIndex);
       if (onlineGame){
-        piece_played(lobbyCode, board_matrix);
+        piece_played(lobby_code, board_matrix);
       }
       setBoard(board_matrix);
       // reset hover indeces
@@ -114,6 +111,9 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
 
   const playBotRound = (difficulty) => {
     bot_play_piece(myPlayer, difficulty);
+    if (onlineGame){
+      piece_played(lobby_code, board_matrix);
+    }
     setBoard(board_matrix);
     fillBoard();
     endRound();
@@ -169,6 +169,9 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
   useEffect(() => {
     if (seconds == 0) {
       play_random_piece(myPlayer);
+      if (onlineGame){
+        piece_played(lobby_code, board_matrix);
+      }
       // delay to render piece
       setTimeout(function () {
         setBoard(board_matrix);
@@ -226,7 +229,6 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
   useEffect(() => {
     setBoard(board_matrix);
     pause();
-    join_game(lobbyCode);
   }, []);
 
   return (

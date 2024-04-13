@@ -3,6 +3,7 @@ import "./StartOrJoinGameModal.css";
 import { Link, useNavigate } from "react-router-dom";
 import Close from "../../assets/_X_.svg";
 import BackButton from "../../assets/Back button.svg";
+import { create_game, in_online_game, join_game, lobby_code, set_in_online_game, set_lobby_code, socket } from "../../gameLogic/lobbies";
 
 function StartOrJoinGameModal({ isOpen, onClose }) {
   const [isCreatingGame, setIsCreatingGame] = useState(false);
@@ -14,9 +15,33 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
     setIsCreatingGame(true);
   };
 
+  const handleCreateLocalGameClick = () => {
+    set_lobby_code(-1);
+    set_in_online_game(false);
+    navigate(`/game`);
+  };
+
+  const handleCreateOnlineGameClick = () => {
+    create_game();
+  };
+
+  socket.on('game_created', (data) => {
+    let lobbyCode = data['lobbyCode'];
+    set_lobby_code(lobbyCode);
+    set_in_online_game(true);
+    console.log('Created lobby, code: ' + lobbyCode);
+    join_game(lobbyCode);
+    navigate(`/game`);
+  });
+
   const handleJoinGameClick = () => {
     setIsJoiningGame(true);
   };
+
+  socket.on('lobby_full', (data) => {
+    let lobbyCode = data['lobbyCode'];
+    console.log('Lobby ' + lobbyCode + ' is full!');
+  });
 
   const handleBackClick = () => {
     setOnlineGameCode("");
@@ -81,11 +106,12 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
           )}
           {isCreatingGame && (
             <>
-              <Link to="/game">
-                <div id="localGameButtonContainer">
-                  <span id="localGameText">Local Game</span>
-                </div>
-              </Link>
+              <div 
+                id="localGameButtonContainer"
+                onClick={handleCreateLocalGameClick}
+              >
+                <span id="localGameText">Local Game</span>
+              </div>
 
               <span id="localGameDescription">
                 Create a local game where all 4 opponents play from the same
@@ -93,11 +119,12 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
               </span>
               <div style={{ height: "3em" }}></div>
 
-              <Link to="/game">
-                <div id="onlineGameButtonContainer">
-                  <span id="onlineGameText">Online Game</span>
-                </div>
-              </Link>
+              <div 
+                id="onlineGameButtonContainer"
+                onClick={handleCreateOnlineGameClick}
+              >
+                <span id="onlineGameText">Online Game</span>
+              </div>
 
               <span id="onlineGameDescription">
                 Create a private online game where all 4 opponents join using a
