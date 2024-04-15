@@ -20,18 +20,12 @@
   margin-top: 50px;
   width: 700px;
   height: 551px;
-  border: solid;
-  border-color: #000000;
-  border-width: 5px;
 }
 
 #suimagebox {
   align-self: center;
   width: 200px;
   height: 200px;
-  border: solid;
-  border-color: #000000;
-  border-width: 5px;
 }
 
 #suprofilepic {
@@ -81,9 +75,21 @@
   height: 60px;
   width: 120px;
   margin-top: 40px;
-  border: solid;
-  border-color: #000000;
   border-width: 5px;
   color: white;
   text-decoration: none;
+  font-family: "Jockey One";
+  font-size: 30px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+}
+
+#suloginmessage {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+#suloginlink {
+  text-decoration: underline;
+  color: white;
 }
