@@ -11,8 +11,8 @@ import { flip_piece, pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
-import { bots_playing, currentPlayerTurnIndex } from "../gameLogic/playerData";
-import { join_game, lobby_code, piece_played, socket } from "../gameLogic/lobbies";
+import { bots_playing, currentPlayerTurnIndex, end_turn } from "../gameLogic/playerData";
+import { join_game, lobby_code, piece_played, player_id, socket, start_game } from "../gameLogic/lobbies";
 
 function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, onlineGame }) {
   const [board, setBoard] = useState([[]]);
@@ -50,10 +50,21 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   const startGame = () => {
     var playersChosen = playerNames.every(item => !item.includes('c'));
     if (playersChosen){
+      if (onlineGame){
+        start_game(lobby_code);
+      }
       setGameStarted(true);
       resume();
     }
   }
+
+  // tracks if game was started by another user
+  /*socket.on('game_started', ( data ) => {
+    if (onlineGame && lobby_code == data['lobbyCode']){
+      setGameStarted(true);
+      resume();
+    }
+  });*/
 
   // creates a 20x20 grid of block components based on board 2d matrix
   const fillBoard = () => {
@@ -82,13 +93,24 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   };
 
   // tracks if another user played a piece
-  socket.on('piece_played', ( data ) => {
-    if (onlineGame && lobby_code == data['lobbyCode']){
+  /*socket.on('piece_played', ( data ) => {
+    if (onlineGame && lobby_code == data['lobbyCode'] && player_id != data['playerId']){
+      console.log("socket call piece played tracked")
       let board = data['board'];
       setBoard(board);
       fillBoard(board);
+      end_turn();
+      // reset hover indeces
+      setHoverRow(-1);
+      setHoverCol(-1);
+      // reset time
+      const time = new Date();
+      time.setSeconds(time.getSeconds() + timerLength);
+      restart(time);
+      // end round
+      endRound();
     }
-  });
+  });*/
 
   const placePlayerPiece = (row, col) => {
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {

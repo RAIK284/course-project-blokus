@@ -25,7 +25,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
     create_game();
   };
 
-  socket.on('game_created', (data) => {
+  /*socket.on('game_created', (data) => {
     let playerId = data['playerId'];
     if (playerId == player_id){
       let lobbyCode = data['lobbyCode'];
@@ -34,7 +34,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
       console.log('Created lobby, code: ' + lobbyCode);
       join_game(lobbyCode);
     }
-  });
+  });*/
 
   const handleJoinGameClick = () => {
     setIsJoiningGame(true);
@@ -46,7 +46,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
     }
   };
 
-  socket.on('joined_game', (data) => {
+  /*socket.on('joined_game', (data) => {
     let playerId = data['playerId'];
     if (playerId == player_id){
       let lobbyCode = data['lobbyCode'];
@@ -62,13 +62,13 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
       let lobbyCode = data['lobbyCode'];
       console.log('Lobby ' + lobbyCode + ' is full!');
     }
-  });
+  });*/
 
   const handleJoinPublicGame = () => {
     find_open_game();
   };
 
-  socket.on('open_game_found', (data) => {
+  /*socket.on('open_game_found', (data) => {
     let playerId = data['playerId'];
     if (playerId == player_id){
       let lobbyCode = data['lobbyCode'];
@@ -81,7 +81,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
     if (playerId == player_id){
       console.log('No open game found.');
     }
-  });
+  });*/
 
   const handleBackClick = () => {
     setOnlineGameCode("");
