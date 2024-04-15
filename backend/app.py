@@ -64,18 +64,13 @@ def handle_find_open_game(data):
     print("test")
     socketio.emit('no_open_game_found', {'playerId': player_id})
 
-last_board = None
 @socketio.on('piece_played')
 def handle_piece_played(data):
-    global last_board
     lobby_code = data['lobbyCode']
     board = data['board']
     player_id = data['playerId']
-    if board != last_board:
-        print(player_id)
-        game_lobbies[lobby_code]['board'] = board
-        socketio.emit('piece_played', {'lobbyCode': lobby_code, 'board': board, 'playerId': player_id})
-    last_board = board
+    game_lobbies[lobby_code]['board'] = board
+    socketio.emit('piece_played', {'lobbyCode': lobby_code, 'board': board, 'playerId': player_id})
 
 @socketio.on('disconnect')
 def handle_disconnect():

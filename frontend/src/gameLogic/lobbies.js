@@ -1,7 +1,6 @@
 import io from 'socket.io-client';
 import { board_matrix } from './board';
 
-/*
 export const socket = io('http://localhost:5000');
 export let in_online_game = false;
 export let lobby_code = -1;
@@ -41,6 +40,7 @@ export const find_open_game = () => {
 }
 
 export const piece_played = (lobbyCode, board) => {
+    console.log("piece played")
     socket.emit('piece_played', { 
         lobbyCode: lobbyCode,
         board: board,
@@ -55,4 +55,3 @@ socket.on('connect', () => {
 socket.on('disconnect', () => {
     console.log('Disconnected from server');
 });
-*/

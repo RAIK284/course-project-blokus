@@ -6,6 +6,7 @@ import {
   can_play_piece,
   play_piece,
   play_random_piece,
+  set_board_matrix,
 } from "../gameLogic/board";
 import { flip_piece, pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
@@ -59,12 +60,12 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   }
 
   // tracks if game was started by another user
-  /*socket.on('game_started', ( data ) => {
+  socket.on('game_started', ( data ) => {
     if (onlineGame && lobby_code == data['lobbyCode']){
       setGameStarted(true);
       resume();
     }
-  });*/
+  });
 
   // creates a 20x20 grid of block components based on board 2d matrix
   const fillBoard = () => {
@@ -93,13 +94,11 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   };
 
   // tracks if another user played a piece
-  /*socket.on('piece_played', ( data ) => {
+  socket.on('piece_played', ( data ) => {
     if (onlineGame && lobby_code == data['lobbyCode'] && player_id != data['playerId']){
-      console.log("socket call piece played tracked")
-      let board = data['board'];
-      setBoard(board);
-      fillBoard(board);
-      end_turn();
+      let socketBoard = data['board'];
+      setBoard(socketBoard);
+      fillBoard();
       // reset hover indeces
       setHoverRow(-1);
       setHoverCol(-1);
@@ -107,10 +106,17 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
       const time = new Date();
       time.setSeconds(time.getSeconds() + timerLength);
       restart(time);
+      if (arraysEqual(socketBoard, board_matrix))
+        end_turn();
+      set_board_matrix(socketBoard);
       // end round
       endRound();
     }
-  });*/
+  });
+
+  function arraysEqual(arr1, arr2) {
+    return JSON.stringify(arr1) === JSON.stringify(arr2);
+  }
 
   const placePlayerPiece = (row, col) => {
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {

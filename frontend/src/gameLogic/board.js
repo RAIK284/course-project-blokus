@@ -3,6 +3,10 @@ import { pieces, reset_pieces, rotate_piece } from './pieceData';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
 
+export function set_board_matrix(matrix){
+    board_matrix = matrix;
+}
+
 export function reset_game(){
     board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
     reset_player_data();
@@ -127,7 +131,7 @@ function find_playable_corners(piece_index, boardRow, boardCol, player){
 // checks to do after every round
 function end_round_checks(){
     set_player_game_overs();
-    console.log("current player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
+    //console.log("current player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
     if (is_game_over()){
         console.log("game over");
         console.log("winner: " + determine_winner());

@@ -30,13 +30,13 @@ export function end_turn(){
     } else {
         currentPlayerTurnIndex++;
     }
-    console.log("new player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
+    //console.log("new player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
     // if new player can't play, then end turn again
     if (!can_play[players[currentPlayerTurnIndex]]){
-        console.log("end_turn recurse")
+        //console.log("end_turn recurse")
         end_turn();
     } else {
-        console.log("end_turn reset pieces call")
+        //console.log("end_turn reset pieces call")
         reset_pieces();
     }
 }
