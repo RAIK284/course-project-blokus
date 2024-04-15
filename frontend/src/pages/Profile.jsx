@@ -1,13 +1,14 @@
 import "./Profile.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileIcon from "../assets/ProfileIcon.svg";
-import { auth } from "../firebase";
+import database, { auth } from "../firebase";
 import { signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useAuth } from "./Auth/AuthContext";
 
 function Profile() {
   const { authUser, setIsLoggedIn, setAuthUser } = useAuth();
-  const [nickname, setNickname] = useState("TODO");
+  const [nickname, setNickname] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,6 +22,28 @@ function Profile() {
       })
       .catch((error) => console.log(error));
   };
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const userDocRef = doc(database, "users", authUser.uid);
+        const userDocSnapshot = await getDoc(userDocRef);
+        if (userDocSnapshot.exists()) {
+          const userData = userDocSnapshot.data();
+          setNickname(userData.nickname);
+          setEmail(authUser.email);
+        } else {
+          console.log("User document does not exist");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    if (authUser) {
+      getUserData();
+    }
+  }, [authUser]);
 
   return (
     <div id="profile">
