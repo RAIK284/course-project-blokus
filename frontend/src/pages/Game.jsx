@@ -6,6 +6,7 @@ import { bots_playing, currentPlayerTurnIndex, player_pieces, players } from "..
 import { reset_game } from "../gameLogic/board";
 import KeyHolder from "../components/KeyHolder";
 import Avatar from "../components/Avatar";
+import { in_online_game } from "../gameLogic/lobbies";
 
 function Game() {
   // timer values
@@ -73,6 +74,7 @@ function Game() {
             myPlayer={myPlayer}
             expiryTimestamp={playerTime}
             endRound={endRound}
+            onlineGame={in_online_game}
           />
         </div>
         <div id="avatarHolder">

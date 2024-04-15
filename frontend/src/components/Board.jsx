@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import io from 'socket.io-client';
 import BoardBlock from "./BoardBlock";
 import "./Board.css";
 import {
@@ -13,12 +12,21 @@ import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
 import { bots_playing, currentPlayerTurnIndex } from "../gameLogic/playerData";
-import { join_game, piece_played, socket } from "../gameLogic/lobbies";
+import { join_game, lobby_code, piece_played, socket } from "../gameLogic/lobbies";
 
-function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound }) {
-  // game lobby values
-  let onlineGame = true;
-  let lobbyCode = 242190;
+function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, onlineGame }) {
+  const [board, setBoard] = useState([[]]);
+  const [displayRows, setDisplayRows] = useState([]);
+  const [hoverRow, setHoverRow] = useState(-1);
+  const [hoverCol, setHoverCol] = useState(-1);
+  const hoverRowRef = useRef(hoverRow);
+  const hoverColRef = useRef(hoverCol);
+  const [gameStarted, setGameStarted] = useState(false);
+
+  useEffect(() => {
+    hoverRowRef.current = hoverRow;
+    hoverColRef.current = hoverCol;
+  }, [hoverRow, hoverCol]);
 
   // timer values
   const timerLength = 59;
@@ -39,19 +47,6 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
     onExpire: () => setTimerFlipState(!timerFlipState),
   });
 
-  const [board, setBoard] = useState([[]]);
-  const [displayRows, setDisplayRows] = useState([]);
-  const [hoverRow, setHoverRow] = useState(-1);
-  const [hoverCol, setHoverCol] = useState(-1);
-  const hoverRowRef = useRef(hoverRow);
-  const hoverColRef = useRef(hoverCol);
-  const [gameStarted, setGameStarted] = useState(false);
-
-  useEffect(() => {
-    hoverRowRef.current = hoverRow;
-    hoverColRef.current = hoverCol;
-  }, [hoverRow, hoverCol]);
-
   const startGame = () => {
     var playersChosen = playerNames.every(item => !item.includes('c'));
     if (playersChosen){
@@ -62,6 +57,7 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
 
   // creates a 20x20 grid of block components based on board 2d matrix
   const fillBoard = () => {
+    console.log("in fill board")
     let boardComponents = board.map((row, rowIndex) => (
       <div className="row" key={rowIndex}>
         {row.map((cell, colIndex) => (
@@ -85,11 +81,20 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
     setDisplayRows(boardComponents);
   };
 
+  // tracks if another user played a piece
+  socket.on('piece_played', ( data ) => {
+    if (onlineGame && lobby_code == data['lobbyCode']){
+      let board = data['board'];
+      setBoard(board);
+      fillBoard(board);
+    }
+  });
+
   const placePlayerPiece = (row, col) => {
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {
       play_piece(row, col, myPlayer, pieceIndex);
       if (onlineGame){
-        piece_played(lobbyCode, board_matrix);
+        piece_played(lobby_code, board_matrix);
       }
       setBoard(board_matrix);
       // reset hover indeces
@@ -106,6 +111,9 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
 
   const playBotRound = (difficulty) => {
     bot_play_piece(myPlayer, difficulty);
+    if (onlineGame){
+      piece_played(lobby_code, board_matrix);
+    }
     setBoard(board_matrix);
     fillBoard();
     endRound();
@@ -161,6 +169,9 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
   useEffect(() => {
     if (seconds == 0) {
       play_random_piece(myPlayer);
+      if (onlineGame){
+        piece_played(lobby_code, board_matrix);
+      }
       // delay to render piece
       setTimeout(function () {
         setBoard(board_matrix);
@@ -218,7 +229,6 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound })
   useEffect(() => {
     setBoard(board_matrix);
     pause();
-    join_game(lobbyCode);
   }, []);
 
   return (

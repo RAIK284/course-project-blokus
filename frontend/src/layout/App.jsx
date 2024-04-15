@@ -16,7 +16,6 @@ function App() {
   return (
     <div className="app">
       <AuthProvider>
-        {/* <AuthDetails /> */}
         <NavBar />
         <div className="content-container">
           <Routes>
