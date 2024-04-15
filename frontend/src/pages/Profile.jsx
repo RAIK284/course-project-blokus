@@ -13,9 +13,9 @@ import { useAuth } from "./Auth/AuthContext";
 
 function Profile() {
   const { authUser, setIsLoggedIn, setAuthUser } = useAuth();
-  const [nickname, setNickname] = useState("TODO");
-  const [email, setEmail] = useState(authUser.email);
-  const [newEmail, setNewEmail] = useState("");
+  const [nickname, setNickname] = useState("Loading ...");
+  const [email, setEmail] = useState("Loading ...");
+  const [newEmail, setNewEmail] = useState();
   const [editMode, setEditMode] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -55,11 +55,16 @@ function Profile() {
   useEffect(() => {
     const getUserData = async () => {
       try {
+        // get all the firestore info for the current logged in user
         const userDocRef = doc(database, "users", authUser.uid);
         const userDocSnapshot = await getDoc(userDocRef);
         if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
+          console.log(userData);
+          // get the nickname from firestore and set it in the frontend state
           setNickname(userData.nickname);
+
+          // get the email from firebase auth and set it in the frontend state
           setEmail(authUser.email);
         } else {
           console.log("User document does not exist");
@@ -128,7 +133,9 @@ function Profile() {
           Log Out
         </div>
       </div>
-      <button id="cpbutton" onClick={handleResetPassword}>Change Password</button>
+      <button id="cpbutton" onClick={handleResetPassword}>
+        Change Password
+      </button>
       <p>{message}</p>
     </div>
   );
