@@ -13,7 +13,7 @@ function Landing() {
         </Link>
         <div style={{ width: "6em" }}></div>
         <Link id="signUpButton" to="/SignUp">
-          SignUp
+          Sign Up
         </Link>
       </div>
     </div>

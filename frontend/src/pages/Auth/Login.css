@@ -20,18 +20,12 @@
   margin-top: 50px;
   width: 550px;
   height: 401px;
-  border: solid;
-  border-color: #000000;
-  border-width: 5px;
 }
 
 #loimagebox {
   align-self: center;
   width: 200px;
   height: 200px;
-  border: solid;
-  border-color: #000000;
-  border-width: 5px;
 }
 
 #loprofilepic {
@@ -54,7 +48,7 @@
 .loinfobox {
   display: flex;
   text-align: right;
-  margin-bottom: 20px;
+  margin-bottom: 20px;  
 }
 
 #loinputtext {
@@ -80,9 +74,6 @@
   height: 60px;
   width: 120px;
   margin-top: 40px;
-  border: solid;
-  border-color: #000000;
-  border-width: 5px;
   margin-bottom: 10px;
   color: white;
   text-decoration: none;

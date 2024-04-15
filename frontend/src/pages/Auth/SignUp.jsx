@@ -3,6 +3,7 @@ import { useState } from "react";
 import ProfileIcon from "../../assets/ProfileIcon.svg";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   // variable for name (useState)
@@ -26,7 +27,7 @@ function SignUp() {
 
   return (
     <form id="signup" onSubmit={handleSignUp}>
-      Create an Account to Play!
+      Create an Account to Play
       <div id="signupbox">
         <div id="suimagebox">
           <img alt="Profile" src={ProfileIcon} id="suprofilepic" />
@@ -73,6 +74,12 @@ function SignUp() {
       <button id="signupbutton" type="submit">
         Sign Up
       </button>
+      <span id="suloginmessage">
+        Already have an account?{" "}
+        <Link id="suloginlink" to={"/Login"}>
+          Log in here!
+        </Link>
+      </span>
     </form>
   );
 }
