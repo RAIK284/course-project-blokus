@@ -37,6 +37,7 @@
 #infocontainer {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 }
 
 #infotext {
@@ -61,9 +62,15 @@
   color: grey;
 }
 
-.textbox {
+.editbox {
   text-align: left !important;
   color: black;
+  margin-bottom: 20px;
+}
+
+.textbox {
+  text-align: left !important;
+  color: white;
   margin-bottom: 20px;
 }
 
@@ -106,7 +113,16 @@
   cursor: pointer;
 }
 
+#resetpasswordmessage {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
 #logoutbutton:hover,
 #editprofilebutton:hover {
   filter: brightness(1.1);
+}
+
+#cpbutton {
+  margin-top: 20px;
 }
