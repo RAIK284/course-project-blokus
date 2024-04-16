@@ -4,10 +4,8 @@ import { Link } from "react-router-dom";
 import ProfileIcon from "../../assets/ProfileIcon.svg";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useAuth } from "./AuthContext";
 
 function Login() {
-  const { setIsLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,7 +15,6 @@ function Login() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
-        setIsLoggedIn(true);
         window.location.href = "/home";
       })
       .catch((error) => {

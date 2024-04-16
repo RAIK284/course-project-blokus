@@ -12,7 +12,7 @@ import {
 import { useAuth } from "./Auth/AuthContext";
 
 function Profile() {
-  const { authUser, setIsLoggedIn, setAuthUser } = useAuth();
+  const { authUser, setAuthUser } = useAuth();
   const [userData, setUserData] = useState("");
   const [nickname, setNickname] = useState("Loading ...");
   const [email, setEmail] = useState("Loading ...");
@@ -82,7 +82,6 @@ function Profile() {
     signOut(auth)
       .then(() => {
         setAuthUser(null);
-        setIsLoggedIn(false);
         console.log("signout successful");
         window.location.href = "/";
       })
