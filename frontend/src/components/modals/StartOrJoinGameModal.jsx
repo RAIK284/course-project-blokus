@@ -49,8 +49,6 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
   socket.on('joined_game', (data) => {
     let playerId = data['playerId'];
     if (playerId == player_id){
-      let lobbyCode = data['lobbyCode'];
-      set_lobby_code(lobbyCode);
       set_in_online_game(true);
       navigate(`/game`);
     }
@@ -72,6 +70,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
     let playerId = data['playerId'];
     if (playerId == player_id){
       let lobbyCode = data['lobbyCode'];
+      set_lobby_code(lobbyCode);
       join_game(lobbyCode);
     }
   });
