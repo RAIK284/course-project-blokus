@@ -57,7 +57,10 @@ function Avatar({ player, index, setAvatar }) {
             {
                 modalOpen &&
                     <div id="choicePopup">
-                        <div onClick={() => handleAvatarClick("local")}>Local Player</div>
+                        {
+                            in_online_game && 
+                            <div onClick={() => handleAvatarClick("local")}>Local Player</div>
+                        }
                         <div onClick={() => handleAvatarClick("easy")}>Easy Bot</div>
                         <div onClick={() => handleAvatarClick("medium")}>Medium Bot</div>
                         <div onClick={() => handleAvatarClick("hard")}>Hard Bot</div>

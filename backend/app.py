@@ -70,6 +70,7 @@ def handle_set_avatar(data):
     player_id = data['playerId']
     index = data['index']
     option = data['option']
+    game_lobbies[lobby_code]['players'].append('bot')
     socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'index': index, 'option': option})
 
 @socketio.on('piece_played')
