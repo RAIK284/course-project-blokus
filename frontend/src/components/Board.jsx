@@ -49,7 +49,6 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   });
 
   const startGame = () => {
-    console.log(playerNames);
     var playersChosen = playerNames.every(item => !String(item).includes('c'));
     if (playersChosen){
       if (onlineGame){
@@ -97,8 +96,8 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   // tracks if another user played a piece
   socket.on('piece_played', ( data ) => {
     if (onlineGame && lobby_code == data['lobbyCode'] && player_id != data['playerId']){
+      console.log("in piece played socket")
       let turn = data['turn'];
-      console.log(turn);
       set_turn_index(turn);
       reset_pieces();
       let socketBoard = data['board'];
@@ -142,6 +141,7 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
 
   const playBotRound = (difficulty) => {
     bot_play_piece(myPlayer, difficulty);
+    console.log(board_matrix[0][board_matrix.length - 1])
     if (onlineGame){
       piece_played(lobby_code, board_matrix, true);
     }
@@ -248,8 +248,19 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   }, [pieceIndex]);
 
   useEffect(() => {
+    if (onlineGame) {
+      var player = playerNames[currentPlayerTurnIndex];
+      if (typeof player === 'string' && player.includes('bot')) {
+        playBotRound(player.split(' ')[0]);
+      }
+    } else {
+      var bot = bots_playing[currentPlayerTurnIndex];
+      if (bot != ''){
+        playBotRound(bot);
+      }
+    }
     var bot = bots_playing[currentPlayerTurnIndex];
-    if (bot != ''){
+    if (bot != '' || playerNames[currentPlayerTurnIndex] == 'bot'){
       playBotRound(bot);
     }
   }, [myPlayer]);

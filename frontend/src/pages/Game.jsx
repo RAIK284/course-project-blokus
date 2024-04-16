@@ -23,6 +23,7 @@ function Game() {
   const [userPieces, setUserPieces] = useState(player_pieces);
   const [selectedBox, setSelectedBox] = useState(-1);
 
+
   const endRound = () => {
     setPieceIndex(-1);
     setUserPieces(player_pieces);
@@ -61,10 +62,10 @@ function Game() {
     console.log('in avatar set')
     if (lobby_code === data['lobbyCode']) {
       let players = data['players'];
-      console.log(players);
       const updatedPlayerNames = [...playerNames];
-      for (let i = 0; i < players.length; i++)
+      for (let i = 0; i < players.length; i++){
         updatedPlayerNames[i] = players[i];
+      }
       setPlayerNames(updatedPlayerNames);
     }
   });
@@ -96,6 +97,11 @@ function Game() {
         <div id="avatarHolder">
           <Avatar player={playerNames[0]} index={0} setAvatar={setAvatar} />
           <Avatar player={playerNames[1]} index={1} setAvatar={setAvatar} />
+          <div>0: {playerNames[0]}</div>
+          <div>1: {playerNames[1]}</div>
+          <div>2: {playerNames[2]}</div>
+          <div>3: {playerNames[3]}</div>
+          <div>lalal</div>
         </div>
         <div id="boardOutline">
           <Board

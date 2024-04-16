@@ -22,7 +22,7 @@ def handle_create_game(data):
     while lobby_code in game_lobbies:
         lobby_code = str(random.randint(0, 999999)).zfill(6)
     game_lobbies[lobby_code] = {
-        'players': [],
+        'players': ["", "", "", ""],
         'board': [[]],
         'startedGame': False
     }
@@ -45,11 +45,13 @@ def handle_join_game(data):
             return
         currentPlayers = game_lobbies[lobby_code]['players']
         # if lobby not full, add player to current players in lobby
-        if len(currentPlayers) <= 3 and player_id not in currentPlayers:
-            currentPlayers.append(player_id)
+        lobby_full = all(player is not "" for player in currentPlayers)
+        if not lobby_full and player_id not in currentPlayers:
+            empty_index = currentPlayers.index("")
+            currentPlayers[empty_index] = player_id
             socketio.emit('joined_game', {'lobbyCode': lobby_code, 'playerId': player_id})
             socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': currentPlayers})
-        elif len(currentPlayers) >= 4:
+        elif lobby_full:
             socketio.emit('lobby_full', {'lobbyCode': lobby_code, 'playerId': player_id})
         print(game_lobbies)
 
@@ -59,7 +61,8 @@ def handle_find_open_game(data):
     for lobby_code, lobby_data in game_lobbies.items():
         players = lobby_data['players']
         startedGame = lobby_data['startedGame']
-        if len(players) < 4 and startedGame == False:
+        lobby_full = all(player is not "" for player in players)
+        if not lobby_full and startedGame == False:
             socketio.emit('open_game_found', {'lobbyCode': lobby_code, 'playerId': player_id})
             return
     socketio.emit('no_open_game_found', {'playerId': player_id})
@@ -71,10 +74,10 @@ def handle_set_avatar(data):
     player_id = data['playerId']
     index = data['index']
     option = data['option']
-    game_lobbies[lobby_code]['players'].append('bot')
+    game_lobbies[lobby_code]['players'][index] = option + ' bot'
     players = game_lobbies[lobby_code]['players']
     print(players)
-    socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': players})
+    socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': players, index: index})
 
 @socketio.on('piece_played')
 def handle_piece_played(data):

@@ -11,7 +11,7 @@ function Avatar({ player, index, setAvatar }) {
     let preCalls = 0;
 
     useEffect(() => {
-        if (preCalls == 0 && ind <= 3 && (player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
+        if (preCalls == 0 && ind <= 3 && (player == "" || player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
             preCalls++;
             setIsPlayer(false);
             setInd(prevIndex => prevIndex + 4);
@@ -20,7 +20,7 @@ function Avatar({ player, index, setAvatar }) {
 
     useEffect(() => {
         console.log(ind + " " + player)
-        if (ind >= 4 && !(player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
+        if (ind >= 4 && !(player == "" || player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
             console.log(ind + " switch")
             setInd(prevIndex => prevIndex - 4);
             setIsPlayer(true);
