@@ -13,35 +13,7 @@ function SignUp() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmPassword] = useState("******");
-
-  // const handleSignUp = (e) => {
-  //   e.preventDefault();
-
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then(async (userCredential) => {
-  //       console.log(userCredential);
-  //       // do here
-  //       // console.log(userCredential.uid);
-  //       // const docRef = doc(database, "users", userCredential.uid);
-  //       // const payload = {
-  //       //   nickname: nickname,
-  //       //   firstName: firstName,
-  //       //   lastName: lastName,
-  //       //   profileImage: "example.jpg",
-  //       //   gamesPlayed: 0,
-  //       //   gamesWon: 0,
-  //       //   totalPieces: 0,
-  //       // };
-  //       // await setDoc(docRef, payload);
-
-  //       window.location.href = "/home";
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-
-  // };
+  const [confirmpassword, setConfirmPassword] = useState(" ");
 
   const handleSignUp = async (e) => {
     e.preventDefault();
