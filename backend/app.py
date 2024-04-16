@@ -64,6 +64,14 @@ def handle_find_open_game(data):
     print("test")
     socketio.emit('no_open_game_found', {'playerId': player_id})
 
+@socketio.on('set_avatar')
+def handle_set_avatar(data):
+    lobby_code = data['lobbyCode']
+    player_id = data['playerId']
+    index = data['index']
+    option = data['option']
+    socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'index': index, 'option': option})
+
 @socketio.on('piece_played')
 def handle_piece_played(data):
     lobby_code = data['lobbyCode']

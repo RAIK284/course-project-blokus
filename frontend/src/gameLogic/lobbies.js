@@ -39,6 +39,15 @@ export const find_open_game = () => {
     });
 }
 
+export const set_avatar = (lobbyCode, index, option) => {
+    socket.emit('set_avatar', {
+        lobbyCode: lobbyCode,
+        playerId: player_id,
+        index: index,
+        option: option
+    });
+}
+
 export const piece_played = (lobbyCode, board) => {
     console.log("piece played")
     socket.emit('piece_played', { 

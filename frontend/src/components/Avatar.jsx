@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AvatarIcon from "../assets/Avatar.svg";
 import "./Avatar.css";
 import { players } from "../gameLogic/playerData";
+import { in_online_game, lobby_code, set_avatar, socket } from "../gameLogic/lobbies";
 
 function Avatar({ player, index, setAvatar }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -28,7 +29,21 @@ function Avatar({ player, index, setAvatar }) {
         setInd(prevIndex => prevIndex - 4);
         setModalOpen(!modalOpen);
         setIsPlayer(true);
+        if (in_online_game){
+            set_avatar(lobby_code, index, option);
+        }
     }
+
+    socket.on('avatar_set', (data) => {
+        if (in_online_game && lobby_code == data['lobbyCode']){
+            let outerIndex = data['index'];
+            let outerOption = data['option'];
+            setAvatar(outerIndex, outerOption);
+            setInd(prevIndex => prevIndex - 4);
+            setModalOpen(!modalOpen);
+            setIsPlayer(true);
+        }
+    });
 
     return (
         <div onClick={openCloseModal} id={`container${ind}`}>

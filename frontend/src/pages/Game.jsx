@@ -15,7 +15,7 @@ function Game() {
   playerTime.setSeconds(playerTime.getSeconds() + timerLength);
 
   // data for game
-  const [playerNames, setPlayerNames] = useState(['blue', 'c2', 'c3', 'c4']);
+  const [playerNames, setPlayerNames] = useState(['c1', 'c2', 'c3', 'c4']);
 
   // data for current user playing
   const [myPlayer, setMyPlayer] = useState(players[currentPlayerTurnIndex]);
@@ -60,10 +60,19 @@ function Game() {
   // resets old game before starting new game
   useEffect(() => {
     reset_game();
-    if (in_online_game)
-      setPlayerNames(([player_id, 'c2', 'c3', 'c4']));
-    else
+    if (in_online_game){
+      // add new player to online game
+      for (let i = 0; i < playerNames.length; i++){
+        if (playerNames[i] == 'c1' || playerNames[i] == 'c2' || playerNames[i] == 'c3' || playerNames[i] == 'c4'){
+          const updatedPlayerNames = [...playerNames];
+          updatedPlayerNames[i] = player_id;
+          setPlayerNames(updatedPlayerNames);
+          break;
+        }
+      }
+    } else {
       setPlayerNames((['blue', 'c2', 'c3', 'c4']));
+    }
     endRound();
   }, []);
 
