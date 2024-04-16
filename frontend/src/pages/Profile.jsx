@@ -2,7 +2,7 @@ import "./Profile.css";
 import { useEffect, useState } from "react";
 import ProfileIcon from "../assets/ProfileIcon.svg";
 import database, { auth } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   signOut,
   sendPasswordResetEmail,
@@ -13,10 +13,12 @@ import { useAuth } from "./Auth/AuthContext";
 
 function Profile() {
   const { authUser, setIsLoggedIn, setAuthUser } = useAuth();
+  const [userData, setUserData] = useState("");
   const [nickname, setNickname] = useState("Loading ...");
   const [email, setEmail] = useState("Loading ...");
-  const [newEmail, setNewEmail] = useState();
   const [editMode, setEditMode] = useState(false);
+  const [isNicknameDirty, setIsNicknameDirty] = useState(false);
+  const [isEmailDirty, setIsEmailDirty] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleResetPassword = async () => {
@@ -28,13 +30,48 @@ function Profile() {
     }
   };
 
+  const handleEdit = () => {
+    setEditMode(true);
+  };
+
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value);
+    setIsNicknameDirty(true);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setIsEmailDirty(true);
+  };
+
   const handleSave = async () => {
     try {
-      await updateEmail(authUser, newEmail);
-      await sendEmailVerification(authUser);
-      console.log("Hello?");
-      setMessage("Email address updated successfully.");
-      setEmail(newEmail);
+      // only update the email if the user has changed something
+      if (isEmailDirty) {
+        await updateEmail(authUser, email);
+        await sendEmailVerification(authUser);
+        console.log("Hello?");
+        setMessage("Email address updated successfully.");
+        setEmail(email);
+      }
+
+      // only update the nickname if the user has changed something
+      if (isNicknameDirty) {
+        // identify the user info we want to change
+        const docRef = doc(database, "users", authUser.uid);
+        // set the fields we want to change
+        const payload = {
+          nickname: nickname,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          profileImage: userData.profileImage,
+          gamesPlayed: userData.gamesPlayed,
+          gamesWon: userData.gamesWon,
+          totalPieces: userData.totalPieces,
+        };
+        // actually update in the database
+        setDoc(docRef, payload);
+      }
       setEditMode(false);
     } catch (error) {
       setMessage(error.message);
@@ -52,15 +89,16 @@ function Profile() {
       .catch((error) => console.log(error));
   };
 
+  // get all the firestore info for the current logged in user
   useEffect(() => {
     const getUserData = async () => {
       try {
-        // get all the firestore info for the current logged in user
         const userDocRef = doc(database, "users", authUser.uid);
         const userDocSnapshot = await getDoc(userDocRef);
         if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
           console.log(userData);
+          setUserData(userData);
           // get the nickname from firestore and set it in the frontend state
           setNickname(userData.nickname);
 
@@ -78,10 +116,6 @@ function Profile() {
       getUserData();
     }
   }, [authUser]);
-  const handleEdit = () => {
-    setEditMode(true);
-    console.log("hello");
-  };
 
   return (
     <div id="profile">
@@ -103,14 +137,14 @@ function Profile() {
                   type="text"
                   placeholder="Enter Nickname"
                   value={nickname}
-                  onChange={(e) => setNickname(e.target.value)}
+                  onChange={handleNicknameChange}
                 />
                 <input
                   class="editbox"
                   type="text"
                   placeholder="Enter New Email"
-                  value={newEmail}
-                  onChange={(e) => setNewEmail(e.target.value)}
+                  value={email}
+                  onChange={handleEmailChange}
                 />
               </>
             ) : (
