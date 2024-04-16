@@ -28,7 +28,7 @@ function Avatar({ player, index, setAvatar }) {
     }, [player]);
 
     const openCloseModal = () => {
-        if (!isPlayer){
+        if (!isPlayer && !in_online_game){
             setModalOpen(!modalOpen);
         }
     }
@@ -57,10 +57,11 @@ function Avatar({ player, index, setAvatar }) {
         <div onClick={openCloseModal} id={`container${ind}`}>
             <img id={`avatar${ind}`} src={AvatarIcon} alt="Avatar" />
             {
-                isPlayer ?
-                    <div id={`bottomText${ind}`}> {player} </div>
-                :
-                    <div id={`bottomText${ind}`}> + </div>
+                isPlayer ? (
+                    <div id={`bottomText${ind}`}>{player}</div>
+                ) : !in_online_game ? (
+                    <div id={`bottomText${ind}`}>+</div>
+                ) : ( <div id={`bottomText${ind}`}></div> )
             }
             {
                 modalOpen &&

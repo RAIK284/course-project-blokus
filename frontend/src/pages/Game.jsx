@@ -97,11 +97,6 @@ function Game() {
         <div id="avatarHolder">
           <Avatar player={playerNames[0]} index={0} setAvatar={setAvatar} />
           <Avatar player={playerNames[1]} index={1} setAvatar={setAvatar} />
-          <div>0: {playerNames[0]}</div>
-          <div>1: {playerNames[1]}</div>
-          <div>2: {playerNames[2]}</div>
-          <div>3: {playerNames[3]}</div>
-          <div>lalal</div>
         </div>
         <div id="boardOutline">
           <Board

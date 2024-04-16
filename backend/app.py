@@ -32,7 +32,9 @@ def handle_create_game(data):
 def handle_start_game(data):
     lobby_code = data['lobbyCode']
     game_lobbies[lobby_code]['startedGame'] = True
+    players = game_lobbies[lobby_code]['players']
     socketio.emit('game_started', {'lobbyCode': lobby_code})
+    socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': players})
 
 @socketio.on('join_game')
 def handle_join_game(data):
