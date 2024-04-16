@@ -13,7 +13,7 @@ import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
 import { bots_playing, currentPlayerTurnIndex, end_turn } from "../gameLogic/playerData";
-import { join_game, lobby_code, piece_played, player_id, socket, start_game } from "../gameLogic/lobbies";
+import { in_online_game, join_game, lobby_code, piece_played, player_id, socket, start_game } from "../gameLogic/lobbies";
 
 function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, onlineGame }) {
   const [board, setBoard] = useState([[]]);
@@ -106,17 +106,13 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
       const time = new Date();
       time.setSeconds(time.getSeconds() + timerLength);
       restart(time);
-      if (arraysEqual(socketBoard, board_matrix))
+      if (JSON.stringify(socketBoard) === JSON.stringify(board_matrix))
         end_turn();
       set_board_matrix(socketBoard);
       // end round
       endRound();
     }
   });
-
-  function arraysEqual(arr1, arr2) {
-    return JSON.stringify(arr1) === JSON.stringify(arr2);
-  }
 
   const placePlayerPiece = (row, col) => {
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {
@@ -182,13 +178,16 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   };
 
   const checkIfPiecePlayable = (row, col) => {
-    // check if user selected a piece
-    if (pieceIndex != -1) {
-      const showHighlight = can_play_piece(row, col, pieceIndex, myPlayer);
-      if (showHighlight) {
-        setHoverRow(row);
-        setHoverCol(col);
-        setBoardHighlights(row, col);
+    // check if it's your turn
+    if (!in_online_game || (in_online_game && playerNames[currentPlayerTurnIndex] == player_id)){
+      // check if user selected a piece
+      if (pieceIndex != -1) {
+        const showHighlight = can_play_piece(row, col, pieceIndex, myPlayer);
+        if (showHighlight) {
+          setHoverRow(row);
+          setHoverCol(col);
+          setBoardHighlights(row, col);
+        }
       }
     }
   };

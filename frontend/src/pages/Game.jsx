@@ -6,7 +6,7 @@ import { bots_playing, currentPlayerTurnIndex, player_pieces, players } from "..
 import { reset_game } from "../gameLogic/board";
 import KeyHolder from "../components/KeyHolder";
 import Avatar from "../components/Avatar";
-import { in_online_game } from "../gameLogic/lobbies";
+import { in_online_game, player_id } from "../gameLogic/lobbies";
 
 function Game() {
   // timer values
@@ -32,21 +32,25 @@ function Game() {
 
   const setAvatar = (index, mode) => {
     let label = "";
-    if (mode == 'local'){
-      switch (index) {
-        case 0: label = "blue"; break;
-        case 1: label = "yellow"; break;
-        case 2: label = "red"; break;
-        case 3: label = "green"; break;
+    if (!in_online_game){
+      if (mode == 'local'){
+        switch (index) {
+          case 0: label = "blue"; break;
+          case 1: label = "yellow"; break;
+          case 2: label = "red"; break;
+          case 3: label = "green"; break;
+        }
+      } else {
+        switch (index) {
+          case 0: bots_playing[0] = mode; break;
+          case 1: bots_playing[2] = mode; break;
+          case 2: bots_playing[1] = mode; break;
+          case 3: bots_playing[3] = mode; break;
+        }
+        label = mode + " bot";
       }
     } else {
-      switch (index) {
-        case 0: bots_playing[0] = mode; break;
-        case 1: bots_playing[2] = mode; break;
-        case 2: bots_playing[1] = mode; break;
-        case 3: bots_playing[3] = mode; break;
-      }
-      label = mode + " bot";
+      label = player_id;
     }
     const updatedPlayerNames = [...playerNames];
     updatedPlayerNames[index] = label;
@@ -56,7 +60,10 @@ function Game() {
   // resets old game before starting new game
   useEffect(() => {
     reset_game();
-    setPlayerNames((['blue', 'c2', 'c3', 'c4']));
+    if (in_online_game)
+      setPlayerNames(([player_id, 'c2', 'c3', 'c4']));
+    else
+      setPlayerNames((['blue', 'c2', 'c3', 'c4']));
     endRound();
   }, []);
 

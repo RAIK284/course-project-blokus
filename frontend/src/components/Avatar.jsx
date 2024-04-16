@@ -5,35 +5,40 @@ import { players } from "../gameLogic/playerData";
 
 function Avatar({ player, index, setAvatar }) {
     const [modalOpen, setModalOpen] = useState(false);
+    const [ind, setInd] = useState(index);
+    const [isPlayer, setIsPlayer] = useState(true);
+    let preCalls = 0;
 
-    let bottomText = player
-    if (player.includes("bot")){
-        switch (index) {
-            case 0: player = "blue"; break;
-            case 1: player = "yellow"; break;
-            case 2: player = "red"; break;
-            case 3: player = "green"; break;
+    useEffect(() => {
+        if (preCalls == 0 && ind <= 3 && (player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
+            preCalls++;
+            setIsPlayer(false);
+            setInd(prevIndex => prevIndex + 4);
         }
-    }
-    else if (player != "red" && player != "blue" && player != "green" && player != "yellow") {
-        bottomText = "+";
-    }
+    }, []);
 
     const openCloseModal = () => {
-        if (bottomText == "+"){
+        if (!isPlayer){
             setModalOpen(!modalOpen);
         }
     }
 
     const handleAvatarClick = (option) => {
         setAvatar(index, option);
+        setInd(prevIndex => prevIndex - 4);
         setModalOpen(!modalOpen);
+        setIsPlayer(true);
     }
 
     return (
-        <div onClick={openCloseModal} id={`${player}Container`}>
-            <img id={`${player}Avatar`} src={AvatarIcon} alt="Avatar" />
-            <div id={`${player}BottomText`}> {bottomText} </div>
+        <div onClick={openCloseModal} id={`container${ind}`}>
+            <img id={`avatar${ind}`} src={AvatarIcon} alt="Avatar" />
+            {
+                isPlayer ?
+                    <div id={`bottomText${ind}`}> {player} </div>
+                :
+                    <div id={`bottomText${ind}`}> + </div>
+            }
             {
                 modalOpen &&
                     <div id="choicePopup">
