@@ -7,6 +7,10 @@ export let bots_playing = ['', '', '', ''];
 // index of which player's turn it is (ex: index 0 = yellow turn)
 export let currentPlayerTurnIndex = 0;
 
+export function set_turn_index(value) {
+    currentPlayerTurnIndex = value;
+}
+
 export function reset_player_data(){
     currentPlayerTurnIndex = 0;
     player_pieces = {

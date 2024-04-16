@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import { board_matrix } from './board';
+import { currentPlayerTurnIndex } from './playerData';
 
 export const socket = io('http://localhost:5000');
 export let in_online_game = false;
@@ -54,13 +55,15 @@ export const piece_played = (lobbyCode, board, bot_played) => {
         socket.emit('piece_played', { 
             lobbyCode: lobbyCode,
             board: board,
-            playerId: -1
+            playerId: -1,
+            turn: currentPlayerTurnIndex
         });
     } else {
         socket.emit('piece_played', { 
             lobbyCode: lobbyCode,
             board: board,
-            playerId: player_id
+            playerId: player_id,
+            turn: currentPlayerTurnIndex
         });
     }
 }

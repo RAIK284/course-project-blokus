@@ -81,8 +81,9 @@ def handle_piece_played(data):
     lobby_code = data['lobbyCode']
     board = data['board']
     player_id = data['playerId']
+    turn = data['turn']
     game_lobbies[lobby_code]['board'] = board
-    socketio.emit('piece_played', {'lobbyCode': lobby_code, 'board': board, 'playerId': player_id})
+    socketio.emit('piece_played', {'lobbyCode': lobby_code, 'board': board, 'playerId': player_id, 'turn': turn})
 
 @socketio.on('disconnect')
 def handle_disconnect():

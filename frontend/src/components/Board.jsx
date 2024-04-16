@@ -8,11 +8,11 @@ import {
   play_random_piece,
   set_board_matrix,
 } from "../gameLogic/board";
-import { flip_piece, pieces } from "../gameLogic/pieceData";
+import { flip_piece, pieces, reset_pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
-import { bots_playing, currentPlayerTurnIndex, end_turn } from "../gameLogic/playerData";
+import { bots_playing, currentPlayerTurnIndex, end_turn, set_turn_index } from "../gameLogic/playerData";
 import { in_online_game, join_game, lobby_code, piece_played, player_id, socket, start_game } from "../gameLogic/lobbies";
 
 function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, onlineGame }) {
@@ -97,6 +97,10 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   // tracks if another user played a piece
   socket.on('piece_played', ( data ) => {
     if (onlineGame && lobby_code == data['lobbyCode'] && player_id != data['playerId']){
+      let turn = data['turn'];
+      console.log(turn);
+      set_turn_index(turn);
+      reset_pieces();
       let socketBoard = data['board'];
       setBoard(socketBoard);
       fillBoard();
@@ -107,9 +111,11 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
       const time = new Date();
       time.setSeconds(time.getSeconds() + timerLength);
       restart(time);
-      if (JSON.stringify(socketBoard) === JSON.stringify(board_matrix))
-        end_turn();
+      
+      //if (JSON.stringify(socketBoard) === JSON.stringify(board_matrix))
+      //  end_turn();
       set_board_matrix(socketBoard);
+
       // end round
       endRound();
     }
