@@ -48,6 +48,7 @@ def handle_join_game(data):
         if len(currentPlayers) <= 3 and player_id not in currentPlayers:
             currentPlayers.append(player_id)
             socketio.emit('joined_game', {'lobbyCode': lobby_code, 'playerId': player_id})
+            socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': currentPlayers})
         elif len(currentPlayers) >= 4:
             socketio.emit('lobby_full', {'lobbyCode': lobby_code, 'playerId': player_id})
         print(game_lobbies)
@@ -61,17 +62,19 @@ def handle_find_open_game(data):
         if len(players) < 4 and startedGame == False:
             socketio.emit('open_game_found', {'lobbyCode': lobby_code, 'playerId': player_id})
             return
-    print("test")
     socketio.emit('no_open_game_found', {'playerId': player_id})
 
 @socketio.on('set_avatar')
 def handle_set_avatar(data):
+    print("in set avatar")
     lobby_code = data['lobbyCode']
     player_id = data['playerId']
     index = data['index']
     option = data['option']
     game_lobbies[lobby_code]['players'].append('bot')
-    socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'index': index, 'option': option})
+    players = game_lobbies[lobby_code]['players']
+    print(players)
+    socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': players})
 
 @socketio.on('piece_played')
 def handle_piece_played(data):

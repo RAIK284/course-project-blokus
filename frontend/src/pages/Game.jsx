@@ -6,7 +6,7 @@ import { bots_playing, currentPlayerTurnIndex, player_pieces, players } from "..
 import { reset_game } from "../gameLogic/board";
 import KeyHolder from "../components/KeyHolder";
 import Avatar from "../components/Avatar";
-import { in_online_game, player_id } from "../gameLogic/lobbies";
+import { in_online_game, lobby_code, player_id, socket } from "../gameLogic/lobbies";
 
 function Game() {
   // timer values
@@ -57,6 +57,18 @@ function Game() {
     setPlayerNames(updatedPlayerNames);
   }
 
+  socket.on('avatar_set', ( data ) => {
+    console.log('in avatar set')
+    if (lobby_code === data['lobbyCode']) {
+      let players = data['players'];
+      console.log(players);
+      const updatedPlayerNames = [...playerNames];
+      for (let i = 0; i < players.length; i++)
+        updatedPlayerNames[i] = players[i];
+      setPlayerNames(updatedPlayerNames);
+    }
+  });
+
   // resets old game before starting new game
   useEffect(() => {
     reset_game();
@@ -71,7 +83,9 @@ function Game() {
         }
       }
     } else {
-      setPlayerNames((['blue', 'c2', 'c3', 'c4']));
+      const updatedPlayerNames = [...playerNames];
+      updatedPlayerNames[0] = 'blue';
+      setPlayerNames(updatedPlayerNames);
     }
     endRound();
   }, []);

@@ -18,6 +18,15 @@ function Avatar({ player, index, setAvatar }) {
         }
     }, []);
 
+    useEffect(() => {
+        console.log(ind + " " + player)
+        if (ind >= 4 && !(player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
+            console.log(ind + " switch")
+            setInd(prevIndex => prevIndex - 4);
+            setIsPlayer(true);
+        }
+    }, [player]);
+
     const openCloseModal = () => {
         if (!isPlayer){
             setModalOpen(!modalOpen);
@@ -34,17 +43,16 @@ function Avatar({ player, index, setAvatar }) {
         }
     }
 
-    socket.on('avatar_set', (data) => {
-        if (in_online_game && lobby_code == data['lobbyCode']){
-            let outerIndex = data['index'];
+    /*socket.on('avatar_set', ( data ) => {
+        let outerIndex = data['index'];
+        if (in_online_game && index === outerIndex && lobby_code === data['lobbyCode']) {
             let outerOption = data['option'];
             setAvatar(outerIndex, outerOption);
-            setInd(prevIndex => prevIndex - 4);
-            setModalOpen(!modalOpen);
+            setModalOpen(false);
             setIsPlayer(true);
         }
-    });
-
+    });*/
+    
     return (
         <div onClick={openCloseModal} id={`container${ind}`}>
             <img id={`avatar${ind}`} src={AvatarIcon} alt="Avatar" />
@@ -58,7 +66,7 @@ function Avatar({ player, index, setAvatar }) {
                 modalOpen &&
                     <div id="choicePopup">
                         {
-                            in_online_game && 
+                            !in_online_game && 
                             <div onClick={() => handleAvatarClick("local")}>Local Player</div>
                         }
                         <div onClick={() => handleAvatarClick("easy")}>Easy Bot</div>

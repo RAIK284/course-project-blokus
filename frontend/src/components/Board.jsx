@@ -49,7 +49,8 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   });
 
   const startGame = () => {
-    var playersChosen = playerNames.every(item => !item.includes('c'));
+    console.log(playerNames);
+    var playersChosen = playerNames.every(item => !String(item).includes('c'));
     if (playersChosen){
       if (onlineGame){
         start_game(lobby_code);
@@ -260,6 +261,13 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
 
   return (
     <>
+      {
+        onlineGame && 
+        <div id="lobbyHolder">
+          <div id="lobbyTxt">Lobby: {lobby_code}</div>
+        </div>
+      }
+
       <div id="board">{displayRows}</div>
 
       <div id="timerHolder">
