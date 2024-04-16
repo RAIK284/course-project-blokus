@@ -57,7 +57,7 @@ function Login() {
       </button>
       <span id="rusignupmessage">
         Don't have an account?{" "}
-        <Link id="rusignuplink" to={"/SignUp"}>
+        <Link id="rusignuplink" to={"/signup"}>
           Sign up!
         </Link>
       </span>

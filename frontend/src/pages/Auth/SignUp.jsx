@@ -5,9 +5,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 import database, { auth } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
-import firebase from "../../firebase";
+
 function SignUp() {
-  // variable for name (useState)
   const [nickname, setNickname] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -116,7 +115,7 @@ function SignUp() {
       </button>
       <span id="suloginmessage">
         Already have an account?{" "}
-        <Link id="suloginlink" to={"/Login"}>
+        <Link id="suloginlink" to={"/login"}>
           Log in here!
         </Link>
       </span>
