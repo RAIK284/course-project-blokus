@@ -136,7 +136,7 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
   const playBotRound = (difficulty) => {
     bot_play_piece(myPlayer, difficulty);
     if (onlineGame){
-      piece_played(lobby_code, board_matrix);
+      piece_played(lobby_code, board_matrix, true);
     }
     setBoard(board_matrix);
     fillBoard();

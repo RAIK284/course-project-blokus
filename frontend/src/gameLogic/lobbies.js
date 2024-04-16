@@ -48,13 +48,21 @@ export const set_avatar = (lobbyCode, index, option) => {
     });
 }
 
-export const piece_played = (lobbyCode, board) => {
+export const piece_played = (lobbyCode, board, bot_played) => {
     console.log("piece played")
-    socket.emit('piece_played', { 
-        lobbyCode: lobbyCode,
-        board: board,
-        playerId: player_id
-    });
+    if (bot_played){
+        socket.emit('piece_played', { 
+            lobbyCode: lobbyCode,
+            board: board,
+            playerId: -1
+        });
+    } else {
+        socket.emit('piece_played', { 
+            lobbyCode: lobbyCode,
+            board: board,
+            playerId: player_id
+        });
+    }
 }
 
 socket.on('connect', () => {
