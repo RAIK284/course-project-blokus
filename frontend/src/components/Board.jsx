@@ -1,13 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import BoardBlock from "./BoardBlock";
 import "./Board.css";
-import {
-  board_matrix,
-  can_play_piece,
-  play_piece,
-  play_random_piece,
-  set_board_matrix,
-} from "../gameLogic/board";
+import { board_matrix, play_piece, play_random_piece, set_board_matrix } from "../gameLogic/board";
+import { can_play_piece } from "../gameLogic/checks";
 import { flip_piece, pieces, reset_pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
@@ -189,7 +184,8 @@ function Board({ playerNames, pieceIndex, myPlayer, expiryTimestamp, endRound, o
     if (!in_online_game || (in_online_game && playerNames[currentPlayerTurnIndex] == player_id)){
       // check if user selected a piece
       if (pieceIndex != -1) {
-        const showHighlight = can_play_piece(row, col, pieceIndex, myPlayer);
+        let piece = pieces[pieceIndex];
+        const showHighlight = can_play_piece(board_matrix, piece, row, col, myPlayer);
         if (showHighlight) {
           setHoverRow(row);
           setHoverCol(col);
