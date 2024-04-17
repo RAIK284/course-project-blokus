@@ -43,13 +43,20 @@ export function end_turn(){
 
 export function determine_winner(){
     let winner = { player: '', score: total_blocks_for_player + 1 };
+    let total_placed = 0;
     players.forEach((player) => {
         let score = 0;
         for (let i = 0; i < player_pieces[player].length; i++){
             if (player_pieces[player][i]){
                 let piece_size = pieces_blocks_counts[i];
-                score += piece_size;
+                total_placed += piece_size;
             }
+        }
+        if (total_placed == 0) {
+            score = 25;
+        }
+        else {
+            score = total_placed - 89;
         }
         console.log(player + " score: " + score)
         if (score < winner.score)

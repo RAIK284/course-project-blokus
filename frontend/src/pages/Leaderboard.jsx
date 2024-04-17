@@ -62,7 +62,7 @@ function Leaderboard() {
             }
           });
 
-          console.log(usersData);
+          console.log(usersData.sort((a, b) => b.totalPieces - a.totalPieces));
         } catch (error) {
           console.error("Error fetching users data:", error);
         }
@@ -75,8 +75,6 @@ function Leaderboard() {
   // sortedData = getUsersData().sort(function(a, b) {
   //   return parseFloat(a.totalPieces) - parseFloat(b.totalPieces);
   // });
-
-  console.log(usersData.sort((a, b) => parseFloat(a.totalPieces) - parseFloat(b.totalPieces)));
 
 
   
