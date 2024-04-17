@@ -43,18 +43,25 @@ export function end_turn(){
 }
 
 export function determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts){
-    let winner = { player: '', score: total_blocks_for_player + 1 };
+    let winner = { player: '', score: (total_blocks_for_player + 1)*(-1) };
     let tied = false;
     players.forEach((player) => {
+        let total_placed = 0;
         let score = 0;
         for (let i = 0; i < player_pieces[player].length; i++){
             if (player_pieces[player][i]){
                 let piece_size = pieces_blocks_counts[i];
-                score += piece_size;
+                total_placed += piece_size;
             }
         }
+        if (total_placed == 0) { //eventually change to == 89 once emmett fixes his stuff (or we can just leave if it doesn't affect other stuff)
+            score = 25;
+        }
+        else {
+            score = (89-total_placed) - 89; //eventually change to just total_placed-89 once emmett fixes his stuff (or we can just leave if it doesn't affect other stuff)
+        }
         console.log(player + " score: " + score)
-        if (score < winner.score) {
+        if (score > winner.score) {
             winner = { player: player, score: score };
             tied = false;
         } else if (score === winner.score) {
