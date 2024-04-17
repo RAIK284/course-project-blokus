@@ -1,12 +1,92 @@
 import "./Leaderboard.css";
 import Ranking from "../components/Ranking";
 import AvatarIcon from "../assets/Avatar.svg";
+import { useEffect, useState } from "react";
+import database, { auth } from "../firebase";
+import { doc, getDoc, setDoc, getDocs, collection } from "firebase/firestore";
+import { useAuth } from "./Auth/AuthContext";
 
 function Leaderboard() {
+
+  const { authUser, setAuthUser } = useAuth();
+  const [userData, setUserData] = useState("");
+  const [usersData, setUsersData] = useState("");
+
+
+
+  const sortedData = [];
+  // const [nickname, setNickname] = useState("Loading ...");
+  // const [email, setEmail] = useState("Loading ...");
+  // const [editMode, setEditMode] = useState(false);
+  // const [isNicknameDirty, setIsNicknameDirty] = useState(false);
+  // const [isEmailDirty, setIsEmailDirty] = useState(false);
+  // const [message, setMessage] = useState("");
+
+  // get all the firestore info for the current logged in user
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const userDocRef = doc(database, "users", authUser.uid);
+        const userDocSnapshot = await getDoc(userDocRef);
+        if (userDocSnapshot.exists()) {
+
+          const userData = userDocSnapshot.data();
+          console.log(userData);
+          setUserData(userData);
+        } else {
+          console.log("User document does not exist");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    if (authUser) {
+      getUserData();
+    }
+  }, [authUser]);
+
+  // get all the firestore info for the users
+  useEffect(() => {
+      const getUsersData = async () => {
+        try {
+          const usersCollectionRef = collection(database, "users");
+          const usersSnapshot = await getDocs(usersCollectionRef);
+
+          const usersData = [];
+          usersSnapshot.forEach(doc => {
+            if (doc.exists()) {
+              usersData.push(doc.data());
+            } else {
+              console.log("Document does not exist for user with ID:", doc.id);
+            }
+          });
+
+          console.log(usersData);
+        } catch (error) {
+          console.error("Error fetching users data:", error);
+        }
+      };
+
+      getUsersData();
+  }, []);
+
+  // sorting all the users 
+  // sortedData = getUsersData().sort(function(a, b) {
+  //   return parseFloat(a.totalPieces) - parseFloat(b.totalPieces);
+  // });
+
+  console.log(usersData.sort((a, b) => parseFloat(a.totalPieces) - parseFloat(b.totalPieces)));
+
+
+  
+
+
+  
   return <div id="leaderboard">
 
     <div id="individualContainer">
-      <div id="individualTitle">catluver123's stats</div>
+      <div id="individualTitle">{userData.nickname}'s stats</div>
       <img id="individualAvatar" src={AvatarIcon} alt="Avatar" />
       <div className="individualInfo">rank: #1</div>
       <div className="individualInfo">score: 97</div>
@@ -33,7 +113,7 @@ function Leaderboard() {
         <Ranking rank="9" name="funfriend" score="18" />
         <Ranking rank="10" name="iloveblocks" score="17" />
         <div id="dotdotdot">. . .</div>
-        <Ranking rank="45" name="you" score="2" />
+        <Ranking rank="45" name={userData.nickname} score={userData.totalPieces} />
       </div>
     </div>
 
