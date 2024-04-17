@@ -46,7 +46,7 @@ describe('Game functionality', () => {
             green: Array(21).fill(true),
         }
         let expected = determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts)
-        expect(expected.score).toBe(0);
+        expect(expected.score).toBe(25);
     });
 
     test('Determine winner correctly normal case', () => {
@@ -70,7 +70,31 @@ describe('Game functionality', () => {
             green: [true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
         }
         let expected = determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts)
-        expect(expected.score).toBe(6);
+        expect(expected.score).toBe(-6);
+    });
+
+    test('Determine winner correctly placed all but 1', () => {
+        reset_player_data();
+        let player_pieces = {
+            yellow: Array(21).fill(true),
+            red: [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            blue: Array(21).fill(true),
+            green: Array(21).fill(true),
+        }
+        let expected = determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts)
+        expect(expected.player).toBe("red");
+    });
+
+    test('Determine winner correctly placed all but 1', () => {
+        reset_player_data();
+        let player_pieces = {
+            yellow: Array(21).fill(true),
+            red: [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            blue: Array(21).fill(true),
+            green: Array(21).fill(true),
+        }
+        let expected = determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts)
+        expect(expected.score).toBe(-1);
     });
 
     test('Determine winner correctly when tie of non-winners', () => {
@@ -94,7 +118,7 @@ describe('Game functionality', () => {
             green:[true, false, true, false, true, false, true, false, true, false, false, false, true, false, false, false, true, false, true, false, false],
         }
         let expected = determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts)
-        expect(expected.score).toBe(9);
+        expect(expected.score).toBe(-9);
     });
 
     test('Determine tie check correctly when all zero', () => {
