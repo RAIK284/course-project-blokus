@@ -37,6 +37,8 @@ export function end_turn(){
     if (!can_play[players[currentPlayerTurnIndex]]){
         //console.log("end_turn recurse")
         end_turn();
+    } else {
+        return currentPlayerTurnIndex;
     }
 }
 
