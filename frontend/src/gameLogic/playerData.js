@@ -5,6 +5,10 @@ export let bots_playing = ['', '', '', ''];
 // index of which player's turn it is (ex: index 0 = yellow turn)
 export let currentPlayerTurnIndex = 0;
 
+export function set_turn_index(value) {
+    currentPlayerTurnIndex = value;
+}
+
 export function reset_player_data(){
     currentPlayerTurnIndex = 0;
     player_pieces = {
@@ -36,7 +40,7 @@ export function end_turn(){
     }
 }
 
-export function determine_winner(total_blocks_for_player, pieces_blocks_counts){
+export function determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts){
     let winner = { player: '', score: total_blocks_for_player + 1 };
     players.forEach((player) => {
         let score = 0;

@@ -135,7 +135,7 @@ function end_round_checks(){
     //console.log("current player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
     if (is_game_over()){
         console.log("game over");
-        console.log("winner: " + determine_winner(total_blocks_for_player, pieces_blocks_counts));
+        console.log("winner: " + determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts));
     } else {
         end_turn();
         reset_pieces();
