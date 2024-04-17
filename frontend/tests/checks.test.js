@@ -1,4 +1,4 @@
-const { can_play_piece } = require('../src/gameLogic/checks'); // Update with the correct path to your JS file
+const { can_play_piece } = require('../src/gameLogic/checks');
 
 describe('can_play_piece function', () => {
 

@@ -1,5 +1,5 @@
 import { players, player_pieces, playable_pieces, can_play, end_turn, determine_winner, reset_player_data, currentPlayerTurnIndex } from './playerData';
-import { pieces, reset_pieces, rotate_piece } from './pieceData';
+import { pieces, pieces_blocks_counts, reset_pieces, rotate_piece, total_blocks_for_player } from './pieceData';
 import { can_play_piece } from './checks';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
@@ -135,9 +135,10 @@ function end_round_checks(){
     //console.log("current player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
     if (is_game_over()){
         console.log("game over");
-        console.log("winner: " + determine_winner());
+        console.log("winner: " + determine_winner(total_blocks_for_player, pieces_blocks_counts));
     } else {
         end_turn();
+        reset_pieces();
     }
 }
 

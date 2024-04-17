@@ -1,15 +1,9 @@
-import { reset_pieces, pieces_blocks_counts, total_blocks_for_player } from "./pieceData";
-
 export let players = ['blue', 'red', 'yellow', 'green'];
 
 export let bots_playing = ['', '', '', ''];
 
 // index of which player's turn it is (ex: index 0 = yellow turn)
 export let currentPlayerTurnIndex = 0;
-
-export function set_turn_index(value) {
-    currentPlayerTurnIndex = value;
-}
 
 export function reset_player_data(){
     currentPlayerTurnIndex = 0;
@@ -39,13 +33,10 @@ export function end_turn(){
     if (!can_play[players[currentPlayerTurnIndex]]){
         //console.log("end_turn recurse")
         end_turn();
-    } else {
-        //console.log("end_turn reset pieces call")
-        reset_pieces();
     }
 }
 
-export function determine_winner(){
+export function determine_winner(total_blocks_for_player, pieces_blocks_counts){
     let winner = { player: '', score: total_blocks_for_player + 1 };
     players.forEach((player) => {
         let score = 0;

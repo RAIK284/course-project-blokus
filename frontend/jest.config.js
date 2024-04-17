@@ -16,7 +16,6 @@ module.exports = {
 
     // A map from regular expressions to paths to transformers
     transform: {
-        '^.+\\.js$': 'babel-jest', // Use Babel for transpiling JavaScript files
+        "^.+\\.(js|jsx)$": "babel-jest", // Use Babel for transpiling JavaScript and JSX files
     },
 };
-  
