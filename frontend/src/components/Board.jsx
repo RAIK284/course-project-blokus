@@ -17,6 +17,7 @@ function Board({
   expiryTimestamp,
   endRound,
   onlineGame,
+  endGame
 }) {
   const [board, setBoard] = useState([[]]);
   const [displayRows, setDisplayRows] = useState([]);
@@ -124,9 +125,13 @@ function Board({
 
   const placePlayerPiece = (row, col) => {
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {
-      play_piece(row, col, myPlayer, pieceIndex);
+      let play = play_piece(playerNames, row, col, myPlayer, pieceIndex);
       if (onlineGame) {
         piece_played(lobby_code, board_matrix);
+      } else if (Array.isArray(play)){
+        pause();
+        console.log(play);
+        endGame(play);
       }
       setBoard(board_matrix);
       // reset hover indeces
@@ -142,10 +147,12 @@ function Board({
   };
 
   const playBotRound = (difficulty) => {
-    bot_play_piece(myPlayer, difficulty);
-    console.log(board_matrix[0][board_matrix.length - 1])
-    if (onlineGame){
+    let play = bot_play_piece(playerNames, myPlayer, difficulty);
+    if (onlineGame) {
       piece_played(lobby_code, board_matrix, true);
+    } else if (Array.isArray(play)){
+      pause();
+      endGame(play);
     }
     setBoard(board_matrix);
     fillBoard();
@@ -205,9 +212,12 @@ function Board({
   // handles resetting of timer
   useEffect(() => {
     if (seconds == 0) {
-      play_random_piece(myPlayer);
+      let play = play_random_piece(playerNames, myPlayer);
       if (onlineGame) {
         piece_played(lobby_code, board_matrix);
+      } else if (Array.isArray(play)){
+        pause();
+        endGame(play);
       }
       // delay to render piece
       setTimeout(function () {
@@ -261,10 +271,6 @@ function Board({
       if (bot != ''){
         playBotRound(bot);
       }
-    }
-    var bot = bots_playing[currentPlayerTurnIndex];
-    if (bot != '' || playerNames[currentPlayerTurnIndex] == 'bot'){
-      playBotRound(bot);
     }
   }, [myPlayer]);
 

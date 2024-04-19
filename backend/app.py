@@ -90,6 +90,13 @@ def handle_piece_played(data):
     game_lobbies[lobby_code]['board'] = board
     socketio.emit('piece_played', {'lobbyCode': lobby_code, 'board': board, 'playerId': player_id, 'turn': turn})
 
+@socketio.on('game_over')
+def handle_game_over(data):
+    lobby_code = data['lobbyCode']
+    end_players = data['endPlayers']
+    game_lobbies.pop(lobby_code, None)
+    socketio.emit('game_over', {'lobbyCode': lobby_code, 'endPlayers': end_players})
+
 @socketio.on('disconnect')
 def handle_disconnect():
     print('Client disconnected')

@@ -7,6 +7,7 @@ import { reset_game } from "../gameLogic/board";
 import KeyHolder from "../components/KeyHolder";
 import Avatar from "../components/Avatar";
 import { in_online_game, lobby_code, player_id, socket } from "../gameLogic/lobbies";
+import EndGameModal from "../components/modals/EndGameModal";
 
 function Game() {
   // timer values
@@ -16,6 +17,13 @@ function Game() {
 
   // data for game
   const [playerNames, setPlayerNames] = useState(['c1', 'c2', 'c3', 'c4']);
+  const [endModalOpen, setEndModalOpen] = useState(false);
+  const [endPlayers, setEndPlayers] = useState([
+    { name: "Emmett", score: 50, color: "red" },
+    { name: "Allan", score: 39, color: "blue" },
+    { name: "Sophia", score: 27, color: "yellow" },
+    { name: "Lena", score: 12, color: "green" }
+  ]);
 
   // data for current user playing
   const [myPlayer, setMyPlayer] = useState(players[currentPlayerTurnIndex]);
@@ -23,12 +31,17 @@ function Game() {
   const [userPieces, setUserPieces] = useState(player_pieces);
   const [selectedBox, setSelectedBox] = useState(-1);
 
-
   const endRound = () => {
     setPieceIndex(-1);
     setUserPieces(player_pieces);
     setSelectedBox(-1);
     setMyPlayer(players[currentPlayerTurnIndex]);
+  }
+
+  const endGame = (endPlayers) => {
+    console.log(endPlayers);
+    setEndPlayers(endPlayers);
+    setEndModalOpen(true);
   }
 
   const setAvatar = (index, mode) => {
@@ -93,6 +106,13 @@ function Game() {
 
   return (
     <div id="game">
+      <EndGameModal 
+        endPlayers={endPlayers}
+        setEndPlayers={setEndPlayers}
+        isOpen={endModalOpen}
+        setOpen={() => setEndModalOpen(true)}
+        setClose={() => setEndModalOpen(false)}
+      />
       <div id="boardHolder">
         <div id="avatarHolder">
           <Avatar player={playerNames[0]} index={0} setAvatar={setAvatar} />
@@ -106,6 +126,7 @@ function Game() {
             expiryTimestamp={playerTime}
             endRound={endRound}
             onlineGame={in_online_game}
+            endGame={endGame}
           />
         </div>
         <div id="avatarHolder">

@@ -42,16 +42,6 @@ function Avatar({ player, index, setAvatar }) {
             set_avatar(lobby_code, index, option);
         }
     }
-
-    /*socket.on('avatar_set', ( data ) => {
-        let outerIndex = data['index'];
-        if (in_online_game && index === outerIndex && lobby_code === data['lobbyCode']) {
-            let outerOption = data['option'];
-            setAvatar(outerIndex, outerOption);
-            setModalOpen(false);
-            setIsPlayer(true);
-        }
-    });*/
     
     return (
         <div onClick={openCloseModal} id={`container${ind}`}>

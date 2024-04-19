@@ -1,28 +1,28 @@
-import { board_matrix, play_piece, play_random_piece } from "./board";
+import { board_matrix, play_piece,playerNames,  play_random_piece } from "./board";
 import { flip_piece, reset_pieces, rotate_piece } from "./pieceData";
 import { player_pieces } from "./playerData";
 
 // router from components to bot play piece functions
-export function bot_play_piece(player, difficulty){
+export function bot_play_piece(playerNames, player, difficulty){
     switch (difficulty){
-        case "easy": easy_bot_play_piece(player); break;
-        case "medium": medium_bot_play_piece(player); break;
-        case "hard": hard_bot_play_piece(player); break;
+        case "easy": easy_bot_play_piece(playerNames, player); break;
+        case "medium": medium_bot_play_piece(playerNames, player); break;
+        case "hard": hard_bot_play_piece(playerNames, player); break;
     }
 }
 
 // easy bot: randomly places a piece
-function easy_bot_play_piece(player){
-    play_random_piece(player);
+function easy_bot_play_piece(playerNames, player){
+    play_random_piece(playerNames, player);
 }
 
 // medium bot: greedy placing by size
-function medium_bot_play_piece(player){
-    play_random_piece(player, true);
+function medium_bot_play_piece(playerNames, player){
+    play_random_piece(playerNames, player, true);
 }
 
 // hard bot: barasona opening into greeding placing by size and playable corners
-function hard_bot_play_piece(player){
+function hard_bot_play_piece(playerNames, player){
     let turn = player_pieces[player].filter(value => value === false).length + 1;
     if (turn == 1){
         // F piece
@@ -51,7 +51,7 @@ function hard_bot_play_piece(player){
         for (let rotate = 0; rotate < rotations; rotate++){
             rotate_piece(piece_index);
         }
-        play_piece(play_location[0], play_location[1], player, piece_index);
+        play_piece(playerNames, play_location[0], play_location[1], player, piece_index);
         reset_pieces();
     } 
     else if (turn == 2){
@@ -73,7 +73,7 @@ function hard_bot_play_piece(player){
                 play_location = [board_matrix.length - 5, board_matrix.length - 5];
                 break;
         }
-        play_piece(play_location[0], play_location[1], player, piece_index);
+        play_piece(playerNames, play_location[0], play_location[1], player, piece_index);
         reset_pieces();
     } 
     else if (turn == 3){
@@ -103,7 +103,7 @@ function hard_bot_play_piece(player){
         for (let rotate = 0; rotate < rotations; rotate++){
             rotate_piece(piece_index);
         }
-        play_piece(play_location[0], play_location[1], player, piece_index);
+        play_piece(playerNames, play_location[0], play_location[1], player, piece_index);
         reset_pieces();
     } 
     else if (turn == 4){
@@ -142,10 +142,10 @@ function hard_bot_play_piece(player){
         for (let rotate = 0; rotate < rotations; rotate++){
             rotate_piece(piece_index);
         }
-        play_piece(play_location[0], play_location[1], player, piece_index);
+        play_piece(playerNames, play_location[0], play_location[1], player, piece_index);
         reset_pieces();
     } 
     else {
-        play_random_piece(player, true, true);
+        play_random_piece(playerNames, player, true, true);
     }
 }

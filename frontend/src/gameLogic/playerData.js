@@ -42,35 +42,31 @@ export function end_turn(){
     }
 }
 
-export function determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts){
-    let winner = { player: '', score: (total_blocks_for_player + 1)*(-1) };
-    let tied = false;
-    players.forEach((player) => {
+export function determine_winner(playerNames, player_pieces, total_blocks_for_player, pieces_blocks_counts){
+    let endPlayers = [];
+    playerNames.forEach((player, index) => {
+        let endPlayer = { name: '', score: (total_blocks_for_player + 1)*(-1), color: '' }
+        let color = players[index];
         let total_placed = 0;
         let score = 0;
-        for (let i = 0; i < player_pieces[player].length; i++){
-            if (player_pieces[player][i]){
+        for (let i = 0; i < player_pieces[color].length; i++){
+            if (player_pieces[color][i]){
                 let piece_size = pieces_blocks_counts[i];
                 total_placed += piece_size;
             }
         }
-        if (total_placed == 0) { //eventually change to == 89 once emmett fixes his stuff (or we can just leave if it doesn't affect other stuff)
+        if (total_placed == 0)
             score = 25;
-        }
-        else {
-            score = (89-total_placed) - 89; //eventually change to just total_placed-89 once emmett fixes his stuff (or we can just leave if it doesn't affect other stuff)
-        }
+        else
+            score = (89 - total_placed) - 89;
         console.log(player + " score: " + score)
-        if (score > winner.score) {
-            winner = { player: player, score: score };
-            tied = false;
-        } else if (score === winner.score) {
-            tied = true;
-        }
+        endPlayer.name = player;
+        endPlayer.score = score;
+        endPlayer.color = color;
+        endPlayers.push(endPlayer);
     });
-    if (tied)
-        return "tie";
-    return winner;
+    endPlayers.sort((a, b) => b.score - a.score);
+    return endPlayers;
 }
 
 // there are 21 pieces, each has a set index; true means the player has the piece

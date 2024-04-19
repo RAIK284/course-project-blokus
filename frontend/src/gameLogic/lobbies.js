@@ -68,6 +68,13 @@ export const piece_played = (lobbyCode, board, bot_played) => {
     }
 }
 
+export const game_over = (lobbyCode, end_players) => {
+    socket.emit('game_over', {
+        lobbyCode: lobbyCode,
+        endPlayers: end_players
+    });
+};
+
 socket.on('connect', () => {
     console.log('Connected to server');
 });
