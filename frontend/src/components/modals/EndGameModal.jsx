@@ -21,7 +21,7 @@ function EndGameModal({ endPlayers, setEndPlayers, isOpen, setOpen, setClose }) 
         if (in_online_game){
             find_open_game();
         } else {
-            window.location.href = window.location.href;
+            navigate('/game');
         }
     };
 

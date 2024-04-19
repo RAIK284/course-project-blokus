@@ -130,6 +130,7 @@ function Board({
         piece_played(lobby_code, board_matrix);
       } else if (Array.isArray(play)){
         pause();
+        setGameStarted(false);
         console.log(play);
         endGame(play);
       }
@@ -152,6 +153,7 @@ function Board({
       piece_played(lobby_code, board_matrix, true);
     } else if (Array.isArray(play)){
       pause();
+      setGameStarted(false);
       endGame(play);
     }
     setBoard(board_matrix);
@@ -217,6 +219,7 @@ function Board({
         piece_played(lobby_code, board_matrix);
       } else if (Array.isArray(play)){
         pause();
+        setGameStarted(false);
         endGame(play);
       }
       // delay to render piece
