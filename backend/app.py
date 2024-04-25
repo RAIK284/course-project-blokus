@@ -11,10 +11,12 @@ socketio = SocketIO(app,cors_allowed_origins="*")
 # keys: lobby code, values: {players, board, startedGame}
 game_lobbies = {}
 
+# establishes socket connection
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
 
+# socket for creating an online game
 @socketio.on('create_game')
 def handle_create_game(data):
     player_id = data['playerId']
@@ -28,6 +30,7 @@ def handle_create_game(data):
     }
     socketio.emit('game_created', {'lobbyCode': lobby_code, 'playerId': player_id})
 
+# socket for starting an already made game
 @socketio.on('start_game')
 def handle_start_game(data):
     lobby_code = data['lobbyCode']
@@ -36,6 +39,7 @@ def handle_start_game(data):
     socketio.emit('game_started', {'lobbyCode': lobby_code})
     socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': players})
 
+# socket for joining an existing online game
 @socketio.on('join_game')
 def handle_join_game(data):
     player_id = data['playerId']
@@ -57,6 +61,7 @@ def handle_join_game(data):
             socketio.emit('lobby_full', {'lobbyCode': lobby_code, 'playerId': player_id})
         print(game_lobbies)
 
+# socket for locating an open game
 @socketio.on('find_open_game')
 def handle_find_open_game(data):
     player_id = data['playerId']
@@ -69,6 +74,7 @@ def handle_find_open_game(data):
             return
     socketio.emit('no_open_game_found', {'playerId': player_id})
 
+# socket for setting an avatar in an online game (player or bot)
 @socketio.on('set_avatar')
 def handle_set_avatar(data):
     print("in set avatar")
@@ -81,6 +87,7 @@ def handle_set_avatar(data):
     print(players)
     socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': players, index: index})
 
+# socket for playing a piece in an online game
 @socketio.on('piece_played')
 def handle_piece_played(data):
     lobby_code = data['lobbyCode']
@@ -90,6 +97,7 @@ def handle_piece_played(data):
     game_lobbies[lobby_code]['board'] = board
     socketio.emit('piece_played', {'lobbyCode': lobby_code, 'board': board, 'playerId': player_id, 'turn': turn})
 
+# socket for handling game over
 @socketio.on('game_over')
 def handle_game_over(data):
     lobby_code = data['lobbyCode']
@@ -97,6 +105,7 @@ def handle_game_over(data):
     game_lobbies.pop(lobby_code, None)
     socketio.emit('game_over', {'lobbyCode': lobby_code, 'endPlayers': end_players})
 
+# handles socket disconnect
 @socketio.on('disconnect')
 def handle_disconnect():
     print('Client disconnected')

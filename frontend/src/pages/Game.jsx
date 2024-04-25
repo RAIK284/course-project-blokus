@@ -39,7 +39,6 @@ function Game() {
   }
 
   const endGame = (endPlayers) => {
-    console.log(endPlayers);
     setEndPlayers(endPlayers);
     setEndModalOpen(true);
   }
@@ -48,6 +47,7 @@ function Game() {
     let label = "";
     if (!in_online_game){
       if (mode == 'local'){
+        // handles mismatched indeces
         switch (index) {
           case 0: label = "blue"; break;
           case 1: label = "yellow"; break;
@@ -55,6 +55,7 @@ function Game() {
           case 3: label = "green"; break;
         }
       } else {
+        // handles mismatched indeces
         switch (index) {
           case 0: bots_playing[0] = mode; break;
           case 1: bots_playing[2] = mode; break;
@@ -72,7 +73,7 @@ function Game() {
   }
 
   socket.on('avatar_set', ( data ) => {
-    console.log('in avatar set')
+    // sets avatars visually
     if (lobby_code === data['lobbyCode']) {
       let players = data['players'];
       const updatedPlayerNames = [...playerNames];

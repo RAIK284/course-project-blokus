@@ -11,6 +11,7 @@ function Avatar({ player, index, setAvatar }) {
     let preCalls = 0;
 
     useEffect(() => {
+        // sets no player avatar
         if (preCalls == 0 && ind <= 3 && (player == "" || player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
             preCalls++;
             setIsPlayer(false);
@@ -19,9 +20,8 @@ function Avatar({ player, index, setAvatar }) {
     }, []);
 
     useEffect(() => {
-        console.log(ind + " " + player)
+        // sets no player avatar to a player on avatar achange
         if (ind >= 4 && !(player == "" || player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
-            console.log(ind + " switch")
             setInd(prevIndex => prevIndex - 4);
             setIsPlayer(true);
         }
@@ -39,6 +39,7 @@ function Avatar({ player, index, setAvatar }) {
         setModalOpen(!modalOpen);
         setIsPlayer(true);
         if (in_online_game){
+            // sends information to socket
             set_avatar(lobby_code, index, option);
         }
     }

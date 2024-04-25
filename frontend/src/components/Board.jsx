@@ -27,6 +27,7 @@ function Board({
   const hoverColRef = useRef(hoverCol);
   const [gameStarted, setGameStarted] = useState(false);
 
+  // updated access to hover row and col
   useEffect(() => {
     hoverRowRef.current = hoverRow;
     hoverColRef.current = hoverCol;
@@ -55,6 +56,7 @@ function Board({
     var playersChosen = playerNames.every(item => !String(item).includes('c'));
     if (playersChosen){
       if (onlineGame){
+        // sends information to socket
         start_game(lobby_code);
       }
       setGameStarted(true);
@@ -127,6 +129,7 @@ function Board({
     if (board[row][col] == "highlight" || board[row][col] == "pointer") {
       let play = play_piece(playerNames, row, col, myPlayer, pieceIndex);
       if (onlineGame) {
+        // sends information to socket
         piece_played(lobby_code, board_matrix);
       } else if (Array.isArray(play)){
         pause();
@@ -150,6 +153,7 @@ function Board({
   const playBotRound = (difficulty) => {
     let play = bot_play_piece(playerNames, myPlayer, difficulty);
     if (onlineGame) {
+      // sends information to socket
       piece_played(lobby_code, board_matrix, true);
     } else if (Array.isArray(play)){
       pause();
@@ -216,6 +220,7 @@ function Board({
     if (seconds == 0) {
       let play = play_random_piece(playerNames, myPlayer);
       if (onlineGame) {
+        // sends information to socket
         piece_played(lobby_code, board_matrix);
       } else if (Array.isArray(play)){
         pause();
