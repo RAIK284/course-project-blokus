@@ -26,6 +26,7 @@ function Board({
   const hoverRowRef = useRef(hoverRow);
   const hoverColRef = useRef(hoverCol);
   const [gameStarted, setGameStarted] = useState(false);
+  const [gamePaused, setGamePaused] = useState(false);
 
   // updated access to hover row and col
   useEffect(() => {
@@ -54,8 +55,8 @@ function Board({
 
   const startGame = () => {
     var playersChosen = playerNames.every(item => !String(item).includes('c'));
-    if (playersChosen){
-      if (onlineGame){
+    if (playersChosen) {
+      if (onlineGame) {
         // sends information to socket
         start_game(lobby_code);
       }
@@ -65,8 +66,8 @@ function Board({
   };
 
   // tracks if game was started by another user
-  socket.on('game_started', ( data ) => {
-    if (onlineGame && lobby_code == data['lobbyCode']){
+  socket.on('game_started', (data) => {
+    if (onlineGame && lobby_code == data['lobbyCode']) {
       setGameStarted(true);
       resume();
     }
@@ -99,8 +100,8 @@ function Board({
   };
 
   // tracks if another user played a piece
-  socket.on('piece_played', ( data ) => {
-    if (onlineGame && lobby_code == data['lobbyCode'] && player_id != data['playerId']){
+  socket.on('piece_played', (data) => {
+    if (onlineGame && lobby_code == data['lobbyCode'] && player_id != data['playerId']) {
       console.log("in piece played socket")
       let turn = data['turn'];
       set_turn_index(turn);
@@ -115,7 +116,7 @@ function Board({
       const time = new Date();
       time.setSeconds(time.getSeconds() + timerLength);
       restart(time);
-      
+
       //if (JSON.stringify(socketBoard) === JSON.stringify(board_matrix))
       //  end_turn();
       set_board_matrix(socketBoard);
@@ -126,12 +127,12 @@ function Board({
   });
 
   const placePlayerPiece = (row, col) => {
-    if (board[row][col] == "highlight" || board[row][col] == "pointer") {
+    if (!gamePaused && (board[row][col] == "highlight" || board[row][col] == "pointer")) {
       let play = play_piece(playerNames, row, col, myPlayer, pieceIndex);
       if (onlineGame) {
         // sends information to socket
         piece_played(lobby_code, board_matrix);
-      } else if (Array.isArray(play)){
+      } else if (Array.isArray(play)) {
         pause();
         setGameStarted(false);
         console.log(play);
@@ -155,7 +156,7 @@ function Board({
     if (onlineGame) {
       // sends information to socket
       piece_played(lobby_code, board_matrix, true);
-    } else if (Array.isArray(play)){
+    } else if (Array.isArray(play)) {
       pause();
       setGameStarted(false);
       endGame(play);
@@ -201,7 +202,7 @@ function Board({
 
   const checkIfPiecePlayable = (row, col) => {
     // check if it's your turn
-    if (!in_online_game || (in_online_game && playerNames[currentPlayerTurnIndex] == player_id)){
+    if (!in_online_game || (in_online_game && playerNames[currentPlayerTurnIndex] == player_id)) {
       // check if user selected a piece
       if (pieceIndex != -1) {
         let piece = pieces[pieceIndex];
@@ -215,6 +216,19 @@ function Board({
     }
   };
 
+  const toggleGamePaused = () => {
+    setGamePaused(prevPaused => !prevPaused);
+  };
+
+  // handles pausing of local game
+  useEffect(() => {
+    if (gamePaused){
+      pause();
+    } else {
+      resume();
+    }
+  }, [gamePaused]);
+
   // handles resetting of timer
   useEffect(() => {
     if (seconds == 0) {
@@ -222,7 +236,7 @@ function Board({
       if (onlineGame) {
         // sends information to socket
         piece_played(lobby_code, board_matrix);
-      } else if (Array.isArray(play)){
+      } else if (Array.isArray(play)) {
         pause();
         setGameStarted(false);
         endGame(play);
@@ -276,7 +290,7 @@ function Board({
       }
     } else {
       var bot = bots_playing[currentPlayerTurnIndex];
-      if (bot != ''){
+      if (bot != '') {
         playBotRound(bot);
       }
     }
@@ -295,8 +309,31 @@ function Board({
 
   return (
     <>
+
+      {(gameStarted && !onlineGame) && (
+        <div id="pauseContainer" onClick={toggleGamePaused}>
+          {gamePaused ? (
+            <React.Fragment>
+              <div id="resume"></div>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <div className="pauseLine"></div>
+              <div className="pauseLine"></div>
+            </React.Fragment>
+          )}
+        </div>
+      )}
+
       {
-        onlineGame && 
+        gamePaused &&
+        <div id="pausedTxtHolder">
+          <div id="pausedTxt">Game Paused</div>
+        </div>
+      }
+
+      {
+        onlineGame &&
         <div id="lobbyHolder">
           <div id="lobbyTxt">Lobby: {lobby_code}</div>
         </div>
