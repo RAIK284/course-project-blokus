@@ -23,7 +23,6 @@ function Leaderboard() {
             id: userDocSnapshot.id,
             ...userDocSnapshot.data(),
           };
-          console.log(userData);
           setUserData(userData);
         } else {
           console.log("User document does not exist");
@@ -51,16 +50,12 @@ function Leaderboard() {
             console.log("Document does not exist for user with ID:", doc.id);
           }
         });
-        console.log(usersData);
         usersData.sort((a, b) => b.totalPieces - a.totalPieces);
         const rank = usersData.findIndex(
           (current) => current.id === userData.id
         );
-
-        console.log(`Rank: ${rank}`);
         setCurrentUserRank(rank + 1);
-        setUsersData(usersData.slice(0, 2));
-        console.log(usersData);
+        setUsersData(usersData.slice(0, 10));
       } catch (error) {
         console.error("Error fetching users data:", error);
       }
@@ -70,7 +65,7 @@ function Leaderboard() {
       getUserData();
       getUsersData();
     }
-  }, [authUser, userData]);
+  }, [authUser, userData.id]);
 
   const userIsInTopTen =
     usersData.find((current) => current.id === userData.id) !== undefined;
