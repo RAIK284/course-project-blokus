@@ -19,7 +19,10 @@ function Leaderboard() {
         const userDocRef = doc(database, "users", authUser.uid);
         const userDocSnapshot = await getDoc(userDocRef);
         if (userDocSnapshot.exists()) {
-          const userData = userDocSnapshot.data();
+          const userData = {
+            id: userDocSnapshot.id,
+            ...userDocSnapshot.data(),
+          };
           console.log(userData);
           setUserData(userData);
         } else {
@@ -30,13 +33,6 @@ function Leaderboard() {
       }
     };
 
-    if (authUser) {
-      getUserData();
-    }
-  }, [authUser]);
-
-  // fetch array of all user data
-  useEffect(() => {
     const getUsersData = async () => {
       try {
         const usersCollectionRef = collection(database, "users");
@@ -45,39 +41,46 @@ function Leaderboard() {
         const usersData = [];
         usersSnapshot.forEach((doc) => {
           if (doc.exists()) {
-            usersData.push(doc.data());
+            // Include the document ID in the data object
+            const userDataWithId = {
+              id: doc.id,
+              ...doc.data(),
+            };
+            usersData.push(userDataWithId);
           } else {
             console.log("Document does not exist for user with ID:", doc.id);
           }
         });
+        console.log(usersData);
         usersData.sort((a, b) => b.totalPieces - a.totalPieces);
-        setUsersData(usersData.slice(0, 10));
-
-        // Now that usersData and userData are set, find currentUserRank
         const rank = usersData.findIndex(
           (current) => current.id === userData.id
         );
-        setCurrentUserRank(rank === -1 ? null : rank + 1);
 
+        console.log(`Rank: ${rank}`);
+        setCurrentUserRank(rank + 1);
+        setUsersData(usersData.slice(0, 2));
         console.log(usersData);
       } catch (error) {
         console.error("Error fetching users data:", error);
       }
     };
-    getUsersData();
-  }, [userData]); // Update when userData changes
+
+    if (authUser) {
+      getUserData();
+      getUsersData();
+    }
+  }, [authUser, userData]);
 
   const userIsInTopTen =
     usersData.find((current) => current.id === userData.id) !== undefined;
-
-  console.log(currentUserRank);
 
   return (
     <div id="leaderboard">
       <div id="individualContainer">
         <div id="individualTitle">{userData.nickname}'s stats</div>
         <img id="individualAvatar" src={AvatarIcon} alt="Avatar" />
-        <div className="individualInfo">rank: #{currentUserRank + 1}</div>
+        <div className="individualInfo">rank: #{currentUserRank}</div>
         <div className="individualInfo">score: {userData.totalPieces}</div>
         <div className="individualInfo">wins: {userData.gamesWon}</div>
         <div className="individualInfo">
