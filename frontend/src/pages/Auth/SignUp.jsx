@@ -1,10 +1,19 @@
 import "./SignUp.css";
 import { useState } from "react";
 import ProfileIcon from "../../assets/ProfileIcon.svg";
+import CheckIcon from "../../assets/CheckIcon.svg";
+
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 import database, { auth } from "../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  collection,
+  query,
+  getDocs,
+  where,
+} from "firebase/firestore";
 
 function SignUp() {
   const [nickname, setNickname] = useState("");
@@ -12,39 +21,71 @@ function SignUp() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmPassword] = useState(" ");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const allFieldsFilled =
+    nickname && firstName && lastName && email && password && confirmpassword;
+
+  const passwordConfirmed =
+    password.length >= 8 &&
+    confirmpassword.length >= 8 &&
+    password === confirmpassword;
+
+  const checkNicknameTaken = async () => {
+    const usersRef = collection(database, "users");
+
+    const q = query(usersRef, where("nickname", "==", nickname));
+    console.log("query snapshot next");
+
+    const querySnapshot = await getDocs(q);
+
+    return !querySnapshot.empty;
+  };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    // Check if nickname is unique
+    const nicknameTaken = await checkNicknameTaken(nickname);
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(userCredential); // Check the structure of userCredential to ensure it contains the user property
+    if (!allFieldsFilled) {
+      setError("All fields are required.");
+    } else if (nicknameTaken) {
+      setError("Nickname taken.");
+    } else if (password.length < 8) {
+      setError("Password must be 8 characters or longer.");
+    } else if (!passwordConfirmed) {
+      setError("Password re-entered incorrectly.");
+    } else {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
-      // Access the UID of the newly created user
-      const uid = userCredential.user.uid;
-      console.log(uid);
+        // Access the UID of the newly created user
+        const uid = userCredential.user.uid;
 
-      // Now you can use this UID to add the user to Firestore
-      const docRef = doc(database, "users", uid);
-      const payload = {
-        nickname: nickname,
-        firstName: firstName,
-        lastName: lastName,
-        profileImage: "example.jpg",
-        gamesPlayed: 0,
-        gamesWon: 0,
-        totalPieces: 0,
-      };
-      await setDoc(docRef, payload);
+        // Now you can use this UID to add the user to Firestore
+        const docRef = doc(database, "users", uid);
+        const payload = {
+          nickname: nickname,
+          firstName: firstName,
+          lastName: lastName,
+          profileImage: "example.jpg",
+          gamesPlayed: 0,
+          gamesWon: 0,
+          totalPieces: 0,
+        };
+        await setDoc(docRef, payload);
 
-      window.location.href = "/home";
-    } catch (error) {
-      console.log(error);
+        window.location.href = "/home";
+      } catch (error) {
+        if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+          setError("Email already in use.");
+        }
+      }
     }
   };
 
@@ -56,63 +97,81 @@ function SignUp() {
           <img alt="Profile" src={ProfileIcon} id="suprofilepic" />
         </div>
         <div id="suinfocontainer">
-          <div id="suinfotext">
-            <div class="suinfobox">Nickname:</div>
-            <div class="suinfobox">First Name:</div>
-            <div class="suinfobox">Last Name:</div>
-            <div class="suinfobox">Email:</div>
-            <div class="suinfobox">Password:</div>
-            <div class="suinfobox">Confirm Password:</div>
-          </div>
-          <div id="suinputtext">
-            <input
-              class="sutextbox"
-              type="text"
-              placeholder="Enter Nickname"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-            />
-            <input
-              class="sutextbox"
-              type="text"
-              placeholder="Enter First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <input
-              class="sutextbox"
-              type="text"
-              placeholder="Enter Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <input
-              class="sutextbox"
-              type="email"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+          <input
+            class="sutextbox"
+            type="text"
+            placeholder="Enter Nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            required
+          />
+          <input
+            class="sutextbox"
+            type="text"
+            placeholder="Enter First Name"
+            value={firstName}
+            onChange={(e) =>
+              setFirstName(
+                e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
+              )
+            }
+            required
+          />
+          <input
+            class="sutextbox"
+            type="text"
+            placeholder="Enter Last Name"
+            value={lastName}
+            onChange={(e) =>
+              setLastName(
+                e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
+              )
+            }
+            required
+          />
+          <input
+            class="sutextbox"
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <div className="password-input">
             <input
               class="sutextbox"
               type="password"
               placeholder="Enter Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={8}
             />
+            <span className="password-instructions">
+              Must be 8 or more characters
+            </span>
+          </div>
+
+          <div className="password-validation">
             <input
               class="sutextbox"
               type="password"
-              placeholder="Re-type Password"
+              placeholder="Re-enter Password"
               value={confirmpassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              minLength={8}
             />
           </div>
         </div>
+        {passwordConfirmed && (
+          <img alt="Check" src={CheckIcon} className="password-check" />
+        )}
+        {error && <span className="signup-error">{error}</span>}
       </div>
-      <button id="signupbutton" type="submit">
+      <div id="signupbutton" type="submit" onClick={handleSignUp}>
         Sign Up
-      </button>
+      </div>
       <span id="suloginmessage">
         Already have an account?{" "}
         <Link id="suloginlink" to={"/login"}>
