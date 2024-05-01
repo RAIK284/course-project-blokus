@@ -14,7 +14,6 @@ function Login() {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
         window.location.href = "/home";
       })
       .catch((error) => {

@@ -23,11 +23,9 @@ function SignUp() {
         email,
         password
       );
-      console.log(userCredential); // Check the structure of userCredential to ensure it contains the user property
 
       // Access the UID of the newly created user
       const uid = userCredential.user.uid;
-      console.log(uid);
 
       // Now you can use this UID to add the user to Firestore
       const docRef = doc(database, "users", uid);

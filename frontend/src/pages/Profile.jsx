@@ -50,7 +50,6 @@ function Profile() {
       if (isEmailDirty) {
         await updateEmail(authUser, email);
         await sendEmailVerification(authUser);
-        console.log("Hello?");
         setMessage("Email address updated successfully.");
         setEmail(email);
       }
@@ -82,7 +81,6 @@ function Profile() {
     signOut(auth)
       .then(() => {
         setAuthUser(null);
-        console.log("signout successful");
         window.location.href = "/";
       })
       .catch((error) => console.log(error));
@@ -96,7 +94,6 @@ function Profile() {
         const userDocSnapshot = await getDoc(userDocRef);
         if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
-          console.log(userData);
           setUserData(userData);
           // get the nickname from firestore and set it in the frontend state
           setNickname(userData.nickname);
