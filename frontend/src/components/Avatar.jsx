@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AvatarIcon from "../assets/Avatar.svg";
 import "./Avatar.css";
-import { players } from "../gameLogic/playerData";
-import { in_online_game, lobby_code, set_avatar, socket } from "../gameLogic/lobbies";
+import { in_online_game, lobby_code, set_avatar } from "../gameLogic/lobbies";
 
 function Avatar({ player, index, setAvatar }) {
     const [modalOpen, setModalOpen] = useState(false);

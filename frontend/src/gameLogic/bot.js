@@ -1,4 +1,4 @@
-import { board_matrix, play_piece,playerNames,  play_random_piece } from "./board";
+import { board_matrix, play_piece,  play_random_piece } from "./board";
 import { flip_piece, reset_pieces, rotate_piece } from "./pieceData";
 import { player_pieces } from "./playerData";
 

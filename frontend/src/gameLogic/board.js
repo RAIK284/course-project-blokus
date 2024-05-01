@@ -133,9 +133,7 @@ function find_playable_corners(piece_index, boardRow, boardCol, player){
 // checks to do after every round
 function end_round_checks(playerNames){
     set_player_game_overs();
-    //console.log("current player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
     if (is_game_over()){
-        console.log("game over");
         let end_players = determine_winner(playerNames, player_pieces, total_blocks_for_player, pieces_blocks_counts);
         if (in_online_game)
             game_over(lobby_code, end_players);

@@ -32,10 +32,8 @@ export function end_turn(){
     } else {
         currentPlayerTurnIndex++;
     }
-    //console.log("new player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
     // if new player can't play, then end turn again
     if (!can_play[players[currentPlayerTurnIndex]]){
-        //console.log("end_turn recurse")
         end_turn();
     } else {
         return currentPlayerTurnIndex;
@@ -59,7 +57,6 @@ export function determine_winner(playerNames, player_pieces, total_blocks_for_pl
             score = 25;
         else
             score = (89 - total_placed) - 89;
-        console.log(player + " score: " + score)
         endPlayer.name = player;
         endPlayer.score = score;
         endPlayer.color = color;

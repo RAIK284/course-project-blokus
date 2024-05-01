@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./EndGameModal.css";
 import AvatarIcon from "../../assets/Avatar.svg";
 import { find_open_game, in_online_game, player_id, socket } from "../../gameLogic/lobbies";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { reset_game } from "../../gameLogic/board";
 
 function EndGameModal({ endPlayers, setEndPlayers, isOpen, setOpen, setClose }) {
@@ -10,7 +10,6 @@ function EndGameModal({ endPlayers, setEndPlayers, isOpen, setOpen, setClose }) 
 
     socket.on('game_over', ( data ) => {
         let endPlayers = data['endPlayers'];
-        console.log(endPlayers);
         setEndPlayers(endPlayers);
         setOpen();
     });

@@ -1,7 +1,6 @@
-from flask import Flask, request, jsonify, render_template, session
+from flask import Flask
 from flask_socketio import SocketIO
 from flask_cors import CORS
-import requests
 import random
 
 app = Flask(__name__)
@@ -59,7 +58,6 @@ def handle_join_game(data):
             socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': currentPlayers})
         elif lobby_full:
             socketio.emit('lobby_full', {'lobbyCode': lobby_code, 'playerId': player_id})
-        print(game_lobbies)
 
 # socket for locating an open game
 @socketio.on('find_open_game')
@@ -77,14 +75,11 @@ def handle_find_open_game(data):
 # socket for setting an avatar in an online game (player or bot)
 @socketio.on('set_avatar')
 def handle_set_avatar(data):
-    print("in set avatar")
     lobby_code = data['lobbyCode']
-    player_id = data['playerId']
     index = data['index']
     option = data['option']
     game_lobbies[lobby_code]['players'][index] = option + ' bot'
     players = game_lobbies[lobby_code]['players']
-    print(players)
     socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': players, index: index})
 
 # socket for playing a piece in an online game

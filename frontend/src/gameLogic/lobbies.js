@@ -1,5 +1,4 @@
 import io from 'socket.io-client';
-import { board_matrix } from './board';
 import { currentPlayerTurnIndex } from './playerData';
 
 export const socket = io('http://localhost:5000');
@@ -50,7 +49,6 @@ export const set_avatar = (lobbyCode, index, option) => {
 }
 
 export const piece_played = (lobbyCode, board, bot_played) => {
-    console.log("piece played")
     if (bot_played){
         socket.emit('piece_played', { 
             lobbyCode: lobbyCode,
@@ -74,11 +72,3 @@ export const game_over = (lobbyCode, end_players) => {
         endPlayers: end_players
     });
 };
-
-socket.on('connect', () => {
-    console.log('Connected to server');
-});
-
-socket.on('disconnect', () => {
-    console.log('Disconnected from server');
-});
