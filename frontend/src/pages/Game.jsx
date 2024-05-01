@@ -19,10 +19,10 @@ function Game() {
   const [playerNames, setPlayerNames] = useState(['c1', 'c2', 'c3', 'c4']);
   const [endModalOpen, setEndModalOpen] = useState(false);
   const [endPlayers, setEndPlayers] = useState([
-    { name: "Emmett", score: 50, color: "red" },
-    { name: "Allan", score: 39, color: "blue" },
-    { name: "Sophia", score: 27, color: "yellow" },
-    { name: "Lena", score: 12, color: "green" }
+    { name: "", score: 0, color: "" },
+    { name: "", score: 0, color: "" },
+    { name: "", score: 0, color: "" },
+    { name: "", score: 0, color: "" }
   ]);
 
   // data for current user playing

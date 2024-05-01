@@ -42,18 +42,19 @@ def handle_start_game(data):
 @socketio.on('join_game')
 def handle_join_game(data):
     player_id = data['playerId']
+    player_name = data['playerName']
     lobby_code = data['lobbyCode']
     if lobby_code not in game_lobbies:
         socketio.emit('invalid_lobby', {'playerId': player_id})
     else:
-        if player_id in game_lobbies[lobby_code]['players']:
+        if player_name in game_lobbies[lobby_code]['players']:
             return
         currentPlayers = game_lobbies[lobby_code]['players']
         # if lobby not full, add player to current players in lobby
         lobby_full = all(player is not "" for player in currentPlayers)
-        if not lobby_full and player_id not in currentPlayers:
+        if not lobby_full and player_name not in currentPlayers:
             empty_index = currentPlayers.index("")
-            currentPlayers[empty_index] = player_id
+            currentPlayers[empty_index] = player_name
             socketio.emit('joined_game', {'lobbyCode': lobby_code, 'playerId': player_id})
             socketio.emit('avatar_set', {'lobbyCode': lobby_code, 'players': currentPlayers})
         elif lobby_full:
