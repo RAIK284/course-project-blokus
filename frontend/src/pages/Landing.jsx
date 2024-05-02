@@ -8,7 +8,7 @@ function Landing() {
       <span id="landingTitle">BLOKUS</span>
       <div id="landingButtons">
         <Link id="loginButton" to="/login">
-          <div>Login</div>
+          <div>Log In</div>
         </Link>
         <div style={{ width: "6em" }}></div>
         <Link id="signUpButton" to="/signup">

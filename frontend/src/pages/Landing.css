@@ -25,15 +25,21 @@
 
 #loginButton,
 #signUpButton {
-  width: 7.5rem;
-  text-align: center;
-  background: #262626;
-  margin: 10px;
-  font-family: "Jockey One", sans-serif;
-  color: #d2d0d0;
-  font-size: 35px;
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #262626;
+  height: 60px;
+  width: 120px;
+  margin-top: 1em;
+  margin-bottom: 10px;
+  color: white;
+  text-decoration: none;
+  font-family: "Jockey One";
+  font-size: 30px;
+  cursor: pointer;
 }
 
 #loginButton:hover,
