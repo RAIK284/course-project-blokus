@@ -1,6 +1,7 @@
 import { players, player_pieces, playable_pieces, can_play, end_turn, determine_winner, reset_player_data, currentPlayerTurnIndex } from './playerData';
 import { pieces, pieces_blocks_counts, reset_pieces, rotate_piece, total_blocks_for_player } from './pieceData';
 import { can_play_piece } from './checks';
+import { game_over, in_online_game, lobby_code } from './lobbies';
 
 export let board_matrix = Array.from({ length: 20 }, () => Array(20).fill(''));
 
@@ -14,7 +15,7 @@ export function reset_game(){
 }
 
 // play a piece on the board (basically performs a player's turn)
-export function play_piece(boardRow, boardCol, player, piece_index){
+export function play_piece(playerNames, boardRow, boardCol, player, piece_index){
     let piece = pieces[piece_index];
     // loop through piece 2d array
     for (let r = 0; r < piece.length; r++){
@@ -25,11 +26,11 @@ export function play_piece(boardRow, boardCol, player, piece_index){
         }
     }
     player_pieces[player][piece_index] = false;
-    end_round_checks();
+    return end_round_checks(playerNames);
 }
 
 // plays a piece on the board randomly if player timer runs out
-export function play_random_piece(player, greedySize = false, greedyCorners = false){
+export function play_random_piece(playerNames, player, greedySize = false, greedyCorners = false){
     // create array of all 21 piece indeces
     let indeces_array = [];
     for (let i = 20; i >= 0; i--) {
@@ -83,9 +84,9 @@ export function play_random_piece(player, greedySize = false, greedyCorners = fa
                 for (let revertRotation = 0; revertRotation < playRotations; revertRotation++){
                     rotate_piece(piece_index);
                 }
-                play_piece(selectedPlay[0], selectedPlay[1], player, piece_index);
+                let play = play_piece(playerNames, selectedPlay[0], selectedPlay[1], player, piece_index);
                 reset_pieces();
-                return;
+                return play;
             }
         }
         indeces_array.shift();
@@ -130,12 +131,14 @@ function find_playable_corners(piece_index, boardRow, boardCol, player){
 }
 
 // checks to do after every round
-function end_round_checks(){
+function end_round_checks(playerNames){
     set_player_game_overs();
-    //console.log("current player -> " + players[currentPlayerTurnIndex] + ": " + can_play[players[currentPlayerTurnIndex]] + ", " + playable_pieces[players[currentPlayerTurnIndex]])
     if (is_game_over()){
-        console.log("game over");
-        console.log("winner: " + determine_winner(player_pieces, total_blocks_for_player, pieces_blocks_counts).player);
+        let end_players = determine_winner(playerNames, player_pieces, total_blocks_for_player, pieces_blocks_counts);
+        if (in_online_game)
+            game_over(lobby_code, end_players);
+        else
+            return end_players;
     } else {
         end_turn();
         reset_pieces();

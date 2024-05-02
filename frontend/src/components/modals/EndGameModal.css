@@ -1,0 +1,128 @@
+#endModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #3d3d3dcc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+#endModal {
+    background: #262626;
+    padding: 20px;
+    width: 50em;
+    height: 40rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#endModalContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Jockey One", sans-serif;
+    color: #d2d0d0;
+    text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+        2px 2px 0 black;
+}
+
+#endTitleTxt {
+    font-size: 80px;
+    margin-top: 6px;
+}
+
+.endPlayerHolder {
+    font-size: 40px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.endPlayerRank {
+    background: #3D3C3C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 80px;
+}
+
+.endPlayerName {
+    background: #3D3C3C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    height: 80px;
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+}
+
+.endPlayerAvatar {
+    position: absolute;
+    left: 14px;
+    height: 65%;
+}
+
+.endPlayerScore {
+    background: #3D3C3C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 80px;
+}
+
+#endButtonHolder {
+    display: flex;
+    margin-top: 36px;
+    font-size: 36px;
+}
+
+#playAgainBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 60px;
+    background: #008000;
+    border: 4px solid #00DD00;
+    margin-right: 10px;
+}
+
+#returnHomeBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 60px;
+    background: #0000A1;
+    border: 4px solid #0000FF;
+    margin-left: 10px;
+}
+
+#returnHomeBtn:hover, #playAgainBtn:hover {
+    transition: .2s;
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
+.endblue {
+    filter: brightness(0) saturate(100%) invert(9%) sepia(97%) saturate(6331%) hue-rotate(247deg) brightness(99%) contrast(147%);
+}
+.endred {
+    filter: brightness(0) saturate(100%) invert(21%) sepia(92%) saturate(5422%) hue-rotate(356deg) brightness(116%) contrast(134%);
+}
+.endyellow {
+    filter: brightness(0) saturate(100%) invert(29%) sepia(95%) saturate(1257%) hue-rotate(92deg) brightness(96%) contrast(107%);
+}
+.endgreen {
+    filter: brightness(0) saturate(100%) invert(90%) sepia(9%) saturate(5449%) hue-rotate(327deg) brightness(104%) contrast(84%);
+}

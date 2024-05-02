@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./StartOrJoinGameModal.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Close from "../../assets/_X_.svg";
 import BackButton from "../../assets/Back button.svg";
-import { create_game, find_open_game, in_online_game, join_game, lobby_code, player_id, set_in_online_game, set_lobby_code, socket } from "../../gameLogic/lobbies";
+import { create_game, find_open_game, join_game, player_id, set_in_online_game, set_lobby_code, socket } from "../../gameLogic/lobbies";
 
 function StartOrJoinGameModal({ isOpen, onClose }) {
   const [isCreatingGame, setIsCreatingGame] = useState(false);
@@ -31,7 +31,6 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
       let lobbyCode = data['lobbyCode'];
       set_lobby_code(lobbyCode);
       set_in_online_game(true);
-      console.log('Created lobby, code: ' + lobbyCode);
       join_game(lobbyCode);
     }
   });
@@ -58,7 +57,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
     let playerId = data['playerId'];
     if (playerId == player_id){
       let lobbyCode = data['lobbyCode'];
-      console.log('Lobby ' + lobbyCode + ' is full!');
+      console.log("Lobby " + lobbyCode + " full.");
     }
   });
 

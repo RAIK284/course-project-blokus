@@ -7,6 +7,7 @@ import { reset_game } from "../gameLogic/board";
 import KeyHolder from "../components/KeyHolder";
 import Avatar from "../components/Avatar";
 import { in_online_game, lobby_code, player_id, socket } from "../gameLogic/lobbies";
+import EndGameModal from "../components/modals/EndGameModal";
 
 function Game() {
   // timer values
@@ -16,13 +17,19 @@ function Game() {
 
   // data for game
   const [playerNames, setPlayerNames] = useState(['c1', 'c2', 'c3', 'c4']);
+  const [endModalOpen, setEndModalOpen] = useState(false);
+  const [endPlayers, setEndPlayers] = useState([
+    { name: "", score: 0, color: "" },
+    { name: "", score: 0, color: "" },
+    { name: "", score: 0, color: "" },
+    { name: "", score: 0, color: "" }
+  ]);
 
   // data for current user playing
   const [myPlayer, setMyPlayer] = useState(players[currentPlayerTurnIndex]);
   const [pieceIndex, setPieceIndex] = useState(-1);
   const [userPieces, setUserPieces] = useState(player_pieces);
   const [selectedBox, setSelectedBox] = useState(-1);
-
 
   const endRound = () => {
     setPieceIndex(-1);
@@ -31,10 +38,16 @@ function Game() {
     setMyPlayer(players[currentPlayerTurnIndex]);
   }
 
+  const endGame = (endPlayers) => {
+    setEndPlayers(endPlayers);
+    setEndModalOpen(true);
+  }
+
   const setAvatar = (index, mode) => {
     let label = "";
     if (!in_online_game){
       if (mode == 'local'){
+        // handles mismatched indeces
         switch (index) {
           case 0: label = "blue"; break;
           case 1: label = "yellow"; break;
@@ -42,6 +55,7 @@ function Game() {
           case 3: label = "green"; break;
         }
       } else {
+        // handles mismatched indeces
         switch (index) {
           case 0: bots_playing[0] = mode; break;
           case 1: bots_playing[2] = mode; break;
@@ -59,7 +73,7 @@ function Game() {
   }
 
   socket.on('avatar_set', ( data ) => {
-    console.log('in avatar set')
+    // sets avatars visually
     if (lobby_code === data['lobbyCode']) {
       let players = data['players'];
       const updatedPlayerNames = [...playerNames];
@@ -93,6 +107,13 @@ function Game() {
 
   return (
     <div id="game">
+      <EndGameModal 
+        endPlayers={endPlayers}
+        setEndPlayers={setEndPlayers}
+        isOpen={endModalOpen}
+        setOpen={() => setEndModalOpen(true)}
+        setClose={() => setEndModalOpen(false)}
+      />
       <div id="boardHolder">
         <div id="avatarHolder">
           <Avatar player={playerNames[0]} index={0} setAvatar={setAvatar} />
@@ -106,6 +127,7 @@ function Game() {
             expiryTimestamp={playerTime}
             endRound={endRound}
             onlineGame={in_online_game}
+            endGame={endGame}
           />
         </div>
         <div id="avatarHolder">

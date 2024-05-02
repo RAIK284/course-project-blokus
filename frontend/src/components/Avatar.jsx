@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AvatarIcon from "../assets/Avatar.svg";
 import "./Avatar.css";
-import { players } from "../gameLogic/playerData";
-import { in_online_game, lobby_code, set_avatar, socket } from "../gameLogic/lobbies";
+import { in_online_game, lobby_code, set_avatar } from "../gameLogic/lobbies";
 
 function Avatar({ player, index, setAvatar }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -11,6 +10,7 @@ function Avatar({ player, index, setAvatar }) {
     let preCalls = 0;
 
     useEffect(() => {
+        // sets no player avatar
         if (preCalls == 0 && ind <= 3 && (player == "" || player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
             preCalls++;
             setIsPlayer(false);
@@ -19,9 +19,8 @@ function Avatar({ player, index, setAvatar }) {
     }, []);
 
     useEffect(() => {
-        console.log(ind + " " + player)
+        // sets no player avatar to a player on avatar achange
         if (ind >= 4 && !(player == "" || player == "c1" || player == "c2" || player == "c3" || player == "c4")) {
-            console.log(ind + " switch")
             setInd(prevIndex => prevIndex - 4);
             setIsPlayer(true);
         }
@@ -39,19 +38,10 @@ function Avatar({ player, index, setAvatar }) {
         setModalOpen(!modalOpen);
         setIsPlayer(true);
         if (in_online_game){
+            // sends information to socket
             set_avatar(lobby_code, index, option);
         }
     }
-
-    /*socket.on('avatar_set', ( data ) => {
-        let outerIndex = data['index'];
-        if (in_online_game && index === outerIndex && lobby_code === data['lobbyCode']) {
-            let outerOption = data['option'];
-            setAvatar(outerIndex, outerOption);
-            setModalOpen(false);
-            setIsPlayer(true);
-        }
-    });*/
     
     return (
         <div onClick={openCloseModal} id={`container${ind}`}>

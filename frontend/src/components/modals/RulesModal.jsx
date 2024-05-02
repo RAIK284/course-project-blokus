@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import "./RulesModal.css";
-import { Link, useNavigate } from "react-router-dom";
 import Close from "../../assets/_X_.svg";
 
 function RulesModal({ isOpen, onClose }) {

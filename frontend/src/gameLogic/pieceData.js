@@ -1,4 +1,3 @@
-
 export const total_blocks_for_player = 89;
 
 export const pieces_blocks_counts = [ 1, 2, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
