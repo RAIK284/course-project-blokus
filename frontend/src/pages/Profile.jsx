@@ -14,11 +14,15 @@ import { useAuth } from "./Auth/AuthContext";
 function Profile() {
   const { authUser, setAuthUser } = useAuth();
   const [userData, setUserData] = useState("");
-  const [nickname, setNickname] = useState("Loading ...");
-  const [email, setEmail] = useState("Loading ...");
+  const [nickname, setNickname] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [isNicknameDirty, setIsNicknameDirty] = useState(false);
   const [isEmailDirty, setIsEmailDirty] = useState(false);
+  const [isFirstNameDirty, setIsFirstNameDirty] = useState(false);
+  const [isLastNameDirty, setIsLastNameDirty] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleResetPassword = async () => {
@@ -44,6 +48,20 @@ function Profile() {
     setIsEmailDirty(true);
   };
 
+  const handleFirstNameChange = (e) => {
+    setFirstName(
+      e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
+    );
+    setIsFirstNameDirty(true);
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(
+      e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
+    );
+    setIsLastNameDirty(true);
+  };
+
   const handleSave = async () => {
     try {
       // only update the email if the user has changed something
@@ -55,22 +73,21 @@ function Profile() {
       }
 
       // only update the nickname if the user has changed something
-      if (isNicknameDirty) {
-        // identify the user info we want to change
-        const docRef = doc(database, "users", authUser.uid);
-        // set the fields we want to change
-        const payload = {
-          nickname: nickname,
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          profileImage: userData.profileImage,
-          gamesPlayed: userData.gamesPlayed,
-          gamesWon: userData.gamesWon,
-          totalPieces: userData.totalPieces,
-        };
-        // actually update in the database
-        setDoc(docRef, payload);
-      }
+      // identify the user info we want to change
+      const docRef = doc(database, "users", authUser.uid);
+      // set the fields we want to change
+      const payload = {
+        nickname: isNicknameDirty ? nickname : userData.nickname,
+        firstName: isFirstNameDirty ? firstName : userData.firstName,
+        lastName: isLastNameDirty ? lastName : userData.lastName,
+        profileImage: userData.profileImage,
+        gamesPlayed: userData.gamesPlayed,
+        gamesWon: userData.gamesWon,
+        totalPieces: userData.totalPieces,
+      };
+      // actually update in the database
+      setDoc(docRef, payload);
+
       setEditMode(false);
     } catch (error) {
       setMessage(error.message);
@@ -100,6 +117,8 @@ function Profile() {
 
           // get the email from firebase auth and set it in the frontend state
           setEmail(authUser.email);
+          setFirstName(userData.firstName);
+          setLastName(userData.lastName);
         } else {
           console.log("User document does not exist");
         }
@@ -120,21 +139,43 @@ function Profile() {
           <img alt="Profile" src={ProfileIcon} id="profilepic" />
         </div>
         <div id="infocontainer">
-          <div id="infotext">
-            <div class="infobox">Nickname:</div>
-            <div class="infobox">Email:</div>
-            {/* <div class="infobox">Password:</div> */}
-          </div>
-          <div id="inputtext">
-            {editMode ? (
-              <>
+          {editMode ? (
+            <>
+              <div className="field-info">
+                <div className="textbox-label">Nickname:</div>
                 <input
                   class="editbox"
                   type="text"
-                  placeholder="Enter Nickname"
+                  placeholder="Enter New Nickname"
                   value={nickname}
                   onChange={handleNicknameChange}
                 />
+              </div>
+
+              <div className="field-info">
+                <div className="textbox-label">First Name:</div>
+                <input
+                  class="editbox"
+                  type="text"
+                  placeholder="Enter New First Name"
+                  value={firstName}
+                  onChange={handleFirstNameChange}
+                />
+              </div>
+
+              <div className="field-info">
+                <div className="textbox-label">Last Name:</div>
+                <input
+                  class="editbox"
+                  type="text"
+                  placeholder="Enter New Last Name"
+                  value={lastName}
+                  onChange={handleLastNameChange}
+                />
+              </div>
+
+              <div className="field-info">
+                <div className="textbox-label">Email:</div>
                 <input
                   class="editbox"
                   type="text"
@@ -142,15 +183,33 @@ function Profile() {
                   value={email}
                   onChange={handleEmailChange}
                 />
-              </>
-            ) : (
-              <>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="field-info">
+                <div className="textbox-label">Nickname:</div>
                 <div className="textbox">{nickname}</div>
+              </div>
+              <div className="field-info">
+                <div className="textbox-label">First Name:</div>
+                <div className="textbox">{firstName}</div>
+              </div>
+              <div className="field-info">
+                <div className="textbox-label">Last Name:</div>
+                <div className="textbox">{lastName}</div>
+              </div>
+              <div className="field-info">
+                <div className="textbox-label">Email:</div>
                 <div className="textbox">{email}</div>
-              </>
-            )}
+              </div>
+            </>
+          )}
+          <div id="cpbutton" onClick={handleResetPassword}>
+            Change Password
           </div>
         </div>
+        {message && <span className="edit-message">{message}</span>}
       </div>
       <div id="profilebuttonscontainer">
         <div
@@ -163,10 +222,6 @@ function Profile() {
           Log Out
         </div>
       </div>
-      <button id="cpbutton" onClick={handleResetPassword}>
-        Change Password
-      </button>
-      <p>{message}</p>
     </div>
   );
 }
