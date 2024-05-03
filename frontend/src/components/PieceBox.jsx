@@ -67,7 +67,7 @@ function PieceBox({
 
   return (
     <>
-      {hasPieceBeenPlayed == false && (
+      {hasPieceBeenPlayed === false && (
         <div
           className={`pieceBox ${isBoxSelected ? "clicked" : ""}`}
           onClick={handleClick}

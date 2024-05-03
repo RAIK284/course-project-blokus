@@ -2,11 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./Game.css";
 import Board from "../components/Board";
 import PieceHolder from "../components/PieceHolder";
-import { bots_playing, currentPlayerTurnIndex, player_pieces, players } from "../gameLogic/playerData";
+import {
+  bots_playing,
+  currentPlayerTurnIndex,
+  player_pieces,
+  players,
+} from "../gameLogic/playerData";
 import { reset_game } from "../gameLogic/board";
 import KeyHolder from "../components/KeyHolder";
 import Avatar from "../components/Avatar";
-import { in_online_game, lobby_code, player_id, socket } from "../gameLogic/lobbies";
+import {
+  in_online_game,
+  lobby_code,
+  player_id,
+  socket,
+} from "../gameLogic/lobbies";
 import EndGameModal from "../components/modals/EndGameModal";
 
 function Game() {
@@ -16,13 +26,13 @@ function Game() {
   playerTime.setSeconds(playerTime.getSeconds() + timerLength);
 
   // data for game
-  const [playerNames, setPlayerNames] = useState(['c1', 'c2', 'c3', 'c4']);
+  const [playerNames, setPlayerNames] = useState(["c1", "c2", "c3", "c4"]);
   const [endModalOpen, setEndModalOpen] = useState(false);
   const [endPlayers, setEndPlayers] = useState([
     { name: "", score: 0, color: "" },
     { name: "", score: 0, color: "" },
     { name: "", score: 0, color: "" },
-    { name: "", score: 0, color: "" }
+    { name: "", score: 0, color: "" },
   ]);
 
   // data for current user playing
@@ -36,31 +46,47 @@ function Game() {
     setUserPieces(player_pieces);
     setSelectedBox(-1);
     setMyPlayer(players[currentPlayerTurnIndex]);
-  }
+  };
 
   const endGame = (endPlayers) => {
     setEndPlayers(endPlayers);
     setEndModalOpen(true);
-  }
+  };
 
   const setAvatar = (index, mode) => {
     let label = "";
-    if (!in_online_game){
-      if (mode == 'local'){
+    if (!in_online_game) {
+      if (mode === "local") {
         // handles mismatched indeces
         switch (index) {
-          case 0: label = "blue"; break;
-          case 1: label = "yellow"; break;
-          case 2: label = "red"; break;
-          case 3: label = "green"; break;
+          case 0:
+            label = "blue";
+            break;
+          case 1:
+            label = "yellow";
+            break;
+          case 2:
+            label = "red";
+            break;
+          case 3:
+            label = "green";
+            break;
         }
       } else {
         // handles mismatched indeces
         switch (index) {
-          case 0: bots_playing[0] = mode; break;
-          case 1: bots_playing[2] = mode; break;
-          case 2: bots_playing[1] = mode; break;
-          case 3: bots_playing[3] = mode; break;
+          case 0:
+            bots_playing[0] = mode;
+            break;
+          case 1:
+            bots_playing[2] = mode;
+            break;
+          case 2:
+            bots_playing[1] = mode;
+            break;
+          case 3:
+            bots_playing[3] = mode;
+            break;
         }
         label = mode + " bot";
       }
@@ -70,14 +96,14 @@ function Game() {
     const updatedPlayerNames = [...playerNames];
     updatedPlayerNames[index] = label;
     setPlayerNames(updatedPlayerNames);
-  }
+  };
 
-  socket.on('avatar_set', ( data ) => {
+  socket.on("avatar_set", (data) => {
     // sets avatars visually
-    if (lobby_code === data['lobbyCode']) {
-      let players = data['players'];
+    if (lobby_code === data["lobbyCode"]) {
+      let players = data["players"];
       const updatedPlayerNames = [...playerNames];
-      for (let i = 0; i < players.length; i++){
+      for (let i = 0; i < players.length; i++) {
         updatedPlayerNames[i] = players[i];
       }
       setPlayerNames(updatedPlayerNames);
@@ -87,10 +113,15 @@ function Game() {
   // resets old game before starting new game
   useEffect(() => {
     reset_game();
-    if (in_online_game){
+    if (in_online_game) {
       // add new player to online game
-      for (let i = 0; i < playerNames.length; i++){
-        if (playerNames[i] == 'c1' || playerNames[i] == 'c2' || playerNames[i] == 'c3' || playerNames[i] == 'c4'){
+      for (let i = 0; i < playerNames.length; i++) {
+        if (
+          playerNames[i] === "c1" ||
+          playerNames[i] === "c2" ||
+          playerNames[i] === "c3" ||
+          playerNames[i] === "c4"
+        ) {
           const updatedPlayerNames = [...playerNames];
           updatedPlayerNames[i] = player_id;
           setPlayerNames(updatedPlayerNames);
@@ -99,7 +130,7 @@ function Game() {
       }
     } else {
       const updatedPlayerNames = [...playerNames];
-      updatedPlayerNames[0] = 'blue';
+      updatedPlayerNames[0] = "blue";
       setPlayerNames(updatedPlayerNames);
     }
     endRound();
@@ -107,7 +138,7 @@ function Game() {
 
   return (
     <div id="game">
-      <EndGameModal 
+      <EndGameModal
         endPlayers={endPlayers}
         setEndPlayers={setEndPlayers}
         isOpen={endModalOpen}

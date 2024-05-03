@@ -20,6 +20,7 @@ function RulesModal({ isOpen, onClose }) {
               id="rupdf"
               type="application/pdf"
               data="https://service.mattel.com/instruction_sheets/BJV44-Eng.pdf"
+              aria-label="game rules"
             ></object>
           </div>
         </div>

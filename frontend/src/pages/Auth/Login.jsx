@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ProfileIcon from "../../assets/ProfileIcon.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { set_player_email, set_player_id, set_player_name } from "../../gameLogic/lobbies";
+import { set_player_id, set_player_name } from "../../gameLogic/lobbies";
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import database, { auth } from "../../firebase";
 
 function Login() {
