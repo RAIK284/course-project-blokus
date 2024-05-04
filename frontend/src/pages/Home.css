@@ -32,9 +32,9 @@
   z-index: 10;
 }
 
-#leaderboardButtonContainer:hover #redBlock #redPiece,
-#playButtonContainer:hover #greenBlock #greenPiece,
-#profileButtonContainer:hover #blueBlock #bluePiece {
+#leaderboardButtonContainer:hover,
+#playButtonContainer:hover,
+#profileButtonContainer:hover {
   transition: 0.1s;
   filter: brightness(1.2);
 }

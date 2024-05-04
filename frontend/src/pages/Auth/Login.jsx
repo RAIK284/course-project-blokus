@@ -3,14 +3,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ProfileIcon from "../../assets/ProfileIcon.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { set_player_email, set_player_id, set_player_name } from "../../gameLogic/lobbies";
+import { set_player_id, set_player_name } from "../../gameLogic/lobbies";
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import database, { auth } from "../../firebase";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayError, setDisplayError] = useState("");
   const navigate = useNavigate();
 
   const handleLogIn = (e) => {
@@ -35,7 +36,15 @@ function Login() {
         navigate(`/home`);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("catch");
+
+        if (
+          error.code === "auth/invalid-credential" ||
+          error.code === "auth/invalid-email"
+        ) {
+          setDisplayError("Invalid login credentials.");
+          console.log(displayError);
+        }
       });
   };
 
@@ -47,31 +56,26 @@ function Login() {
           <img alt="Profile" src={ProfileIcon} id="loprofilepic" />
         </div>
         <div id="loinfocontainer">
-          <div id="loinfotext">
-            <div id="loinfobox">Email:</div>
-            <div id="loinfobox">Password:</div>
-          </div>
-          <div id="loinputtext">
-            <input
-              id="lotextbox"
-              type="email"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              id="lotextbox"
-              type="password"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+          <input
+            className="lotextbox"
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="lotextbox"
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
+        {displayError && <span className="login-error">{displayError}</span>}
       </div>
-      <button id="loginbutton" type="submit">
+      <div id="loginbutton" type="submit" onClick={handleLogIn}>
         Log In
-      </button>
+      </div>
       <span id="rusignupmessage">
         Don't have an account?{" "}
         <Link id="rusignuplink" to={"/signup"}>
