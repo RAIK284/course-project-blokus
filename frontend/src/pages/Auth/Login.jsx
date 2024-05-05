@@ -103,7 +103,7 @@ function Login() {
         {displayError && <span className="login-error">{displayError}</span>}
       </div>
       {/* Log In Button */}
-      <div type="submit" className="loginbutton">
+      <div type="submit" className="loginbutton" onClick={handleLogIn}>
         Log In
       </div>
       <span id="rusignupmessage">

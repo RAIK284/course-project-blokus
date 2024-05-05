@@ -10,6 +10,7 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { useAuth } from "./Auth/AuthContext";
+import { storage, storageRef } from "../firebase";
 
 function Profile() {
   const { authUser, setAuthUser } = useAuth();
@@ -24,6 +25,7 @@ function Profile() {
   const [isFirstNameDirty, setIsFirstNameDirty] = useState(false);
   const [isLastNameDirty, setIsLastNameDirty] = useState(false);
   const [message, setMessage] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
 
   const handleResetPassword = async () => {
     try {
@@ -103,6 +105,45 @@ function Profile() {
       .catch((error) => console.log(error));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setProfileImage(file);
+  };
+
+  const handleUploadImage = async () => {
+    try {
+      console.log("Profile image selected:", profileImage);
+
+      if (profileImage) {
+        const filePath = `profile-images/${profileImage}`;
+        console.log("Uploading image to:", filePath);
+
+        const fileRef = storageRef(filePath);
+        console.log("File Reference:", fileRef);
+
+        await fileRef.put(profileImage);
+        console.log("File uploaded successfully!");
+
+        const imageUrl = await fileRef.getDownloadURL();
+        console.log("Download URL:", imageUrl);
+
+        const userDocRef = doc(database, "users", authUser.uid);
+        await setDoc(userDocRef, { profileImage: imageUrl }, { merge: true });
+        console.log("Profile image URL updated in Firestore.");
+
+        // Update local state
+        setUserData((userData) => ({
+          ...userData,
+          profileImage: imageUrl,
+        }));
+
+        setProfileImage(null); // Clear selected image
+      }
+    } catch (error) {
+      console.error("Error uploading profile image:", error);
+    }
+  };
+
   // get all the firestore info for the current logged in user
   useEffect(() => {
     const getUserData = async () => {
@@ -136,7 +177,25 @@ function Profile() {
     <div id="profile">
       <div id="profilebox">
         <div id="imagebox">
-          <img alt="Profile" src={ProfileIcon} id="profilepic" />
+          <img
+            alt="Profile"
+            src={userData.profileImage || ProfileIcon}
+            id="profilepic"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            style={{ display: "none" }}
+            id="imageInput"
+          />
+          <label htmlFor="imageInput" id="uploadButton">
+            Upload Image
+          </label>
+          {/* Button to upload the selected image */}
+          {profileImage && (
+            <button onClick={handleUploadImage}>Confirm Upload</button>
+          )}
         </div>
         <div id="infocontainer">
           {editMode ? (
