@@ -13,6 +13,7 @@ import { set_player_id, set_player_name } from "../../gameLogic/lobbies";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import database, { auth } from "../../firebase";
+import Close from "../../assets/_X_.svg";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -75,71 +76,74 @@ function Login() {
     setShowResetModal(false);
   };
 
-
-
   return (
-     <form id="login" onSubmit={handleLogIn}>
-        Log in to your Account
-        <div id="loginbox">
-          <div id="loimagebox">
-            <img alt="Profile" src={ProfileIcon} id="loprofilepic" />
-          </div>
-          <div id="loinfocontainer">
+    <form id="login" onSubmit={handleLogIn}>
+      Log in to your Account
+      <div id="loginbox">
+        <div id="loimagebox">
+          <img alt="Profile" src={ProfileIcon} id="loprofilepic" />
+        </div>
+        <div id="loinfocontainer">
+          <input
+            className="lotextbox"
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="lotextbox"
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        {/* Display Login Error */}
+        {displayError && <span className="login-error">{displayError}</span>}
+      </div>
+      {/* Log In Button */}
+      <div type="submit" className="loginbutton">
+        Log In
+      </div>
+      <span id="rusignupmessage">
+        Don't have an account?{" "}
+        <Link id="rusignuplink" to={"/signup"}>
+          Sign up!
+        </Link>
+      </span>
+      {/* Forgot Password Link (Modal Trigger) */}
+      <div className="forgot-password-link" onClick={openResetModal}>
+        Forgot Password?
+      </div>
+      {/* Reset Password Modal */}
+      {showResetModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <div className="close" onClick={closeResetModal}>
+              <img src={Close} alt="Close Modal Button" />
+            </div>
+            <span className="forgot-password-title">Forgot Password?</span>
+            <span className="reset-password-instructions">
+              Enter your email address to reset your password:
+            </span>
             <input
-              className="lotextbox"
+              className="modal-input"
               type="email"
-              placeholder="Enter Email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
-              className="lotextbox"
-              type="password"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          {/* Display Login Error */}
-          {displayError && <span className="login-error">{displayError}</span>}
-        </div>
-
-        {/* Log In Button */}
-        <div type="submit" className="loginbutton">
-          Log In
-        </div>
-
-        <span id="rusignupmessage">
-          Don't have an account?{" "}
-          <Link id="rusignuplink" to={"/signup"}>
-            Sign up!
-          </Link>
-        </span>
-
-        {/* Forgot Password Link (Modal Trigger) */}
-        <div className="forgot-password-link" onClick={openResetModal}>
-          Forgot Password?
-        </div>
-
-        {/* Reset Password Modal */}
-        {showResetModal && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={closeResetModal}>&times;</span>
-              <h2>Forgot Password?</h2>
-              <p>Enter your email address to reset your password:</p>
-              <input
-                className="modal-input"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <button className="modal-button" onClick={() => handleResetPassword(email)}>Reset Password</button>
+            <div
+              className="modal-button"
+              onClick={() => handleResetPassword(email)}
+            >
+              Reset Password
             </div>
           </div>
-        )}
-      </form>
+        </div>
+      )}
+    </form>
   );
 }
 
