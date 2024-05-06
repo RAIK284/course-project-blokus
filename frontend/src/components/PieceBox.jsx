@@ -1,4 +1,4 @@
-import { pieces, rotate_piece, flip_piece } from "../gameLogic/pieceData";
+import { pieces } from "../gameLogic/pieceData";
 import PieceBlock from "./PieceBlock";
 import "./PieceBox.css";
 import React, { useState, useEffect } from "react";
@@ -67,7 +67,7 @@ function PieceBox({
 
   return (
     <>
-      {hasPieceBeenPlayed == false && (
+      {hasPieceBeenPlayed === false && (
         <div
           className={`pieceBox ${isBoxSelected ? "clicked" : ""}`}
           onClick={handleClick}

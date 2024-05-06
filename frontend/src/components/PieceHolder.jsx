@@ -1,7 +1,7 @@
 import { pieces } from '../gameLogic/pieceData';
 import PieceBox from './PieceBox';
 import './PieceHolder.css';
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 function PieceHolder({ setPiece, userPieces, myPlayer, selectedBox, setSelectedBox }) {
     return (

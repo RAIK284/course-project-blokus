@@ -5,12 +5,13 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 130px;
+  margin-top: 2em;
   text-align: center;
   font-family: "Jockey One", sans-serif;
   font-size: 30px;
-  color: white;
-  text-shadow: 0 0 3px #000000, 0 0 8px #000000;
+  color: #d2d0d0;
+  text-shadow: -1.2px -1.2px 0 black, 1.2px -1.2px 0 black, -1.2px 1.2px 0 black,
+    1.2px 1.2px 0 black;
 }
 
 #profilebox {
@@ -18,9 +19,11 @@
   background: #262626;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin-top: 50px;
-  width: 505px;
-  height: 501px;
+  width: 700px;
+  height: auto;
+  padding: 0.5em;
 }
 
 #imagebox {
@@ -35,49 +38,58 @@
 }
 
 #infocontainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-#infotext {
-  margin-top: 45px;
-  align-self: flex-start;
+  align-self: center;
+  margin-top: 1.5em;
   font-size: 20px;
-  color: grey;
-}
-
-.infobox {
-  display: flex;
-  text-align: right;
-  margin-bottom: 20px;
-}
-
-#inputtext {
-  width: 150px;
-  margin-top: 45px;
-  align-self: flex-start;
-  margin-left: 20px;
-  font-size: 20px;
-  color: grey;
+  width: fit-content;
 }
 
 .editbox {
-  text-align: left !important;
-  color: black;
-  margin-bottom: 20px;
+  background-color: rgb(64, 64, 64);
+  height: 2em;
+  align-content: center;
+  text-align: left;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border: none;
+  outline: none;
+  color: #d2d0d0;
+  font-family: "Jockey One";
+  font-size: 20px;
+  text-shadow: -1.2px -1.2px 0 black, 1.2px -1.2px 0 black, -1.2px 1.2px 0 black,
+    1.2px 1.2px 0 black;
+}
+
+.editbox::placeholder {
+  color: #d2d0d0;
+}
+
+.field-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75em;
+}
+
+.textbox-label {
+  justify-content: left;
+  font-size: 16px;
+  text-align: left;
 }
 
 .textbox {
-  text-align: left !important;
-  color: white;
-  margin-bottom: 20px;
+  background-color: rgb(64, 64, 64);
+  height: 2em;
+  align-content: center;
+  text-align: left;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border: none;
 }
 
 #profilebuttonscontainer {
   display: flex;
   justify-content: space-between;
-  margin-top: 1em;
+  margin-top: 0.5em;
 }
 
 #logoutbutton {
@@ -86,12 +98,12 @@
   align-items: center;
   background-color: #262626;
   height: 60px;
-  width: 150px;
+  width: 120px;
   font-family: "Jockey One", sans-serif;
   font-size: 30px;
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
-  color: white;
+  color: #d2d0d0;
   text-decoration: none;
   cursor: pointer;
 }
@@ -102,12 +114,12 @@
   align-items: center;
   background-color: #262626;
   height: 60px;
-  width: 150px;
+  width: 120px;
   font-family: "Jockey One", sans-serif;
   font-size: 30px;
   text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     2px 2px 0 black;
-  color: white;
+  color: #d2d0d0;
   text-decoration: none;
   margin-right: 2em;
   cursor: pointer;
@@ -119,10 +131,27 @@
 }
 
 #logoutbutton:hover,
-#editprofilebutton:hover {
+#editprofilebutton:hover,
+#cpbutton:hover {
   filter: brightness(1.1);
 }
 
 #cpbutton {
-  margin-top: 20px;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  background-color: rgb(64, 64, 64);
+  cursor: pointer;
+}
+
+.edit-message {
+  background-color: #ff0000;
+  border: 2px solid #af0303;
+  color: white;
+  font-size: 15px;
+  font-family: "Jockey One";
+  text-shadow: -1.2px -1.2px 0 black, 1.2px -1.2px 0 black, -1.2px 1.2px 0 black,
+    1.2px 1.2px 0 black;
+  width: auto;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }

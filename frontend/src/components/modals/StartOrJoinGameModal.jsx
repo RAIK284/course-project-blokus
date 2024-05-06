@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import "./StartOrJoinGameModal.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Close from "../../assets/_X_.svg";
 import BackButton from "../../assets/Back button.svg";
-import { create_game, find_open_game, in_online_game, join_game, lobby_code, player_id, set_in_online_game, set_lobby_code, socket } from "../../gameLogic/lobbies";
+import {
+  create_game,
+  find_open_game,
+  join_game,
+  player_id,
+  set_in_online_game,
+  set_lobby_code,
+  socket,
+} from "../../gameLogic/lobbies";
 
 function StartOrJoinGameModal({ isOpen, onClose }) {
   const [isCreatingGame, setIsCreatingGame] = useState(false);
@@ -25,16 +33,15 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
     create_game();
   };
 
-  /*socket.on('game_created', (data) => {
-    let playerId = data['playerId'];
-    if (playerId == player_id){
-      let lobbyCode = data['lobbyCode'];
+  socket.on("game_created", (data) => {
+    let playerId = data["playerId"];
+    if (playerId === player_id) {
+      let lobbyCode = data["lobbyCode"];
       set_lobby_code(lobbyCode);
       set_in_online_game(true);
-      console.log('Created lobby, code: ' + lobbyCode);
       join_game(lobbyCode);
     }
-  });*/
+  });
 
   const handleJoinGameClick = () => {
     setIsJoiningGame(true);
@@ -46,42 +53,41 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
     }
   };
 
-  /*socket.on('joined_game', (data) => {
-    let playerId = data['playerId'];
-    if (playerId == player_id){
-      let lobbyCode = data['lobbyCode'];
-      set_lobby_code(lobbyCode);
+  socket.on("joined_game", (data) => {
+    let playerId = data["playerId"];
+    if (playerId === player_id) {
       set_in_online_game(true);
       navigate(`/game`);
     }
   });
 
-  socket.on('lobby_full', (data) => {
-    let playerId = data['playerId'];
-    if (playerId == player_id){
-      let lobbyCode = data['lobbyCode'];
-      console.log('Lobby ' + lobbyCode + ' is full!');
+  socket.on("lobby_full", (data) => {
+    let playerId = data["playerId"];
+    if (playerId === player_id) {
+      let lobbyCode = data["lobbyCode"];
+      console.log("Lobby " + lobbyCode + " full.");
     }
-  });*/
+  });
 
   const handleJoinPublicGame = () => {
     find_open_game();
   };
 
-  /*socket.on('open_game_found', (data) => {
-    let playerId = data['playerId'];
-    if (playerId == player_id){
-      let lobbyCode = data['lobbyCode'];
+  socket.on("open_game_found", (data) => {
+    let playerId = data["playerId"];
+    if (playerId === player_id) {
+      let lobbyCode = data["lobbyCode"];
+      set_lobby_code(lobbyCode);
       join_game(lobbyCode);
     }
   });
 
-  socket.on('no_open_game_found', (data) => {
-    let playerId = data['playerId'];
-    if (playerId == player_id){
-      console.log('No open game found.');
+  socket.on("no_open_game_found", (data) => {
+    let playerId = data["playerId"];
+    if (playerId === player_id) {
+      console.log("No open game found.");
     }
-  });*/
+  });
 
   const handleBackClick = () => {
     setOnlineGameCode("");
@@ -140,7 +146,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
           )}
           {isCreatingGame && (
             <>
-              <div 
+              <div
                 id="localGameButtonContainer"
                 onClick={handleCreateLocalGameClick}
               >
@@ -153,7 +159,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
               </span>
               <div style={{ height: "3em" }}></div>
 
-              <div 
+              <div
                 id="onlineGameButtonContainer"
                 onClick={handleCreateOnlineGameClick}
               >
@@ -188,7 +194,7 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
               </span>
               <div style={{ height: "4.25em" }}></div>
 
-              <div 
+              <div
                 id="publicGameButtonContainer"
                 onClick={handleJoinPublicGame}
               >

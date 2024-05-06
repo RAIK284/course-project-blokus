@@ -3,21 +3,22 @@ import BoardBlock from "./BoardBlock";
 import "./Board.css";
 import {
   board_matrix,
-  can_play_piece,
   play_piece,
   play_random_piece,
+  set_board_matrix,
 } from "../gameLogic/board";
-import { flip_piece, pieces } from "../gameLogic/pieceData";
+import { can_play_piece } from "../gameLogic/checks";
+import { flip_piece, pieces, reset_pieces } from "../gameLogic/pieceData";
 import { rotate_piece } from "../gameLogic/pieceData";
 import { useTimer } from "react-timer-hook";
 import { bot_play_piece } from "../gameLogic/bot";
 import {
   bots_playing,
   currentPlayerTurnIndex,
-  end_turn,
+  set_turn_index,
 } from "../gameLogic/playerData";
 import {
-  join_game,
+  in_online_game,
   lobby_code,
   piece_played,
   player_id,
@@ -32,6 +33,7 @@ function Board({
   expiryTimestamp,
   endRound,
   onlineGame,
+  endGame,
 }) {
   const [board, setBoard] = useState([[]]);
   const [displayRows, setDisplayRows] = useState([]);
@@ -40,7 +42,9 @@ function Board({
   const hoverRowRef = useRef(hoverRow);
   const hoverColRef = useRef(hoverCol);
   const [gameStarted, setGameStarted] = useState(false);
+  const [gamePaused, setGamePaused] = useState(false);
 
+  // updated access to hover row and col
   useEffect(() => {
     hoverRowRef.current = hoverRow;
     hoverColRef.current = hoverCol;
@@ -50,13 +54,8 @@ function Board({
   const timerLength = 59;
   const [timerFlipState, setTimerFlipState] = useState(true);
   const {
-    totalSeconds,
     seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
+
     pause,
     resume,
     restart,
@@ -66,9 +65,12 @@ function Board({
   });
 
   const startGame = () => {
-    var playersChosen = playerNames.every((item) => !item.includes("c"));
+    var playersChosen = playerNames.every(
+      (item) => !String(item).includes("c")
+    );
     if (playersChosen) {
       if (onlineGame) {
+        // sends information to socket
         start_game(lobby_code);
       }
       setGameStarted(true);
@@ -77,16 +79,15 @@ function Board({
   };
 
   // tracks if game was started by another user
-  /*socket.on('game_started', ( data ) => {
-    if (onlineGame && lobby_code == data['lobbyCode']){
+  socket.on("game_started", (data) => {
+    if (onlineGame && lobby_code === data["lobbyCode"]) {
       setGameStarted(true);
       resume();
     }
-  });*/
+  });
 
   // creates a 20x20 grid of block components based on board 2d matrix
   const fillBoard = () => {
-    console.log("in fill board");
     let boardComponents = board.map((row, rowIndex) => (
       <div className="row" key={rowIndex}>
         {row.map((cell, colIndex) => (
@@ -102,7 +103,7 @@ function Board({
                 : null
             }
             myPlayer={myPlayer}
-            highlight={board[colIndex][rowIndex] == "highlight"}
+            highlight={board[colIndex][rowIndex] === "highlight"}
           />
         ))}
       </div>
@@ -111,13 +112,18 @@ function Board({
   };
 
   // tracks if another user played a piece
-  /*socket.on('piece_played', ( data ) => {
-    if (onlineGame && lobby_code == data['lobbyCode'] && player_id != data['playerId']){
-      console.log("socket call piece played tracked")
-      let board = data['board'];
-      setBoard(board);
-      fillBoard(board);
-      end_turn();
+  socket.on("piece_played", (data) => {
+    if (
+      onlineGame &&
+      lobby_code === data["lobbyCode"] &&
+      player_id !== data["playerId"]
+    ) {
+      let turn = data["turn"];
+      set_turn_index(turn);
+      reset_pieces();
+      let socketBoard = data["board"];
+      setBoard(socketBoard);
+      fillBoard();
       // reset hover indeces
       setHoverRow(-1);
       setHoverCol(-1);
@@ -125,16 +131,29 @@ function Board({
       const time = new Date();
       time.setSeconds(time.getSeconds() + timerLength);
       restart(time);
+
+      //if (JSON.stringify(socketBoard) === JSON.stringify(board_matrix))
+      //  end_turn();
+      set_board_matrix(socketBoard);
+
       // end round
       endRound();
     }
-  });*/
+  });
 
   const placePlayerPiece = (row, col) => {
-    if (board[row][col] == "highlight" || board[row][col] == "pointer") {
-      play_piece(row, col, myPlayer, pieceIndex);
+    if (
+      !gamePaused &&
+      (board[row][col] === "highlight" || board[row][col] === "pointer")
+    ) {
+      let play = play_piece(playerNames, row, col, myPlayer, pieceIndex);
       if (onlineGame) {
+        // sends information to socket
         piece_played(lobby_code, board_matrix);
+      } else if (Array.isArray(play)) {
+        pause();
+        setGameStarted(false);
+        endGame(play);
       }
       setBoard(board_matrix);
       // reset hover indeces
@@ -150,9 +169,14 @@ function Board({
   };
 
   const playBotRound = (difficulty) => {
-    bot_play_piece(myPlayer, difficulty);
+    let play = bot_play_piece(playerNames, myPlayer, difficulty);
     if (onlineGame) {
-      piece_played(lobby_code, board_matrix);
+      // sends information to socket
+      piece_played(lobby_code, board_matrix, true);
+    } else if (Array.isArray(play)) {
+      pause();
+      setGameStarted(false);
+      endGame(play);
     }
     setBoard(board_matrix);
     fillBoard();
@@ -173,7 +197,7 @@ function Board({
             for (let pieceC = 0; pieceC < piece[pieceR].length; pieceC++) {
               if (piece[pieceR][pieceC] === 1) {
                 updatedBoard[row + pieceR][col + pieceC] = "highlight";
-              } else if (updatedBoard[row + pieceR][col + pieceC] == "") {
+              } else if (updatedBoard[row + pieceR][col + pieceC] === "") {
                 updatedBoard[row + pieceR][col + pieceC] = "pointer";
               }
             }
@@ -194,23 +218,54 @@ function Board({
   };
 
   const checkIfPiecePlayable = (row, col) => {
-    // check if user selected a piece
-    if (pieceIndex != -1) {
-      const showHighlight = can_play_piece(row, col, pieceIndex, myPlayer);
-      if (showHighlight) {
-        setHoverRow(row);
-        setHoverCol(col);
-        setBoardHighlights(row, col);
+    // check if it's your turn
+    if (
+      !in_online_game ||
+      (in_online_game && playerNames[currentPlayerTurnIndex] === player_id)
+    ) {
+      // check if user selected a piece
+      if (pieceIndex !== -1) {
+        let piece = pieces[pieceIndex];
+        const showHighlight = can_play_piece(
+          board_matrix,
+          piece,
+          row,
+          col,
+          myPlayer
+        );
+        if (showHighlight) {
+          setHoverRow(row);
+          setHoverCol(col);
+          setBoardHighlights(row, col);
+        }
       }
     }
   };
 
+  const toggleGamePaused = () => {
+    setGamePaused((prevPaused) => !prevPaused);
+  };
+
+  // handles pausing of local game
+  useEffect(() => {
+    if (gamePaused) {
+      pause();
+    } else {
+      resume();
+    }
+  }, [gamePaused]);
+
   // handles resetting of timer
   useEffect(() => {
-    if (seconds == 0) {
-      play_random_piece(myPlayer);
+    if (seconds === 0) {
+      let play = play_random_piece(playerNames, myPlayer);
       if (onlineGame) {
+        // sends information to socket
         piece_played(lobby_code, board_matrix);
+      } else if (Array.isArray(play)) {
+        pause();
+        setGameStarted(false);
+        endGame(play);
       }
       // delay to render piece
       setTimeout(function () {
@@ -229,14 +284,14 @@ function Board({
   // handles rotate and flip key presses
   useEffect(() => {
     const keyPressHandler = (event) => {
-      if (event.key === "r" && pieceIndex != -1) {
+      if (event.key === "r" && pieceIndex !== -1) {
         rotate_piece(pieceIndex);
         if (checkIfPiecePlayable(hoverRowRef.current, hoverColRef.current)) {
           setBoardHighlights(hoverRowRef.current, hoverColRef.current);
         } else {
           removeHighlightsFromBoard();
         }
-      } else if (event.key === "f" && pieceIndex != -1) {
+      } else if (event.key === "f" && pieceIndex !== -1) {
         flip_piece(pieceIndex);
         if (checkIfPiecePlayable(hoverRowRef.current, hoverColRef.current)) {
           setBoardHighlights(hoverRowRef.current, hoverColRef.current);
@@ -254,9 +309,16 @@ function Board({
   }, [pieceIndex]);
 
   useEffect(() => {
-    var bot = bots_playing[currentPlayerTurnIndex];
-    if (bot != "") {
-      playBotRound(bot);
+    if (onlineGame) {
+      var player = playerNames[currentPlayerTurnIndex];
+      if (typeof player === "string" && player.includes("bot")) {
+        playBotRound(player.split(" ")[0]);
+      }
+    } else {
+      var bot = bots_playing[currentPlayerTurnIndex];
+      if (bot !== "") {
+        playBotRound(bot);
+      }
     }
   }, [myPlayer]);
 
@@ -273,6 +335,33 @@ function Board({
 
   return (
     <>
+      {gameStarted && !onlineGame && (
+        <div id="pauseContainer" onClick={toggleGamePaused}>
+          {gamePaused ? (
+            <React.Fragment>
+              <div id="resume"></div>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <div className="pauseLine"></div>
+              <div className="pauseLine"></div>
+            </React.Fragment>
+          )}
+        </div>
+      )}
+
+      {gamePaused && (
+        <div id="pausedTxtHolder">
+          <div id="pausedTxt">Game Paused</div>
+        </div>
+      )}
+
+      {onlineGame && (
+        <div id="lobbyHolder">
+          <div id="lobbyTxt">Lobby: {lobby_code}</div>
+        </div>
+      )}
+
       <div id="board">{displayRows}</div>
 
       <div id="timerHolder">

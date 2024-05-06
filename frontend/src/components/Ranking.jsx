@@ -1,7 +1,6 @@
 import "./Ranking.css";
 
 function Ranking({rank, name, score}) {
-
     return (
         <div id={`container`}>
             <div id={`rank`}> {rank} </div>       

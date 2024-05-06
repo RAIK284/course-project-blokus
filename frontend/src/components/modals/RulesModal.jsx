@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import "./RulesModal.css";
-import { Link, useNavigate } from "react-router-dom";
 import Close from "../../assets/_X_.svg";
 
 function RulesModal({ isOpen, onClose }) {
@@ -21,6 +20,7 @@ function RulesModal({ isOpen, onClose }) {
               id="rupdf"
               type="application/pdf"
               data="https://service.mattel.com/instruction_sheets/BJV44-Eng.pdf"
+              aria-label="game rules"
             ></object>
           </div>
         </div>
