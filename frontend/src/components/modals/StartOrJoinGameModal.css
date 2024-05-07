@@ -1,4 +1,4 @@
-#modalOverlay {
+.StartOrJoinGameModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   z-index: 2;
 }
 
-#modal {
+.StartOrJoinGameModal .modal-content {
   background: #262626;
   padding: 20px;
   width: 35em;
@@ -21,11 +21,11 @@
   position: relative;
 }
 
-#modal a {
+.StartOrJoinGameModal .modal-content a {
   text-decoration: none;
 }
 
-#backModal {
+.back-modal {
   position: absolute;
   top: 0;
   left: 0;
@@ -33,14 +33,14 @@
   cursor: pointer;
 }
 
-#closeModal {
+.close-modal {
   position: absolute;
   top: 0;
   right: 0;
   cursor: pointer;
 }
 
-#modalButtonsContainer {
+.modal-buttons-container {
   padding-top: 5em;
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@
   justify-content: center;
 }
 
-#createGameButtonContainer {
+.create-game-button-container {
   background-color: #008000;
   border: 4px solid #00dd00;
   width: 25em;
@@ -59,7 +59,7 @@
   justify-content: center;
 }
 
-#joinGameButtonContainer {
+.join-game-button-container {
   background-color: #0000a1;
   border: 4px solid #0000ff;
   width: 25em;
@@ -70,7 +70,7 @@
   justify-content: center;
 }
 
-#localGameButtonContainer {
+.local-game-button-container {
   background-color: #af0303;
   border: 4px solid #ff0000;
   width: 25em;
@@ -81,7 +81,7 @@
   justify-content: center;
 }
 
-#onlineGameButtonContainer {
+.online-game-button-container {
   background-color: #ebb346;
   border: 4px solid #fff505;
   width: 25em;
@@ -92,7 +92,7 @@
   justify-content: center;
 }
 
-#onlineGameCodeButtonContainer {
+.online-game-code-button-container {
   background-color: #e7792a;
   border: 4px solid #ffc148;
   width: 25em;
@@ -103,7 +103,7 @@
   justify-content: center;
 }
 
-#onlineGameCodeInput {
+.online-game-code-input {
   margin: 10px;
   font-family: "Jockey One", sans-serif;
   color: #d2d0d0;
@@ -118,11 +118,11 @@
   caret-color: black;
 }
 
-#onlineGameCodeInput::placeholder {
+.online-game-code-input::placeholder {
   color: #d2d0d0;
 }
 
-#publicGameButtonContainer {
+.public-game-button-container {
   background-color: #8a00a1;
   border: 4px solid #db00ff;
   width: 25em;
@@ -133,22 +133,18 @@
   justify-content: center;
 }
 
-#createGameButtonContainer:hover,
-#joinGameButtonContainer:hover,
-#localGameButtonContainer:hover,
-#onlineGameButtonContainer:hover,
-#publicGameButtonContainer:hover,
-#closeModal:hover,
-#backModal:hover {
-  transition: .1s;
+.create-game-button-container:hover,
+.join-game-button-container:hover,
+.local-game-button-container:hover,
+.online-game-button-container:hover,
+.public-game-button-container:hover,
+.close-modal:hover,
+.back-modal:hover {
+  transition: 0.1s;
   filter: brightness(1.2);
 }
 
-#createGameText,
-#joinGameText,
-#localGameText,
-#onlineGameText,
-#publicGameText {
+.button-text {
   margin: 10px;
   font-family: "Jockey One", sans-serif;
   color: #d2d0d0;
@@ -158,11 +154,7 @@
   text-wrap: nowrap;
 }
 
-#createGameDescription,
-#joinGameDescription,
-#localGameDescription,
-#onlineGameDescription,
-#publicGameDescription {
+.button-description {
   padding-top: 0.25em;
   font-family: "Jockey One", sans-serif;
   color: #595757;

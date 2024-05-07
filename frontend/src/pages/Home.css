@@ -97,10 +97,9 @@
   list-style: none;
   width: 20px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.2);
   animation: animate 25s linear infinite;
+  background: rgba(255, 255, 255, 0.2);
   bottom: -150px;
-
 }
 
 .circles li:nth-child(1) {
@@ -110,6 +109,9 @@
   animation-delay: 0s;
 }
 
+.LandingContainer .circles li:nth-child(1) {
+  background-color: #008000;
+}
 
 .circles li:nth-child(2) {
   left: 10%;
@@ -119,11 +121,19 @@
   animation-duration: 12s;
 }
 
+.LandingContainer .circles li:nth-child(2) {
+  background-color: #0000a1;
+}
+
 .circles li:nth-child(3) {
   left: 70%;
   width: 20px;
   height: 20px;
   animation-delay: 4s;
+}
+
+.LandingContainer .circles li:nth-child(3) {
+  background-color: #008000;
 }
 
 .circles li:nth-child(4) {
@@ -132,6 +142,10 @@
   height: 60px;
   animation-delay: 0s;
   animation-duration: 18s;
+}
+
+.LandingContainer .circles li:nth-child(4) {
+  background-color: #ebb346;
 }
 
 .circles li:nth-child(5) {
@@ -148,11 +162,19 @@
   animation-delay: 3s;
 }
 
+.LandingContainer .circles li:nth-child(6) {
+  background-color: #ebb346;
+}
+
 .circles li:nth-child(7) {
   left: 35%;
   width: 150px;
   height: 150px;
   animation-delay: 7s;
+}
+
+.LandingContainer .circles li:nth-child(7) {
+  background-color: #af0303;
 }
 
 .circles li:nth-child(8) {
@@ -161,6 +183,7 @@
   height: 25px;
   animation-delay: 15s;
   animation-duration: 45s;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .circles li:nth-child(9) {
@@ -171,12 +194,8 @@
   animation-duration: 35s;
 }
 
-.circles li:nth-child(10) {
-  left: 85%;
-  width: 150px;
-  height: 150px;
-  animation-delay: 0s;
-  animation-duration: 11s;
+.LandingContainer .circles li:nth-child(9) {
+  background-color: #af0303;
 }
 
 .circles li:nth-child(10) {
@@ -185,10 +204,13 @@
   height: 150px;
   animation-delay: 0s;
   animation-duration: 11s;
+}
+
+.LandingContainer .circles li:nth-child(10) {
+  background-color: #0000a1;
 }
 
 @keyframes animate {
-
   0% {
     transform: translateY(0) rotate(0deg);
     opacity: 1;
@@ -198,5 +220,4 @@
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
   }
-
 }

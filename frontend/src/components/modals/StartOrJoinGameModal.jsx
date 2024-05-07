@@ -108,37 +108,40 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div id="modalOverlay">
-      <div id="modal">
+    <div className="StartOrJoinGameModal">
+      <div className="modal-content">
         {(isCreatingGame || isJoiningGame) && (
-          <div id="backModal" onClick={handleBackClick}>
+          <div className="back-modal" onClick={handleBackClick}>
             <img src={BackButton} alt="Back Button" />
           </div>
         )}
 
-        <div id="closeModal" onClick={handleCloseClick}>
+        <div className="close-modal" onClick={handleCloseClick}>
           <img src={Close} alt="Close Modal Button" />
         </div>
 
-        <div id="modalButtonsContainer">
+        <div className="modal-buttons-container">
           {!isCreatingGame && !isJoiningGame && (
             <>
               <div
-                id="createGameButtonContainer"
+                className="create-game-button-container"
                 onClick={handleCreateGameClick}
               >
-                <span id="createGameText">Create Game</span>
+                <span className="button-text">Create Game</span>
               </div>
-              <span id="createGameDescription">
+              <span className="button-description">
                 Create a local or online game that friends can join or play
                 versus computer opponents!
               </span>
               <div style={{ height: "3em" }}></div>
-              <div id="joinGameButtonContainer" onClick={handleJoinGameClick}>
-                <span id="joinGameText">Join Game</span>
+              <div
+                className="join-game-button-container"
+                onClick={handleJoinGameClick}
+              >
+                <span className="button-text">Join Game</span>
               </div>
 
-              <span id="joinGameDescription">
+              <span className="button-description">
                 Join a public game with players from around the world or a
                 private game by entering your friend's unique game code!
               </span>
@@ -147,26 +150,26 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
           {isCreatingGame && (
             <>
               <div
-                id="localGameButtonContainer"
+                className="local-game-button-container"
                 onClick={handleCreateLocalGameClick}
               >
-                <span id="localGameText">Local Game</span>
+                <span className="button-text">Local Game</span>
               </div>
 
-              <span id="localGameDescription">
+              <span className="button-description">
                 Create a local game where all 4 opponents play from the same
                 computer!
               </span>
               <div style={{ height: "3em" }}></div>
 
               <div
-                id="onlineGameButtonContainer"
+                className="online-game-button-container"
                 onClick={handleCreateOnlineGameClick}
               >
-                <span id="onlineGameText">Online Game</span>
+                <span className="button-text">Online Game</span>
               </div>
 
-              <span id="onlineGameDescription">
+              <span className="button-description">
                 Create a private online game where all 4 opponents join using a
                 code and play from separate computers!
               </span>
@@ -175,9 +178,9 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
 
           {isJoiningGame && (
             <>
-              <div id="onlineGameCodeButtonContainer">
+              <div className="online-game-code-button-container">
                 <input
-                  id="onlineGameCodeInput"
+                  className="online-game-code-input"
                   type="text"
                   placeholder="Enter Game Code"
                   value={onlineGameCode}
@@ -189,19 +192,19 @@ function StartOrJoinGameModal({ isOpen, onClose }) {
                 />
               </div>
 
-              <span id="onlineGameDescription">
+              <span className="button-description">
                 Join a private online game by entering a 6-letter code!
               </span>
               <div style={{ height: "4.25em" }}></div>
 
               <div
-                id="publicGameButtonContainer"
+                className="public-game-button-container"
                 onClick={handleJoinPublicGame}
               >
-                <span id="publicGameText">Public Game</span>
+                <span className="button-text">Public Game</span>
               </div>
 
-              <span id="publicGameDescription">
+              <span className="button-description">
                 Drop into a public game and compete against players across the
                 world!
               </span>
