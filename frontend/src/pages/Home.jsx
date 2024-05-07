@@ -20,41 +20,57 @@ function Home() {
   };
 
   return (
-    <div className="Home">
-      <span className="home-title">BLOKUS</span>
+    <>
+      <div className="Home">
+        <span className="home-title">BLOKUS</span>
 
-      <div className="home-page-buttons">
-        <Link to="/leaderboard">
-          <div className="leaderboard-button-container">
-            <RedBlock />
-            <span className="leaderboard-text">Leaderboard</span>
+        <div className="home-page-buttons">
+          <Link to="/leaderboard">
+            <div className="leaderboard-button-container">
+              <RedBlock />
+              <span className="leaderboard-text">Leaderboard</span>
+            </div>
+          </Link>
+
+          <div className="horizontal-gap"></div>
+
+          <div
+            className="play-button-container"
+            onClick={openStartOrJoinGameModal}
+          >
+            <GreenBlock />
+            <span className="play-text">Play</span>
           </div>
-        </Link>
 
-        <div className="horizontal-gap"></div>
+          <div className="horizontal-gap"></div>
 
-        <div
-          className="play-button-container"
-          onClick={openStartOrJoinGameModal}
-        >
-          <GreenBlock />
-          <span className="play-text">Play</span>
+          <Link to="/profile">
+            <div className="profile-button-container">
+              <BlueBlock />
+              <span className="profile-text">Profile</span>
+            </div>
+          </Link>
+          <StartOrJoinGameModal
+            isOpen={isStartOrJoinGameModalOpen}
+            onClose={closeStartOrJoinGameModal}
+          />
         </div>
-
-        <div className="horizontal-gap"></div>
-
-        <Link to="/profile">
-          <div className="profile-button-container">
-            <BlueBlock />
-            <span className="profile-text">Profile</span>
-          </div>
-        </Link>
-        <StartOrJoinGameModal
-          isOpen={isStartOrJoinGameModalOpen}
-          onClose={closeStartOrJoinGameModal}
-        />
       </div>
-    </div>
+      <div class="area" >
+        <ul class="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div >
+    </>
   );
 }
 
