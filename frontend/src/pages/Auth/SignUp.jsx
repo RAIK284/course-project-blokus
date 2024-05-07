@@ -2,7 +2,7 @@ import "./SignUp.css";
 import { useState } from "react";
 import ProfileIcon from "../../assets/ProfileIcon.svg";
 import CheckIcon from "../../assets/CheckIcon.svg";
-
+import RedX from "../../assets/RedX.svg";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 import database, { auth } from "../../firebase";
@@ -90,15 +90,15 @@ function SignUp() {
   };
 
   return (
-    <form id="signup" onSubmit={handleSignUp}>
+    <form className="Signup" onSubmit={handleSignUp}>
       Create an Account to Play
-      <div id="signupbox">
-        <div id="suimagebox">
-          <img alt="Profile" src={ProfileIcon} id="suprofilepic" />
+      <div className="signup-box">
+        <div className="su-image-box">
+          <img alt="Profile" src={ProfileIcon} className="su-profile-pic" />
         </div>
-        <div id="suinfocontainer">
+        <div className="su-info-container">
           <input
-            class="sutextbox"
+            className="su-textbox"
             type="text"
             placeholder="Enter Nickname"
             value={nickname}
@@ -106,7 +106,7 @@ function SignUp() {
             required
           />
           <input
-            class="sutextbox"
+            className="su-textbox"
             type="text"
             placeholder="Enter First Name"
             value={firstName}
@@ -118,7 +118,7 @@ function SignUp() {
             required
           />
           <input
-            class="sutextbox"
+            className="su-textbox"
             type="text"
             placeholder="Enter Last Name"
             value={lastName}
@@ -130,7 +130,7 @@ function SignUp() {
             required
           />
           <input
-            class="sutextbox"
+            className="su-textbox"
             type="email"
             placeholder="Enter Email"
             value={email}
@@ -139,7 +139,7 @@ function SignUp() {
           />
           <div className="password-input">
             <input
-              class="sutextbox"
+              className="su-textbox"
               type="password"
               placeholder="Enter Password"
               value={password}
@@ -154,7 +154,7 @@ function SignUp() {
 
           <div className="password-validation">
             <input
-              class="sutextbox"
+              className="su-textbox"
               type="password"
               placeholder="Re-enter Password"
               value={confirmpassword}
@@ -164,17 +164,21 @@ function SignUp() {
             />
           </div>
         </div>
-        {passwordConfirmed && (
-          <img alt="Check" src={CheckIcon} className="password-check" />
+        {(password.length > 0 || confirmpassword) && (
+          <img
+            alt="Check"
+            src={passwordConfirmed ? CheckIcon : RedX}
+            className="password-check"
+          />
         )}
-        {error && <span className="signup-error">{error}</span>}
+        {error && <span className="su-error">{error}</span>}
       </div>
-      <div id="signupbutton" type="submit" onClick={handleSignUp}>
+      <div className="su-button" type="submit" onClick={handleSignUp}>
         Sign Up
       </div>
-      <span id="suloginmessage">
+      <span className="su-login-message">
         Already have an account?{" "}
-        <Link id="suloginlink" to={"/login"}>
+        <Link className="su-login-link" to={"/login"}>
           Log in here!
         </Link>
       </span>

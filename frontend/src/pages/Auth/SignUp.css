@@ -1,4 +1,4 @@
-#signup {
+.Signup {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,7 +12,7 @@
     1.2px 1.2px 0 black;
 }
 
-#signupbox {
+.signup-box {
   display: flex;
   background: #262626;
   flex-direction: column;
@@ -24,18 +24,18 @@
   position: relative;
 }
 
-#suimagebox {
+.su-image-box {
   align-self: center;
   width: 100px;
   height: 100px;
 }
 
-#suprofilepic {
+.su-profile-pic {
   width: 100%;
   height: 100%;
 }
 
-#suinfocontainer {
+.su-info-container {
   margin-top: 1.5em;
   font-size: 20px;
   display: flex;
@@ -49,7 +49,7 @@
   text-align: left;
 }
 
-.password-input .sutextbox {
+.password-input .su-textbox {
   margin-bottom: 0;
 }
 .password-instructions {
@@ -58,7 +58,7 @@
   color: #d2d0d0;
 }
 
-.sutextbox {
+.su-textbox {
   text-align: left !important;
   color: #d2d0d0;
   border: none;
@@ -75,11 +75,11 @@
   margin-bottom: 0.75em;
 }
 
-.sutextbox::placeholder {
+.su-textbox::placeholder {
   color: #d2d0d0;
 }
 
-#signupbutton {
+.su-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,21 +97,21 @@
   cursor: pointer;
 }
 
-#signupbutton:hover {
+.su-button:hover {
   filter: brightness(1.1);
 }
 
-#suloginmessage {
+.su-login-message {
   font-size: 20px;
   margin-top: 10px;
 }
 
-#suloginlink {
+.su-login-link {
   text-decoration: underline;
   color: #d2d0d0;
 }
 
-.signup-error {
+.su-error {
   background-color: #ff0000;
   border: 2px solid #af0303;
   font-size: 15px;
