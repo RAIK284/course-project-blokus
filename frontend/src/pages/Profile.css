@@ -40,11 +40,12 @@
   align-self: center;
   cursor: pointer;
   object-fit: cover;
+  margin-top: 0.5em;
 }
 
 #infocontainer {
   align-self: center;
-  margin-top: 1em;
+  margin-top: 0.5em;
   font-size: 20px;
   width: fit-content;
 }
@@ -142,7 +143,7 @@
 }
 
 #cpbutton {
-  margin-top: 2em;
+  margin-top: 1.5em;
   margin-bottom: 0.5em;
   background-color: rgb(64, 64, 64);
   cursor: pointer;

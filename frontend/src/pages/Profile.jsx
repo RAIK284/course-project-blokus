@@ -188,7 +188,7 @@ function Profile() {
         <div id="imagebox">
           <img
             className="profile-picture"
-            src={profileImageURL || ProfileIcon}
+            src={userData.profileImage ? userData.profileImage : ProfileIcon}
             height="150px"
             width="150px"
             alt="Profile"
