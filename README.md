@@ -86,7 +86,6 @@
         │   └── pages
         │       ├── Auth
         │       │   ├── AuthContext.js
-        │       │   ├── AuthDetails.jsx
         │       │   ├── Login.css
         │       │   ├── Login.jsx
         │       │   ├── SignUp.css

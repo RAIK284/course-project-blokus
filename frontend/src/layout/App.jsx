@@ -10,7 +10,6 @@ import Landing from "../pages/Landing";
 import Login from "../pages/Auth/Login";
 import "./App.css";
 import { AuthProvider } from "../pages/Auth/AuthContext";
-// import AuthDetails from "../pages/Auth/AuthDetails";
 
 function App() {
   return (
