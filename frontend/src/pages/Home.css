@@ -1,4 +1,4 @@
-#home {
+.Home {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,7 +7,7 @@
   margin-top: -3rem;
 }
 
-#homeTitle {
+.home-title {
   color: #d2d0d0;
   float: center;
   font-family: "Jockey One", sans-serif;
@@ -17,29 +17,29 @@
   cursor: default;
 }
 
-#homePageButtons {
+.home-page-buttons {
   display: flex;
   align-items: center;
   margin-top: -5rem;
 }
 
-#playButtonContainer {
+.play-button-container {
   margin-top: 65px;
   cursor: pointer;
 }
 
-#leaderboardButtonContainer #redBlock {
+.leaderboard-button-container .redBlock {
   z-index: 10;
 }
 
-#leaderboardButtonContainer:hover,
-#playButtonContainer:hover,
-#profileButtonContainer:hover {
+.leaderboard-button-container:hover,
+.play-button-container:hover,
+.profile-button-container:hover {
   transition: 0.1s;
   filter: brightness(1.2);
 }
 
-#leaderboardText {
+.leaderboard-text {
   margin: 10px;
   font-family: "Jockey One", sans-serif;
   color: #d2d0d0;
@@ -50,7 +50,7 @@
   transform: translate(5%, -210%);
 }
 
-#playText {
+.play-text {
   margin: 10px;
   font-family: "Jockey One", sans-serif;
   color: #d2d0d0;
@@ -60,7 +60,7 @@
   position: absolute;
   transform: translate(67%, -210%);
 }
-#profileText {
+.profile-text {
   margin: 10px;
   font-family: "Jockey One", sans-serif;
   color: #d2d0d0;
@@ -71,6 +71,6 @@
   transform: translate(58%, -210%);
 }
 
-#horizontalGap {
+.horizontal-gap {
   width: 5rem;
 }

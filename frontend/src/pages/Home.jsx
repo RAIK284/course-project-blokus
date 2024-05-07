@@ -20,30 +20,33 @@ function Home() {
   };
 
   return (
-    <div id="home">
-      <span id="homeTitle">BLOKUS</span>
+    <div className="Home">
+      <span className="home-title">BLOKUS</span>
 
-      <div id="homePageButtons">
+      <div className="home-page-buttons">
         <Link to="/leaderboard">
-          <div id="leaderboardButtonContainer">
+          <div className="leaderboard-button-container">
             <RedBlock />
-            <span id="leaderboardText">Leaderboard</span>
+            <span className="leaderboard-text">Leaderboard</span>
           </div>
         </Link>
 
-        <div id="horizontalGap"></div>
+        <div className="horizontal-gap"></div>
 
-        <div id="playButtonContainer" onClick={openStartOrJoinGameModal}>
+        <div
+          className="play-button-container"
+          onClick={openStartOrJoinGameModal}
+        >
           <GreenBlock />
-          <span id="playText">Play</span>
+          <span className="play-text">Play</span>
         </div>
 
-        <div id="horizontalGap"></div>
+        <div className="horizontal-gap"></div>
 
         <Link to="/profile">
-          <div id="profileButtonContainer">
+          <div className="profile-button-container">
             <BlueBlock />
-            <span id="profileText">Profile</span>
+            <span className="profile-text">Profile</span>
           </div>
         </Link>
         <StartOrJoinGameModal
