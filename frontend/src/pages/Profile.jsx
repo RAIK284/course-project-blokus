@@ -183,10 +183,9 @@ function Profile() {
   }, [authUser]);
 
   return (
-    <div id="profile">
-      Profile
-      <div id="profilebox">
-        <div id="imagebox">
+    <div className="Profile">
+      <div className="profile-box">
+        <div className="image-box">
           <img
             className="profile-picture"
             src={userData.profileImage ? userData.profileImage : ProfileIcon}
@@ -196,13 +195,13 @@ function Profile() {
             onClick={handleOpenModal} // Open the modal when clicking the image
           />
         </div>
-        <div id="infocontainer">
+        <div className="info-container">
           {editMode ? (
             <>
               <div className="field-info">
                 <div className="textbox-label">Nickname:</div>
                 <input
-                  class="editbox"
+                  class="edit-box"
                   type="text"
                   placeholder="Enter New Nickname"
                   value={nickname}
@@ -213,7 +212,7 @@ function Profile() {
               <div className="field-info">
                 <div className="textbox-label">First Name:</div>
                 <input
-                  class="editbox"
+                  class="edit-box"
                   type="text"
                   placeholder="Enter New First Name"
                   value={firstName}
@@ -224,7 +223,7 @@ function Profile() {
               <div className="field-info">
                 <div className="textbox-label">Last Name:</div>
                 <input
-                  class="editbox"
+                  class="edit-box"
                   type="text"
                   placeholder="Enter New Last Name"
                   value={lastName}
@@ -235,7 +234,7 @@ function Profile() {
               <div className="field-info">
                 <div className="textbox-label">Email:</div>
                 <input
-                  class="editbox"
+                  class="edit-box"
                   type="text"
                   placeholder="Enter New Email"
                   value={email}
@@ -263,25 +262,25 @@ function Profile() {
               </div>
             </>
           )}
-          <div id="cpbutton" onClick={handleResetPassword}>
+          <div className="change-password-button" onClick={handleResetPassword}>
             Change Password
           </div>
         </div>
         {message && <span className="edit-message">{message}</span>}
       </div>
-      <div id="profilebuttonscontainer">
+      <div className="profile-buttons-container">
         <div
-          id="editprofilebutton"
+          className="edit-profile-button"
           onClick={editMode ? handleSave : handleEdit}
         >
           {editMode ? "Save" : "Edit"}
         </div>
-        <div id="logoutbutton" onClick={handleSignOut}>
+        <div className="logout-button" onClick={handleSignOut}>
           Log Out
         </div>
       </div>
       {showModal && (
-        <div className="modal">
+        <div className="Modal">
           <div className="modal-content">
             <div className="close" onClick={handleCloseModal}>
               <img src={Close} alt="Close Modal Button" />

@@ -1,33 +1,32 @@
 @import url("https://fonts.cdnfonts.com/css/jockey-one");
 
-#profile {
+.Profile {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 4em;
+  margin-top: 2.5em;
   text-align: center;
   font-family: "Jockey One", sans-serif;
-  font-size: 30px;
+  font-size: 50px;
   color: #d2d0d0;
   text-shadow: -1.2px -1.2px 0 black, 1.2px -1.2px 0 black, -1.2px 1.2px 0 black,
     1.2px 1.2px 0 black;
 }
 
-#profilebox {
+.profile-box {
   display: flex;
   background: #262626;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
   width: 700px;
   height: auto;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
-#imagebox {
+.image-box {
   align-self: center;
   width: 200px;
   height: auto;
@@ -44,14 +43,14 @@
   margin-top: 0.5em;
 }
 
-#infocontainer {
+.info-container {
   align-self: center;
   margin-top: 0.5em;
   font-size: 20px;
   width: fit-content;
 }
 
-.editbox {
+.edit-box {
   background-color: rgb(64, 64, 64);
   height: 2em;
   align-content: center;
@@ -67,7 +66,7 @@
     1.2px 1.2px 0 black;
 }
 
-.editbox::placeholder {
+.edit-box::placeholder {
   color: #d2d0d0;
 }
 
@@ -93,13 +92,13 @@
   border: none;
 }
 
-#profilebuttonscontainer {
+.profile-buttons-container {
   display: flex;
   justify-content: space-between;
   margin-top: 0.5em;
 }
 
-#logoutbutton {
+.logout-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,7 +114,7 @@
   cursor: pointer;
 }
 
-#editprofilebutton {
+.edit-profile-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,18 +131,13 @@
   cursor: pointer;
 }
 
-#resetpasswordmessage {
-  margin-top: 10px;
-  font-size: 20px;
-}
-
-#logoutbutton:hover,
-#editprofilebutton:hover,
-#cpbutton:hover {
+.logout-button:hover,
+.edit-profile-button:hover,
+.change-password-button:hover {
   filter: brightness(1.1);
 }
 
-#cpbutton {
+.change-password-button {
   margin-top: 1.5em;
   margin-bottom: 0.5em;
   background-color: rgb(64, 64, 64);
@@ -163,7 +157,7 @@
   padding-right: 0.5em;
 }
 
-#profile .modal {
+.Profile .Modal {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,7 +169,7 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-#profile .modal-content {
+.Profile .modal-content {
   background: #262626;
   width: 200px;
   height: 100px;
@@ -205,7 +199,7 @@
   cursor: pointer;
 }
 
-#profile .close {
+.Profile .close {
   position: relative;
   top: -25px;
   right: -100px;
