@@ -17,26 +17,9 @@ File Tree:
     /Blokus
     ├── README.md
     ├── backend
-    │   ├── __pycache__
-    │   │   ├── board.cpython-311.pyc
-    │   │   ├── piece_data.cpython-311.pyc
-    │   │   └── player_data.cpython-311.pyc
     │   └── app.py
     └── frontend
         ├── babel.config.js
-        ├── coverage
-        │   ├── clover.xml
-        │   ├── coverage-final.json
-        │   ├── lcov-report
-        │   │   ├── base.css
-        │   │   ├── block-navigation.js
-        │   │   ├── favicon.png
-        │   │   ├── index.html
-        │   │   ├── prettify.css
-        │   │   ├── prettify.js
-        │   │   ├── sort-arrow-sprite.png
-        │   │   └── sorter.js
-        │   └── lcov.info
         ├── jest.config.js
         ├── package-lock.json
         ├── package.json
@@ -48,13 +31,7 @@ File Tree:
         ├── src
         │   ├── Router.jsx
         │   ├── assets
-        │   │   ├── Avatar.svg
-        │   │   ├── Back button.svg
-        │   │   ├── CheckIcon.svg
-        │   │   ├── Help Icon.svg
-        │   │   ├── Home Icon.svg
-        │   │   ├── ProfileIcon.svg
-        │   │   └── _X_.svg
+        │   │   ├── * all of our images *
         │   ├── components
         │   │   ├── Avatar.css
         │   │   ├── Avatar.jsx

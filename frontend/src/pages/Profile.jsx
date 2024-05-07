@@ -184,6 +184,7 @@ function Profile() {
 
   return (
     <div id="profile">
+      Profile
       <div id="profilebox">
         <div id="imagebox">
           <img
