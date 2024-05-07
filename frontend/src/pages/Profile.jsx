@@ -29,7 +29,7 @@ function Profile() {
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
-  const [profileImageURL, setProfileImageURL] = useState("");
+  const [profileImageURL, setProfileImageURL] = useState(userData.profileImage);
 
   // Function to handle opening the modal
   const handleOpenModal = () => {
@@ -180,7 +180,7 @@ function Profile() {
     if (authUser) {
       getUserData();
     }
-  }, [authUser]);
+  }, [authUser, profileImageURL]);
 
   return (
     <div className="Profile">
