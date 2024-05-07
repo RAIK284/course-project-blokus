@@ -53,7 +53,13 @@ export function determine_winner(
       score: (total_blocks_for_player + 1) * -1,
       color: "",
     };
-    let color = players[index];
+    let dynamicIndex = index;
+    if (dynamicIndex == 1){
+      dynamicIndex = 2;
+    } else if (dynamicIndex == 2){
+      dynamicIndex = 1;
+    }
+    let color = players[dynamicIndex];
     let total_placed = 0;
     let score = 0;
     for (let i = 0; i < player_pieces[color].length; i++) {
