@@ -1,16 +1,20 @@
 # Blokus
 
-Installations Needed (cd into respective folders):
+<strong>Installations Needed (cd into respective folders):</strong>
 
 - Backend Folder: <strong>pip install Flask Flask-SocketIO Flask-Cors</strong>
 - Frontend Folder: <strong>npm install</strong>
 
-How to Run:
+<strong>How to Run:</strong>
 
 - Open two terminals in VSCode
 - In terminal one, enter the command: <strong>cd backend | python app.py</strong>
 - In terminal two, enter the command: <strong>cd frontend | npm start</strong>
 - The app is now running at the url <strong>localhost:3000</strong>
+
+<strong>Code Structure</strong>
+  The frontend stores the game logic and user interfaces for the game. It uses a page/component rendering style to retrieve and display game data. Our user authentication system is also in our frontend and utilizes Firebase Authentication. User information and statistics are stored using Firebase Cloud Storage.
+  Our backend houses web sockets that facilitate online gameplay. These routes are called from a game lobby in the frontend, then emit game data to every user in a specific game lobby.
 
 File Tree:
 
