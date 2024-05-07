@@ -10,7 +10,9 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { useAuth } from "./Auth/AuthContext";
-import { storage, storageRef } from "../firebase";
+import { storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import Close from "../assets/_X_.svg";
 
 function Profile() {
   const { authUser, setAuthUser } = useAuth();
@@ -25,7 +27,19 @@ function Profile() {
   const [isFirstNameDirty, setIsFirstNameDirty] = useState(false);
   const [isLastNameDirty, setIsLastNameDirty] = useState(false);
   const [message, setMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
+  const [profileImageURL, setProfileImageURL] = useState("");
+
+  // Function to handle opening the modal
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  // Function to handle closing the modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const handleResetPassword = async () => {
     try {
@@ -106,41 +120,34 @@ function Profile() {
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setProfileImage(file);
+    if (e.target.files[0]) {
+      setProfileImage(e.target.files[0]);
+    }
   };
 
-  const handleUploadImage = async () => {
-    try {
-      console.log("Profile image selected:", profileImage);
-
-      if (profileImage) {
-        const filePath = `profile-images/${profileImage}`;
-        console.log("Uploading image to:", filePath);
-
-        const fileRef = storageRef(filePath);
-        console.log("File Reference:", fileRef);
-
-        await fileRef.put(profileImage);
-        console.log("File uploaded successfully!");
-
-        const imageUrl = await fileRef.getDownloadURL();
-        console.log("Download URL:", imageUrl);
-
-        const userDocRef = doc(database, "users", authUser.uid);
-        await setDoc(userDocRef, { profileImage: imageUrl }, { merge: true });
-        console.log("Profile image URL updated in Firestore.");
-
-        // Update local state
-        setUserData((userData) => ({
-          ...userData,
-          profileImage: imageUrl,
-        }));
-
-        setProfileImage(null); // Clear selected image
-      }
-    } catch (error) {
-      console.error("Error uploading profile image:", error);
+  const handleUpload = () => {
+    if (profileImage !== null) {
+      const imageRef = ref(storage, `profile-images/${profileImage.name}`);
+      uploadBytes(imageRef, profileImage).then((value) => {
+        console.log(value);
+        getDownloadURL(value.ref).then((url) => {
+          const docRef = doc(database, "users", authUser.uid);
+          // set the fields we want to change
+          const payload = {
+            nickname: isNicknameDirty ? nickname : userData.nickname,
+            firstName: isFirstNameDirty ? firstName : userData.firstName,
+            lastName: isLastNameDirty ? lastName : userData.lastName,
+            profileImage: url,
+            gamesPlayed: userData.gamesPlayed,
+            gamesWon: userData.gamesWon,
+            totalPieces: userData.totalPieces,
+          };
+          // actually update in the database
+          setDoc(docRef, payload);
+          setShowModal(false);
+          setProfileImageURL(url);
+        });
+      });
     }
   };
 
@@ -160,6 +167,8 @@ function Profile() {
           setEmail(authUser.email);
           setFirstName(userData.firstName);
           setLastName(userData.lastName);
+
+          setProfileImageURL(userData.profileImage);
         } else {
           console.log("User document does not exist");
         }
@@ -178,24 +187,13 @@ function Profile() {
       <div id="profilebox">
         <div id="imagebox">
           <img
+            className="profile-picture"
+            src={profileImageURL || ProfileIcon}
+            height="150px"
+            width="150px"
             alt="Profile"
-            src={userData.profileImage || ProfileIcon}
-            id="profilepic"
+            onClick={handleOpenModal} // Open the modal when clicking the image
           />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            style={{ display: "none" }}
-            id="imageInput"
-          />
-          <label htmlFor="imageInput" id="uploadButton">
-            Upload Image
-          </label>
-          {/* Button to upload the selected image */}
-          {profileImage && (
-            <button onClick={handleUploadImage}>Confirm Upload</button>
-          )}
         </div>
         <div id="infocontainer">
           {editMode ? (
@@ -281,6 +279,25 @@ function Profile() {
           Log Out
         </div>
       </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <div className="close" onClick={handleCloseModal}>
+              <img src={Close} alt="Close Modal Button" />
+            </div>
+            <div className="input-buttons">
+              <input
+                className="profile-pic-input"
+                type="file"
+                onChange={handleImageChange}
+              />
+              <button className="upload-button" onClick={handleUpload}>
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
