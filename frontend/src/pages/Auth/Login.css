@@ -63,14 +63,14 @@
   color: #d2d0d0;
 }
 
-#loginbutton {
+.loginbutton {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #262626;
   height: 60px;
   width: 120px;
-  margin-top: 40px;
+  margin-top: 50px;
   margin-bottom: 10px;
   color: #d2d0d0;
   text-decoration: none;
@@ -79,7 +79,7 @@
   cursor: pointer;
 }
 
-#loginbutton:hover {
+.loginbutton:hover {
   filter: brightness(1.1);
 }
 
@@ -100,4 +100,91 @@
   text-shadow: -1.2px -1.2px 0 black, 1.2px -1.2px 0 black, -1.2px 1.2px 0 black,
     1.2px 1.2px 0 black;
   width: 250px;
+}
+
+.forgot-password-link {
+  margin-top: 30px;
+  font-size: 20px;
+  text-decoration: underline;
+  height: 30px;
+  width: 150px;
+}
+
+/* Modal Styling */
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background: #262626;
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+.forgot-password-title {
+  margin-top: -1.5em;
+}
+.reset-password-instructions {
+  font-size: 20px;
+  margin-bottom: 2.5em;
+}
+
+.close {
+  position: relative;
+  top: -25px;
+  right: -100px;
+  cursor: pointer;
+}
+
+.modal-input {
+  color: #d2d0d0;
+  border: none;
+  background-color: rgb(64, 64, 64);
+  height: 2em;
+  outline: none;
+  font-family: "Jockey One";
+  font-size: 20px;
+  text-shadow: -1.2px -1.2px 0 black, 1.2px -1.2px 0 black, -1.2px 1.2px 0 black,
+    1.2px 1.2px 0 black;
+  width: 12em;
+  align-self: center;
+  padding-left: 0.5em;
+}
+
+.modal-input::placeholder {
+  color: #d2d0d0;
+}
+
+.modal-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  background-color: #1b1b1b;
+  height: 2em;
+  width: 12em;
+  margin-top: 0.5em;
+  color: #d2d0d0;
+  text-decoration: none;
+  font-family: "Jockey One";
+  font-size: 20px;
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
+    2px 2px 0 black;
+  cursor: pointer;
+}
+
+.modal-button:hover {
+  filter: brightness(1.1);
 }

@@ -10,6 +10,9 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { useAuth } from "./Auth/AuthContext";
+import { storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import Close from "../assets/_X_.svg";
 
 function Profile() {
   const { authUser, setAuthUser } = useAuth();
@@ -24,6 +27,19 @@ function Profile() {
   const [isFirstNameDirty, setIsFirstNameDirty] = useState(false);
   const [isLastNameDirty, setIsLastNameDirty] = useState(false);
   const [message, setMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
+  const [profileImageURL, setProfileImageURL] = useState("");
+
+  // Function to handle opening the modal
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  // Function to handle closing the modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const handleResetPassword = async () => {
     try {
@@ -103,6 +119,38 @@ function Profile() {
       .catch((error) => console.log(error));
   };
 
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setProfileImage(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    if (profileImage !== null) {
+      const imageRef = ref(storage, `profile-images/${profileImage.name}`);
+      uploadBytes(imageRef, profileImage).then((value) => {
+        console.log(value);
+        getDownloadURL(value.ref).then((url) => {
+          const docRef = doc(database, "users", authUser.uid);
+          // set the fields we want to change
+          const payload = {
+            nickname: isNicknameDirty ? nickname : userData.nickname,
+            firstName: isFirstNameDirty ? firstName : userData.firstName,
+            lastName: isLastNameDirty ? lastName : userData.lastName,
+            profileImage: url,
+            gamesPlayed: userData.gamesPlayed,
+            gamesWon: userData.gamesWon,
+            totalPieces: userData.totalPieces,
+          };
+          // actually update in the database
+          setDoc(docRef, payload);
+          setShowModal(false);
+          setProfileImageURL(url);
+        });
+      });
+    }
+  };
+
   // get all the firestore info for the current logged in user
   useEffect(() => {
     const getUserData = async () => {
@@ -119,6 +167,8 @@ function Profile() {
           setEmail(authUser.email);
           setFirstName(userData.firstName);
           setLastName(userData.lastName);
+
+          setProfileImageURL(userData.profileImage);
         } else {
           console.log("User document does not exist");
         }
@@ -136,7 +186,14 @@ function Profile() {
     <div id="profile">
       <div id="profilebox">
         <div id="imagebox">
-          <img alt="Profile" src={ProfileIcon} id="profilepic" />
+          <img
+            className="profile-picture"
+            src={userData.profileImage ? userData.profileImage : ProfileIcon}
+            height="150px"
+            width="150px"
+            alt="Profile"
+            onClick={handleOpenModal} // Open the modal when clicking the image
+          />
         </div>
         <div id="infocontainer">
           {editMode ? (
@@ -222,6 +279,25 @@ function Profile() {
           Log Out
         </div>
       </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <div className="close" onClick={handleCloseModal}>
+              <img src={Close} alt="Close Modal Button" />
+            </div>
+            <div className="input-buttons">
+              <input
+                className="profile-pic-input"
+                type="file"
+                onChange={handleImageChange}
+              />
+              <button className="upload-button" onClick={handleUpload}>
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
