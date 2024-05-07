@@ -39,6 +39,7 @@
   border-radius: 50%;
   align-self: center;
   cursor: pointer;
+  object-fit: cover;
 }
 
 #infocontainer {

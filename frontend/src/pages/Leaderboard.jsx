@@ -78,8 +78,7 @@ function Leaderboard() {
           id="individualAvatar"
           src={userData.profileImage ? userData.profileImage : AvatarIcon}
           alt="Avatar"
-          height="250px"
-          width="250px"
+          
         />
         <div className="individualInfo">rank: #{currentUserRank}</div>
         <div className="individualInfo">score: {userData.totalPieces}</div>
