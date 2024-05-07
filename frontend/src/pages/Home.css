@@ -133,7 +133,7 @@
 }
 
 .LandingContainer .circles li:nth-child(3) {
-  background-color: #008000;
+  background-color: #af0303;
 }
 
 .circles li:nth-child(4) {
@@ -162,6 +162,10 @@
   animation-delay: 3s;
 }
 
+.LandingContainer .circles li:nth-child(5) {
+  background-color: #008000;
+}
+
 .LandingContainer .circles li:nth-child(6) {
   background-color: #ebb346;
 }
@@ -184,6 +188,10 @@
   animation-delay: 15s;
   animation-duration: 45s;
   background: rgba(255, 255, 255, 0.2);
+}
+
+.LandingContainer .circles li:nth-child(8) {
+  background-color: #008000;
 }
 
 .circles li:nth-child(9) {
