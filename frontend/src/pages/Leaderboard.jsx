@@ -74,7 +74,13 @@ function Leaderboard() {
     <div id="leaderboard">
       <div id="individualContainer">
         <div id="individualTitle">{userData.nickname}'s stats</div>
-        <img id="individualAvatar" src={AvatarIcon} alt="Avatar" />
+        <img
+          id="individualAvatar"
+          src={userData.profileImage ? userData.profileImage : AvatarIcon}
+          alt="Avatar"
+          height="250px"
+          width="250px"
+        />
         <div className="individualInfo">rank: #{currentUserRank}</div>
         <div className="individualInfo">score: {userData.totalPieces}</div>
         <div className="individualInfo">wins: {userData.gamesWon}</div>

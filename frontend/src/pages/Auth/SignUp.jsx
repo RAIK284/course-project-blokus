@@ -73,7 +73,7 @@ function SignUp() {
           nickname: nickname,
           firstName: firstName,
           lastName: lastName,
-          profileImage: "example.jpg",
+          profileImage: "",
           gamesPlayed: 0,
           gamesWon: 0,
           totalPieces: 0,

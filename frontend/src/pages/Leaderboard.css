@@ -19,8 +19,8 @@
   cursor: default;
 }
 
-
-#subtitles, #dotdotdot {
+#subtitles,
+#dotdotdot {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -40,7 +40,7 @@
 
 #dotdotdot {
   margin-top: -20px;
-  margin-bottom: -5px
+  margin-bottom: -5px;
 }
 
 #nameMargin {
@@ -49,11 +49,13 @@
 }
 
 #individualContainer {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   background-color: #333232;
   height: 100vh;
   width: 40vw;
+
 }
 
 #globalContainer {
@@ -71,15 +73,17 @@
 }
 
 #individualAvatar {
-  height: 300px;
-  width: 40vw;
-  align-items: center;
+  align-self: center;
   justify-content: center;
-  margin: 0;
-  filter: brightness(0) saturate(100%) invert(29%) sepia(95%) saturate(1257%) hue-rotate(92deg) brightness(96%) contrast(107%);
+  border-radius: 50%;
+  float: center;
+ 
+  margin-top: 3em;
+  margin-bottom: 3em;
 }
 
-.individualInfo, #individualTitle {
+.individualInfo,
+#individualTitle {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -88,7 +92,7 @@
   text-align: center;
   font-family: "Jockey One", sans-serif;
   font-size: 40px;
-  margin: -10px;
+  margin: -5px;
   text-shadow: -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black,
     3px 3px 0 black;
   cursor: default;
@@ -97,4 +101,3 @@
 #individualTitle {
   margin-top: 75px;
 }
-
