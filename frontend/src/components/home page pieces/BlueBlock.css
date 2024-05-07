@@ -9,6 +9,7 @@
   width: 3.75em;
   height: 3.75em;
   margin: -2px;
+  z-index: 1;
 }
 
 #clearPiece {
