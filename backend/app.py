@@ -1,3 +1,4 @@
+from time import sleep
 from flask import Flask
 from flask_socketio import SocketIO
 from flask_cors import CORS
@@ -51,7 +52,8 @@ def handle_join_game(data):
             return
         currentPlayers = game_lobbies[lobby_code]['players']
         # if lobby not full, add player to current players in lobby
-        lobby_full = all(player is not "" for player in currentPlayers)
+        lobby_full = all(player != "" for player in currentPlayers)
+        sleep(1)
         if not lobby_full and player_name not in currentPlayers:
             empty_index = currentPlayers.index("")
             currentPlayers[empty_index] = player_name

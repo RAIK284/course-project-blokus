@@ -22,6 +22,7 @@ import {
   lobby_code,
   piece_played,
   player_id,
+  player_name,
   socket,
   start_game,
 } from "../gameLogic/lobbies";
@@ -65,9 +66,7 @@ function Board({
   });
 
   const startGame = () => {
-    var playersChosen = playerNames.every(
-      (item) => !String(item).includes("c")
-    );
+    var playersChosen = playerNames != ['c1', 'c2', 'c3', 'c4']
     if (playersChosen) {
       if (onlineGame) {
         // sends information to socket
@@ -221,7 +220,7 @@ function Board({
     // check if it's your turn
     if (
       !in_online_game ||
-      (in_online_game && playerNames[currentPlayerTurnIndex] === player_id)
+      (in_online_game && playerNames[currentPlayerTurnIndex] === player_name)
     ) {
       // check if user selected a piece
       if (pieceIndex !== -1) {

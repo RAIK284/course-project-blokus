@@ -13,6 +13,7 @@ import { useAuth } from "./Auth/AuthContext";
 import { storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Close from "../assets/_X_.svg";
+import { set_player_id, set_player_name } from "../gameLogic/lobbies";
 
 function Profile() {
   const { authUser, setAuthUser } = useAuth();
@@ -103,7 +104,6 @@ function Profile() {
       };
       // actually update in the database
       setDoc(docRef, payload);
-
       setEditMode(false);
     } catch (error) {
       setMessage(error.message);
@@ -167,6 +167,8 @@ function Profile() {
           setEmail(authUser.email);
           setFirstName(userData.firstName);
           setLastName(userData.lastName);
+          set_player_id(authUser.email);
+          set_player_name(userData.nickname);
 
           setProfileImageURL(userData.profileImage);
         } else {

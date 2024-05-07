@@ -15,6 +15,7 @@ import {
   in_online_game,
   lobby_code,
   player_id,
+  player_name,
   socket,
 } from "../gameLogic/lobbies";
 import EndGameModal from "../components/modals/EndGameModal";
@@ -91,7 +92,7 @@ function Game() {
         label = mode + " bot";
       }
     } else {
-      label = player_id;
+      label = player_name;
     }
     const updatedPlayerNames = [...playerNames];
     updatedPlayerNames[index] = label;
@@ -123,7 +124,7 @@ function Game() {
           playerNames[i] === "c4"
         ) {
           const updatedPlayerNames = [...playerNames];
-          updatedPlayerNames[i] = player_id;
+          updatedPlayerNames[i] = player_name;
           setPlayerNames(updatedPlayerNames);
           break;
         }
