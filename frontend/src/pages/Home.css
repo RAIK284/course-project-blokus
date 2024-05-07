@@ -26,11 +26,13 @@
 
 .play-button-container {
   margin-top: 65px;
-  cursor: pointer;
 }
 
-.leaderboard-button-container .redBlock {
-  z-index: 10;
+.leaderboard-button-container,
+.play-button-container,
+.profile-button-container {
+  z-index: 1;
+  cursor: pointer;
 }
 
 .leaderboard-button-container:hover,
