@@ -12,9 +12,9 @@
 - In terminal two, enter the command: <strong>cd frontend | npm start</strong>
 - The app is now running at the url <strong>localhost:3000</strong>
 
-<strong>Code Structure</strong>
-  The frontend stores the game logic and user interfaces for the game. It uses a page/component rendering style to retrieve and display game data. Our user authentication system is also in our frontend and utilizes Firebase Authentication. User information and statistics are stored using Firebase Cloud Storage.
-  Our backend houses web sockets that facilitate online gameplay. These routes are called from a game lobby in the frontend, then emit game data to every user in a specific game lobby.
+<strong>Code Structure</strong><br/>
+The frontend stores the game logic and user interfaces for the game. It uses a page/component rendering style to retrieve and display game data. Our user authentication system is also in our frontend and utilizes Firebase Authentication. User information and statistics are stored using Firebase Cloud Storage.
+Our backend houses web sockets that facilitate online gameplay. These routes are called from a game lobby in the frontend, then emit game data to every user in a specific game lobby.
 
 File Tree:
 
