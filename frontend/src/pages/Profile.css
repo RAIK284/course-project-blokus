@@ -5,12 +5,12 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 2.5em;
+  margin-top: 1.5em;
   text-align: center;
   font-family: "Jockey One", sans-serif;
   font-size: 50px;
   color: #d2d0d0;
-  text-shadow: -1.2px -1.2px 0 black, 1.2px -1.2px 0 black, -1.2px 1.2px 0 black,
+  text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black,
     1.2px 1.2px 0 black;
 }
 
