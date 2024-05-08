@@ -15,7 +15,7 @@ function RulesModal({ isOpen, onClose }) {
             <img src={Close} alt="Close Modal Button" />
           </div>
           <div id="rumodalcontent">
-            <div class="ruwelcomemessage">Rules:</div>
+            <div className="ruwelcomemessage">Rules:</div>
             <object
               id="rupdf"
               type="application/pdf"
