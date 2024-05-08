@@ -241,6 +241,7 @@ function Board({
     }
   };
 
+  // STRETCH GOAL: pause game
   const toggleGamePaused = () => {
     setGamePaused((prevPaused) => !prevPaused);
   };

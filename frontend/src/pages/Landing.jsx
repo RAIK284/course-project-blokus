@@ -18,8 +18,9 @@ function Landing() {
           </Link>
         </div>
       </div>
-      <div class="area">
-        <ul class="circles">
+      {/* STRETCH GOAL: animated background */}
+      <div className="area">
+        <ul className="circles">
           <li></li>
           <li></li>
           <li></li>

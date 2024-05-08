@@ -34,12 +34,8 @@ function SignUp() {
 
   const checkNicknameTaken = async () => {
     const usersRef = collection(database, "users");
-
     const q = query(usersRef, where("nickname", "==", nickname));
-    console.log("query snapshot next");
-
     const querySnapshot = await getDocs(q);
-
     return !querySnapshot.empty;
   };
 

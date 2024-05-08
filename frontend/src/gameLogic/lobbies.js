@@ -29,7 +29,6 @@ export function set_player_email(value) {
 }
 
 export const create_game = () => {
-    console.log(player_id)
     socket.emit('create_game', {
         playerId: player_id,
         playerName: player_name
@@ -43,7 +42,6 @@ export const start_game = (lobbyCode) => {
 };
 
 export const join_game = (lobbyCode) => {
-    console.log(player_name)
     socket.emit('join_game', {
         lobbyCode: lobbyCode,
         playerId: player_id,

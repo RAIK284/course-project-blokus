@@ -129,7 +129,6 @@ function Profile() {
     if (profileImage !== null) {
       const imageRef = ref(storage, `profile-images/${profileImage.name}`);
       uploadBytes(imageRef, profileImage).then((value) => {
-        console.log(value);
         getDownloadURL(value.ref).then((url) => {
           const docRef = doc(database, "users", authUser.uid);
           // set the fields we want to change
@@ -204,7 +203,7 @@ function Profile() {
               <div className="field-info">
                 <div className="textbox-label">Nickname:</div>
                 <input
-                  class="edit-box"
+                  className="edit-box"
                   type="text"
                   placeholder="Enter New Nickname"
                   value={nickname}
@@ -215,7 +214,7 @@ function Profile() {
               <div className="field-info">
                 <div className="textbox-label">First Name:</div>
                 <input
-                  class="edit-box"
+                  className="edit-box"
                   type="text"
                   placeholder="Enter New First Name"
                   value={firstName}
@@ -226,7 +225,7 @@ function Profile() {
               <div className="field-info">
                 <div className="textbox-label">Last Name:</div>
                 <input
-                  class="edit-box"
+                  className="edit-box"
                   type="text"
                   placeholder="Enter New Last Name"
                   value={lastName}
@@ -237,7 +236,7 @@ function Profile() {
               <div className="field-info">
                 <div className="textbox-label">Email:</div>
                 <input
-                  class="edit-box"
+                  className="edit-box"
                   type="text"
                   placeholder="Enter New Email"
                   value={email}

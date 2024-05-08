@@ -45,8 +45,6 @@ function Login() {
         navigate(`/home`);
       })
       .catch((error) => {
-        console.log("catch");
-
         if (
           error.code === "auth/invalid-credential" ||
           error.code === "auth/invalid-email"

@@ -54,9 +54,9 @@ export function determine_winner(
       color: "",
     };
     let dynamicIndex = index;
-    if (dynamicIndex == 1){
+    if (dynamicIndex == 1) {
       dynamicIndex = 2;
-    } else if (dynamicIndex == 2){
+    } else if (dynamicIndex == 2) {
       dynamicIndex = 1;
     }
     let color = players[dynamicIndex];
@@ -68,6 +68,7 @@ export function determine_winner(
         total_placed += piece_size;
       }
     }
+    // STRETCH GOAL: advanced scoring
     if (total_placed === 0) score = 25;
     else score = 89 - total_placed - 89;
     endPlayer.name = player;
