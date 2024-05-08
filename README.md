@@ -1,5 +1,8 @@
 # Blokus
 
+[2nd Presentation Slide Deck](https://docs.google.com/presentation/d/1sTvqjjg-xdg9GPXPbcc5EDNPNzWsgae8kcIn5KCfmVU/edit?usp=sharing) | 
+[1st Presentation Slide Deck](https://docs.google.com/presentation/d/139YdosKyl75yl2Gmjuyp_be5NmV_B-0E8FNGJkNHgc8/edit?usp=sharing)<br/><br/>
+
 <strong>Installations Needed (cd into respective folders):</strong>
 
 - Backend Folder: <strong>pip install Flask Flask-SocketIO Flask-Cors</strong>
