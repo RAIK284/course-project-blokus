@@ -1,6 +1,6 @@
 # Blokus
 
-[2nd Presentation Slide Deck](https://docs.google.com/presentation/d/1sTvqjjg-xdg9GPXPbcc5EDNPNzWsgae8kcIn5KCfmVU/edit?usp=sharing)&nbsp;&nbsp;|&nbsp;&nbsp;[1st Presentation Slide Deck](https://docs.google.com/presentation/d/139YdosKyl75yl2Gmjuyp_be5NmV_B-0E8FNGJkNHgc8/edit?usp=sharing)&nbsp;&nbsp;|&nbsp;&nbsp;<i>Created: Spring 2024 (College Sophomore)</i><br/><br/>
+[2nd Presentation Slide Deck](https://docs.google.com/presentation/d/1sTvqjjg-xdg9GPXPbcc5EDNPNzWsgae8kcIn5KCfmVU/edit?usp=sharing)&nbsp;&nbsp;|&nbsp;&nbsp;[1st Presentation Slide Deck](https://docs.google.com/presentation/d/139YdosKyl75yl2Gmjuyp_be5NmV_B-0E8FNGJkNHgc8/edit?usp=sharing)
 Multiplayer web game based on the board game Blokus. Includes online and local gameplay, intelligent bots, statistics, leaderboard, profiles, authentication, and more.<br/>
 
 <strong>Tools used:</strong>
